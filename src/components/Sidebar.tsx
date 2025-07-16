@@ -18,13 +18,13 @@ const Sidebar: React.FC = () => {
       {/* Toggle Button */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-6 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-all z-10 group"
+        className="absolute -right-3 top-8 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-all z-10 group"
       >
         <ChevronLeft className={`w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-all duration-300 ${isCollapsed ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Navigation */}
-      <nav className="flex-1 px-2 pt-4 space-y-1">
+      <nav className="flex-1 px-2 pt-8 space-y-1">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
