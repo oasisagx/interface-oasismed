@@ -8,7 +8,7 @@ const TopBar: React.FC = () => {
       <div className="fixed top-0 left-0 flex items-center z-50 pr-2 pb-1" style={{ paddingTop: '19px', paddingLeft: '7px' }}>
         <div className="w-16 h-10 overflow-hidden flex items-center justify-center">
           <img 
-            src="https://www.oasisagx.com/images/logo-1.svg" 
+            src="https://www.oasisagx.com/images/logos/oasis-logo.svg" 
             alt="OASIS" 
             className="w-full h-auto object-contain max-h-full"
           />
