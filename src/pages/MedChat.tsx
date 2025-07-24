@@ -5,7 +5,7 @@ import { FileWithPreview, PastedContent } from '../components/ui/claude-style-ai
 import { User, Bot, RefreshCw, Archive } from 'lucide-react';
 
 const MedChat: React.FC = () => {
-  const { messages, isLoading, sendMessage } = useChat();
+  const { messages, isLoading, error, sendMessage } = useChat();
 
   // Saudação contextual baseada no horário - EXATO como no feedback
   const getGreeting = () => {
@@ -162,6 +162,11 @@ const MedChat: React.FC = () => {
           placeholder="Descreva o caso clínico ou faça sua pergunta..."
           disabled={isLoading}
         />
+        {error && (
+          <p className="text-red-500 text-center mt-2">
+            Ocorreu um erro: {error.message}
+          </p>
+        )}
       </div>
     </div>
   );
