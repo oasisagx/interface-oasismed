@@ -21,7 +21,12 @@ export const useChat = () => {
     setError(null);
 
     try {
-      const response = await fetch('https://kit-75xsi-n8n.a3.hubai.touk.io/webhook/6b987347-42d1-4104-a8bf-46586acc856a', {
+      const webhookUrl = import.meta.env.VITE_WEBHOOK_URL;
+      if (!webhookUrl) {
+        throw new Error("VITE_WEBHOOK_URL não está definida no arquivo .env");
+      }
+
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,10 +43,9 @@ export const useChat = () => {
 
       const data = await response.json();
       
-      
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
-        content: data.response || "Não recebi uma resposta do assistente.",
+        content: data.output || "Não recebi uma resposta do assistente.",
         role: 'assistant',
         timestamp: new Date(),
       };
