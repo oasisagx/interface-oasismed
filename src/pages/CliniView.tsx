@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ConsultasChart } from '../components/charts/ConsultasChart';
 import { EspecialidadeChart } from '../components/charts/EspecialidadeChart';
 import { QualidadeChart } from '../components/charts/QualidadeChart';
 import { useDashboard } from '../hooks/useDashboard';
+import ScheduleModal from '../components/ScheduleModal';
 import { 
   Loader2, 
   RefreshCw, 
@@ -17,11 +18,13 @@ import {
 
 const CliniView: React.FC = () => {
   const { metrics, agendaHoje, statusSistema, isLoading, refreshData, lastUpdated } = useDashboard();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmado': return 'bg-green-100 text-green-700';
-      case 'aguardando': return 'bg-yellow-100 text-yellow-700';
+      case 'agendado': return 'bg-green-100 text-green-700';
+      case 're-agendado': return 'bg-yellow-100 text-yellow-700';
+      case 'cancelado': return 'bg-red-100 text-red-700';
       case 'andamento': return 'bg-blue-100 text-blue-700';
       case 'concluída': return 'bg-slate-100 text-slate-600';
       default: return 'bg-slate-100 text-slate-700';
@@ -30,8 +33,9 @@ const CliniView: React.FC = () => {
 
   const getStatusText = (status: string) => {
     const statusMap = {
-      'confirmado': 'Confirmado',
-      'aguardando': 'Aguardando',
+      'agendado': 'Agendado',
+      're-agendado': 'Re-agendado',
+      'cancelado': 'Cancelado',
       'andamento': 'Em atendimento',
       'concluída': 'Concluída'
     };
@@ -59,14 +63,12 @@ const CliniView: React.FC = () => {
 
   return (
     <div className="h-full bg-white overflow-auto">
+      {isModalOpen && <ScheduleModal onClose={() => setIsModalOpen(false)} />}
+
       {/* Thin divider instead of header */}
       <div className="border-b border-slate-100 px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-1 text-green-600">
-              <Wifi className="w-4 h-4" />
-              <span className="text-sm font-medium">Online</span>
-            </div>
             <span className="text-sm text-slate-500">
               Atualizado às {lastUpdated.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
             </span>
@@ -76,7 +78,6 @@ const CliniView: React.FC = () => {
             className="flex items-center space-x-2 px-3 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
           >
             <RefreshCw className="w-4 h-4" />
-            <span>Atualizar</span>
           </button>
         </div>
       </div>
@@ -145,7 +146,10 @@ const CliniView: React.FC = () => {
                 ))}
               </div>
               
-              <button className="w-full mt-3 py-2 text-sm text-oasis-blue hover:bg-blue-50 rounded-lg transition-colors font-medium">
+              <button 
+                onClick={() => setIsModalOpen(true)}
+                className="w-full mt-3 py-2 text-sm text-oasis-blue hover:bg-blue-50 rounded-lg transition-colors font-medium"
+              >
                 Ver agenda completa
               </button>
             </div>
@@ -202,7 +206,7 @@ const CliniView: React.FC = () => {
                 <div className="flex justify-between">
                   <span className="text-slate-600">Consultas restantes</span>
                   <span className="font-medium text-slate-900">
-                    {agendaHoje.filter(a => a.status === 'confirmado').length}
+                    {agendaHoje.filter(a => a.status === 'agendado').length}
                   </span>
                 </div>
                 <div className="flex justify-between">

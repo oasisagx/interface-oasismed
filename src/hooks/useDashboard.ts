@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 // Dados que simulam tempo real para demonstração
 export const useDashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [consultasDiarias, setConsultasDiarias] = useState(24);
-  const [faturamentoDiario, setFaturamentoDiario] = useState(5600);
-  const [pacientesAtivos, setPacientesAtivos] = useState(1247);
-  const [satisfacao, setSatisfacao] = useState(4.8);
+  const [consultasDiarias, setConsultasDiarias] = useState(18);
+  const [faturamentoDiario, setFaturamentoDiario] = useState(3850);
+  const [pacientesAtivos, setPacientesAtivos] = useState(356);
+  const [satisfacao, setSatisfacao] = useState(4.6);
 
   // Simula mudanças em tempo real para demonstração
   useEffect(() => {
@@ -16,17 +16,17 @@ export const useDashboard = () => {
       // Pequenas variações nos números para parecer tempo real
       setConsultasDiarias(prev => {
         const variation = Math.random() > 0.8 ? 1 : 0;
-        return Math.min(prev + variation, 35);
+        return Math.min(prev + variation, 30);
       });
       
       setFaturamentoDiario(prev => {
         const variation = Math.random() * 100 - 50;
-        return Math.max(prev + variation, 4000);
+        return Math.max(prev + variation, 2500);
       });
       
       setPacientesAtivos(prev => {
-        const variation = Math.random() > 0.8 ? (Math.random() > 0.5 ? 1 : -1) : 0;
-        return Math.max(prev + variation, 1200);
+        const variation = Math.random() > 0.9 ? (Math.random() > 0.5 ? 1 : -1) : 0;
+        return Math.max(prev + variation, 350);
       });
     }, 5000); // Atualiza a cada 5 segundos - mais natural
 
@@ -46,7 +46,7 @@ export const useDashboard = () => {
         patient: 'Maria Silva', 
         type: 'Retorno',
         specialty: 'Cardiologia',
-        status: currentHour > 14 || (currentHour === 14 && currentMinute > 0) ? 'concluída' : 'confirmado'
+        status: 'concluída'
       },
       { 
         id: 2, 
@@ -54,7 +54,7 @@ export const useDashboard = () => {
         patient: 'João Santos', 
         type: 'Consulta',
         specialty: 'Clínica Geral',
-        status: currentHour > 14 || (currentHour === 14 && currentMinute > 30) ? 'andamento' : 'aguardando'
+        status: 'cancelado'
       },
       { 
         id: 3, 
@@ -62,7 +62,7 @@ export const useDashboard = () => {
         patient: 'Ana Costa', 
         type: 'Exame',
         specialty: 'Dermatologia',
-        status: currentHour >= 15 ? 'andamento' : 'confirmado'
+        status: 'agendado'
       },
       { 
         id: 4, 
@@ -70,11 +70,31 @@ export const useDashboard = () => {
         patient: 'Carlos Lima', 
         type: 'Consulta',
         specialty: 'Pediatria',
-        status: 'confirmado'
+        status: 'agendado'
+      },
+      { 
+        id: 5, 
+        time: '16:00', 
+        patient: 'Fernanda Souza', 
+        type: 'Consulta',
+        specialty: 'Ginecologia',
+        status: 're-agendado'
       }
     ];
 
-    return agenda;
+    // Lógica para tornar os status dinâmicos baseados na hora atual
+    return agenda.map(item => {
+      if (item.status === 'cancelado' || item.status === 'concluída' || item.status === 're-agendado') return item;
+
+      const [hour, minute] = item.time.split(':').map(Number);
+      const itemTime = hour * 100 + minute;
+      const nowTime = currentHour * 100 + currentMinute;
+
+      if (nowTime >= itemTime) {
+        return { ...item, status: 'concluída' };
+      }
+      return item;
+    });
   };
 
   // Status do sistema em tempo real

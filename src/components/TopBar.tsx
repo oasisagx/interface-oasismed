@@ -1,7 +1,11 @@
 import React from 'react';
-import { Settings, User } from 'lucide-react';
+import { Settings, User, Bell } from 'lucide-react';
+import { useNotifications } from '../hooks/useNotifications';
+import NotificationPanel from './NotificationPanel';
 
 const TopBar: React.FC = () => {
+  const { isOpen, toggle, unreadCount } = useNotifications();
+
   return (
     <div className="h-14 px-6 flex items-center justify-between bg-slate-50 relative">
       {/* Logo OASIS + MED FIXO no canto ABSOLUTO da tela */}
@@ -18,6 +22,15 @@ const TopBar: React.FC = () => {
 
       {/* Right side - controls */}
       <div className="flex items-center space-x-2 ml-auto">
+        <button 
+          onClick={toggle}
+          className="p-2.5 hover:bg-white rounded-lg transition-colors group relative"
+        >
+          <Bell className="w-5 h-5 text-slate-500 group-hover:text-slate-700" />
+          {unreadCount > 0 && (
+            <div className="w-2 h-2 bg-red-500 rounded-full absolute top-2 right-2 border-2 border-slate-50"></div>
+          )}
+        </button>
         <button className="p-2.5 hover:bg-white rounded-lg transition-colors group">
           <Settings className="w-5 h-5 text-slate-500 group-hover:text-slate-700" />
         </button>
@@ -30,6 +43,8 @@ const TopBar: React.FC = () => {
           </div>
         </button>
       </div>
+
+      {isOpen && <NotificationPanel onClose={toggle} />}
     </div>
   );
 };

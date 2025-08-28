@@ -17,10 +17,10 @@ const MedChat: React.FC = () => {
 
   // Sugestões médicas específicas e práticas - REFINADAS
   const suggestions = [
-    "Análise de exame laboratorial",
-    "Diagnóstico diferencial",
-    "Dosagem medicamentosa", 
-    "Interpretação de imagem"
+    "Como está o faturamento?",
+    "Próximas consultas agendadas?",
+    "Conversões do mês",
+    "Principais queixas da semana"
   ];
 
   const handleSendMessage = (
@@ -133,9 +133,8 @@ const MedChat: React.FC = () => {
           {/* Greeting - EXATO como pedido no feedback */}
           <div className="text-center mb-12 max-w-2xl">
             <h1 className="text-4xl font-light text-slate-800 mb-3">
-              {getGreeting()}, doutor!
+              {getGreeting()}, doutor(a)!
             </h1>
-            <p className="text-xl text-slate-600 font-light">Como posso te ajudar hoje?</p>
           </div>
 
           {/* Suggestion Cards - Estilo Claude REFINADO */}
@@ -159,7 +158,7 @@ const MedChat: React.FC = () => {
       <div className="px-6 py-6">
         <ClaudeChatInput
           onSendMessage={handleSendMessage}
-          placeholder="Descreva o caso clínico ou faça sua pergunta..."
+          placeholder="Como posso te ajudar hoje?"
           disabled={isLoading}
         />
         {error && (
