@@ -168,7 +168,7 @@ const CliniView: React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-600">Tempo médio de Consulta</span>
-                  <span className="font-medium text-slate-900">28 min</span>
+                  <span className="font-medium text-slate-900">{statusSistema.tempoMedio}</span>
                 </div>
               </div>
             </div>

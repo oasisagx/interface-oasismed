@@ -3,35 +3,9 @@ import { useState, useEffect } from 'react';
 // Dados que simulam tempo real para demonstração
 export const useDashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [consultasDiarias, setConsultasDiarias] = useState(5);
   const [faturamentoDiario, setFaturamentoDiario] = useState(41580);
   const [pacientesAtivos, setPacientesAtivos] = useState(80);
   const [satisfacao, setSatisfacao] = useState(4.9);
-
-  // Simula mudanças em tempo real para demonstração
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-      
-      // Pequenas variações nos números para parecer tempo real
-      setConsultasDiarias(prev => {
-        const variation = Math.random() > 0.8 ? 1 : 0;
-        return Math.min(prev + variation, 30);
-      });
-      
-      setFaturamentoDiario(prev => {
-        const variation = Math.random() * 100 - 50;
-        return Math.max(prev + variation, 2500);
-      });
-      
-      setPacientesAtivos(prev => {
-        const variation = Math.random() > 0.9 ? (Math.random() > 0.5 ? 1 : -1) : 0;
-        return Math.max(prev + variation, 350);
-      });
-    }, 5000); // Atualiza a cada 5 segundos - mais natural
-
-    return () => clearInterval(interval);
-  }, []);
 
   // Dados de agenda em tempo real
   const getAgendaHoje = () => {
@@ -82,15 +56,16 @@ export const useDashboard = () => {
 
   // Status do sistema em tempo real
   const getStatusSistema = () => {
-    const now = new Date();
-    const isBusinessHours = now.getHours() >= 8 && now.getHours() <= 18;
+    const agenda = getAgendaHoje();
+    const consultasAtivas = agenda.filter(a => a.status !== 'cancelado');
     
+    // Simulação: 1 sala ocupada para cada 2 consultas ativas
+    const salasOcupadas = Math.ceil(consultasAtivas.length / 2);
+
     return {
-      sistemaOnline: true,
-      salasOcupadas: Math.floor(Math.random() * 3) + 5, // 5-7 salas
-      totalSalas: 10,
-      proximaConsulta: getProximaConsulta(),
-      horarioFuncionamento: isBusinessHours
+      salasOcupadas: salasOcupadas,
+      totalSalas: 10, // Mantemos um número fixo para o total de salas
+      tempoMedio: '30 min', // Valor fixo e defensável
     };
   };
 
@@ -111,11 +86,14 @@ export const useDashboard = () => {
     return '16:00'; // Fallback
   };
 
+  const agenda = getAgendaHoje();
+  const consultasHoje = agenda.filter(a => a.status !== 'cancelado').length;
+
   return {
     metrics: [
       { 
         title: 'Consultas Hoje', 
-        value: consultasDiarias.toString(), 
+        value: consultasHoje.toString(), 
         change: null, 
         icon: 'Activity',
         color: 'blue' as const
@@ -141,7 +119,7 @@ export const useDashboard = () => {
         color: 'red' as const
       },
     ],
-    agendaHoje: getAgendaHoje(),
+    agendaHoje: agenda,
     statusSistema: getStatusSistema(),
     isLoading: false,
     error: null,
