@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid, XAxis, Legend } from 'recharts';
 import { TrendingUp } from 'lucide-react';
 import {
   Card,
@@ -26,45 +26,45 @@ import {
 } from '../ui/select';
 
 const chartData = [
-  { date: "2024-01-01", consultas: 45, procedimentos: 23 },
-  { date: "2024-01-02", consultas: 52, procedimentos: 31 },
-  { date: "2024-01-03", consultas: 48, procedimentos: 28 },
-  { date: "2024-01-04", consultas: 61, procedimentos: 35 },
-  { date: "2024-01-05", consultas: 55, procedimentos: 42 },
-  { date: "2024-01-06", consultas: 67, procedimentos: 38 },
-  { date: "2024-01-07", consultas: 43, procedimentos: 25 },
-  { date: "2024-01-08", consultas: 58, procedimentos: 33 },
-  { date: "2024-01-09", consultas: 62, procedimentos: 29 },
-  { date: "2024-01-10", consultas: 49, procedimentos: 31 },
-  { date: "2024-01-11", consultas: 71, procedimentos: 45 },
-  { date: "2024-01-12", consultas: 64, procedimentos: 38 },
-  { date: "2024-01-13", consultas: 59, procedimentos: 41 },
-  { date: "2024-01-14", consultas: 53, procedimentos: 28 },
-  { date: "2024-01-15", consultas: 68, procedimentos: 39 },
-  { date: "2024-01-16", consultas: 72, procedimentos: 44 },
-  { date: "2024-01-17", consultas: 56, procedimentos: 33 },
-  { date: "2024-01-18", consultas: 63, procedimentos: 37 },
-  { date: "2024-01-19", consultas: 69, procedimentos: 42 },
-  { date: "2024-01-20", consultas: 58, procedimentos: 35 },
-  { date: "2024-01-21", consultas: 65, procedimentos: 40 },
-  { date: "2024-01-22", consultas: 74, procedimentos: 46 },
-  { date: "2024-01-23", consultas: 61, procedimentos: 38 },
-  { date: "2024-01-24", consultas: 67, procedimentos: 41 },
-  { date: "2024-01-25", consultas: 70, procedimentos: 43 },
-  { date: "2024-01-26", consultas: 59, procedimentos: 36 },
-  { date: "2024-01-27", consultas: 66, procedimentos: 39 },
-  { date: "2024-01-28", consultas: 73, procedimentos: 45 },
-  { date: "2024-01-29", consultas: 68, procedimentos: 42 },
-  { date: "2024-01-30", consultas: 75, procedimentos: 47 },
+  { date: "2024-10-01", consultas: 45, procedimentos: 23 },
+  { date: "2024-10-02", consultas: 52, procedimentos: 31 },
+  { date: "2024-10-03", consultas: 48, procedimentos: 28 },
+  { date: "2024-10-04", consultas: 61, procedimentos: 35 },
+  { date: "2024-10-05", consultas: 55, procedimentos: 42 },
+  { date: "2024-10-06", consultas: 67, procedimentos: 38 },
+  { date: "2024-10-07", consultas: 43, procedimentos: 25 },
+  { date: "2024-10-08", consultas: 58, procedimentos: 33 },
+  { date: "2024-10-09", consultas: 62, procedimentos: 29 },
+  { date: "2024-10-10", consultas: 49, procedimentos: 31 },
+  { date: "2024-10-11", consultas: 71, procedimentos: 45 },
+  { date: "2024-10-12", consultas: 64, procedimentos: 38 },
+  { date: "2024-10-13", consultas: 59, procedimentos: 41 },
+  { date: "2024-10-14", consultas: 53, procedimentos: 28 },
+  { date: "2024-10-15", consultas: 68, procedimentos: 39 },
+  { date: "2024-10-16", consultas: 72, procedimentos: 44 },
+  { date: "2024-10-17", consultas: 56, procedimentos: 33 },
+  { date: "2024-10-18", consultas: 63, procedimentos: 37 },
+  { date: "2024-10-19", consultas: 69, procedimentos: 42 },
+  { date: "2024-10-20", consultas: 58, procedimentos: 35 },
+  { date: "2024-10-21", consultas: 65, procedimentos: 40 },
+  { date: "2024-10-22", consultas: 74, procedimentos: 46 },
+  { date: "2024-10-23", consultas: 61, procedimentos: 38 },
+  { date: "2024-10-24", consultas: 67, procedimentos: 41 },
+  { date: "2024-10-25", consultas: 70, procedimentos: 43 },
+  { date: "2024-10-26", consultas: 59, procedimentos: 36 },
+  { date: "2024-10-27", consultas: 66, procedimentos: 39 },
+  { date: "2024-10-28", consultas: 73, procedimentos: 45 },
+  { date: "2024-10-29", consultas: 68, procedimentos: 42 },
+  { date: "2024-10-30", consultas: 75, procedimentos: 47 },
 ];
 
 const chartConfig = {
   consultas: {
-    label: "Consultas",
+    label: "Aquisição",
     color: "rgb(91, 154, 225)", // oasis-blue
   },
   procedimentos: {
-    label: "Procedimentos", 
+    label: "Conversão", 
     color: "rgb(16, 185, 129)", // green-500
   },
 } satisfies ChartConfig;
@@ -74,7 +74,7 @@ export function ConsultasChart() {
 
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date);
-    const referenceDate = new Date("2024-01-30");
+    const referenceDate = new Date("2024-10-29");
     let daysToSubtract = 30;
     if (timeRange === "30d") {
       daysToSubtract = 30;
@@ -89,8 +89,8 @@ export function ConsultasChart() {
   });
 
   return (
-    <Card className="hover-lift">
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b border-border py-5 sm:flex-row">
+    <Card className="hover-lift border-slate-100">
+      <CardHeader className="flex items-center gap-2 space-y-0 py-5 sm:flex-row">
         <div className="grid flex-1 gap-1">
           <CardTitle className="text-lg">Aquisição e Conversão</CardTitle>
           <CardDescription>
@@ -159,10 +159,8 @@ export function ConsultasChart() {
               tick={{ fill: 'rgb(107, 114, 128)', fontSize: 12 }}
               tickFormatter={(value) => {
                 const date = new Date(value);
-                return date.toLocaleDateString("pt-BR", {
-                  month: "short",
-                  day: "numeric",
-                });
+                const day = date.getDate();
+                return `${day} Out`;
               }}
             />
             <ChartTooltip
@@ -172,14 +170,16 @@ export function ConsultasChart() {
                   labelFormatter={(value) => {
                     return new Date(value).toLocaleDateString("pt-BR", {
                       weekday: "short",
-                      month: "short", 
+                      month: "short",
                       day: "numeric",
                     });
                   }}
                   indicator="dot"
+                  config={chartConfig}
                 />
               }
             />
+            <Legend content={<ChartLegendContent />} />
             <Area
               dataKey="procedimentos"
               type="linear"
@@ -198,13 +198,12 @@ export function ConsultasChart() {
               strokeWidth={2}
               name="Aquisição"
             />
-            <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium text-success">
-          Crescimento de 12.5% este mês
+          Crescimento de 12.5%
         </div>
         <div className="text-muted-foreground leading-none">
           Comparado ao período anterior de {filteredData.length} dias

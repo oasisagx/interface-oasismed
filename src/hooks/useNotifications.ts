@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useDashboard } from './useDashboard';
 
 export interface Notification {
   id: number;
@@ -24,18 +25,33 @@ const mockNotifications: Notification[] = [
     id: 2, // Lembrete
     message: 'Lembrete: Você tem {consultasAtivas} consultas ativas para hoje.', // Placeholder
     read: true,
-    timestamp: 'às 17:00'
+    timestamp: 'há 5 horas'
   },
   {
     id: 4, // Maria Silva
     message: 'Primeira consulta de Maria Silva confirmada para 15/11 às 11h20.',
-    read: false,
+    read: true,
     timestamp: 'ontem'
   }
 ];
 
 export const useNotifications = () => {
-  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
+  const { agendaHoje } = useDashboard();
+
+  const processedNotifications = useMemo(() => {
+    const consultasAtivas = agendaHoje.filter(a => a.status !== 'cancelado').length;
+    return mockNotifications.map(notification => {
+      if (notification.message.includes('{consultasAtivas}')) {
+        return {
+          ...notification,
+          message: notification.message.replace('{consultasAtivas}', consultasAtivas.toString()),
+        };
+      }
+      return notification;
+    });
+  }, [agendaHoje]);
+
+  const [notifications, setNotifications] = useState<Notification[]>(processedNotifications);
   const [isOpen, setIsOpen] = useState(false);
 
   const unreadCount = notifications.filter(n => !n.read).length;

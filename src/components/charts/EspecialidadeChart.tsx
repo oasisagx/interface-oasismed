@@ -38,7 +38,7 @@ const chartConfig = {
 
 export function EspecialidadeChart() {
   return (
-    <Card className="hover-lift">
+    <Card className="hover-lift border-slate-100">
       <CardHeader>
         <CardTitle className="text-lg">Performance por Especialidade</CardTitle>
         <CardDescription>Ranking de consultas realizadas este mês</CardDescription>

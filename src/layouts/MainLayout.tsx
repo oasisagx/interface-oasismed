@@ -20,12 +20,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     // Função para adicionar um toast se ele ainda não estiver sendo exibido
     const addToast = (notification: Notification | undefined) => {
       if (notification && !toasts.some(t => t.id === notification.id)) {
+        const notificationCopy = { ...notification };
         // Injeta o dado dinâmico aqui
-        if (notification.message.includes('{consultasAtivas}')) {
+        if (notificationCopy.message.includes('{consultasAtivas}')) {
           const consultasAtivas = agendaHoje.filter(a => a.status !== 'cancelado').length;
-          notification.message = notification.message.replace('{consultasAtivas}', consultasAtivas.toString());
+          notificationCopy.message = notificationCopy.message.replace('{consultasAtivas}', consultasAtivas.toString());
         }
-        setToasts(prev => [...prev, notification]);
+        setToasts(prev => [...prev, notificationCopy]);
       }
     };
 

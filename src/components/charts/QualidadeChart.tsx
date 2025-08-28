@@ -34,7 +34,7 @@ const chartConfig = {
 
 export function QualidadeChart() {
   return (
-    <Card className="hover-lift h-full flex flex-col">
+    <Card className="hover-lift h-full flex flex-col border-slate-100">
       <CardHeader className="items-center">
         <CardTitle className="text-lg">Métricas de Qualidade</CardTitle>
         <CardDescription>

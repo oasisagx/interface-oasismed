@@ -61,7 +61,9 @@ interface ChartTooltipContentProps {
   payload?: any[];
   label?: string;
   labelFormatter?: (value: any) => string;
+  formatter?: (value: any, name: any, entry: any) => React.ReactNode;
   indicator?: 'line' | 'dot' | 'dashed';
+  config?: any;
 }
 
 export const ChartTooltipContent: React.FC<ChartTooltipContentProps> = ({ 
@@ -69,7 +71,9 @@ export const ChartTooltipContent: React.FC<ChartTooltipContentProps> = ({
   payload, 
   label,
   labelFormatter,
-  indicator = 'dot'
+  formatter,
+  indicator = 'dot',
+  config,
 }) => {
   if (!active || !payload || !payload.length) return null;
 
@@ -88,10 +92,16 @@ export const ChartTooltipContent: React.FC<ChartTooltipContentProps> = ({
               style={{ backgroundColor: entry.color }}
             />
           )}
-          <span className="font-medium" style={{ color: entry.color }}>
-            {entry.name}:
-          </span>
-          <span className="ml-1 font-semibold text-foreground">{entry.value}</span>
+          {formatter ? (
+            formatter(entry.value, entry.name, entry)
+          ) : (
+            <>
+              <span className="font-medium" style={{ color: entry.color }}>
+                {config?.[entry.dataKey]?.label || entry.name}:
+              </span>
+              <span className="ml-1 font-semibold text-foreground">{entry.value}</span>
+            </>
+          )}
         </div>
       ))}
     </div>
