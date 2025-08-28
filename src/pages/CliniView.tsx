@@ -163,7 +163,7 @@ const CliniView: React.FC = () => {
                 <div className="flex justify-between">
                   <span className="text-slate-600">Consultas restantes</span>
                   <span className="font-medium text-slate-900">
-                    {agendaHoje.filter(a => a.status === 'agendado').length}
+                    {agendaHoje.filter(a => a.status === 'agendado' || a.status === 're-agendado').length}
                   </span>
                 </div>
                 <div className="flex justify-between">

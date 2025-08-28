@@ -41,12 +41,12 @@ export function QualidadeChart() {
           Indicadores de Performance da Clinica
         </CardDescription>
       </CardHeader>
-      <CardContent className="pb-0">
+      <CardContent className="pb-0 flex-1 flex items-center justify-center">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[280px]"
+          className="mx-auto aspect-square h-[250px]"
         >
-          <RadarChart data={chartData}>
+          <RadarChart data={chartData} margin={{ top: 10, right: 60, bottom: 10, left: 60 }}>
             <ChartTooltip 
               cursor={false} 
               content={

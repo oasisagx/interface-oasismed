@@ -51,7 +51,7 @@ export const useDashboard = () => {
         status: 're-agendado'
       }
     ];
-    return agenda;
+    return agenda.sort((a, b) => a.time.localeCompare(b.time));
   };
 
   // Status do sistema em tempo real

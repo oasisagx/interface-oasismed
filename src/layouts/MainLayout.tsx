@@ -30,13 +30,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     };
 
     // Orquestração da simulação
-    const notification1 = notifications.find(n => n.id === 4); // Maria Silva
-    const notification2 = notifications.find(n => n.id === 3); // João Santos
-    const notification3 = notifications.find(n => n.id === 1); // Daniel Souza
+    const notificationLembrete = notifications.find(n => n.id === 2);
+    const notificationCancelamento = notifications.find(n => n.id === 3);
+    const notificationAgendamento = notifications.find(n => n.id === 1);
+    const notificationNovo = notifications.find(n => n.id === 4);
 
-    timeouts.push(setTimeout(() => addToast(notification1), 3000));
-    timeouts.push(setTimeout(() => addToast(notification2), 13000));
-    timeouts.push(setTimeout(() => addToast(notification3), 28000));
+    timeouts.push(setTimeout(() => addToast(notificationLembrete), 3000));
+    timeouts.push(setTimeout(() => addToast(notificationCancelamento), 10000));
+    timeouts.push(setTimeout(() => addToast(notificationAgendamento), 18000));
+    timeouts.push(setTimeout(() => addToast(notificationNovo), 25000));
 
     return () => {
       timeouts.forEach(clearTimeout);
