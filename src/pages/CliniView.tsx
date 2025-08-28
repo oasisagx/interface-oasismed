@@ -21,14 +21,7 @@ const CliniView: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'agendado': return 'bg-green-100 text-green-700';
-      case 're-agendado': return 'bg-yellow-100 text-yellow-700';
-      case 'cancelado': return 'bg-red-100 text-red-700';
-      case 'andamento': return 'bg-blue-100 text-blue-700';
-      case 'concluída': return 'bg-slate-100 text-slate-600';
-      default: return 'bg-slate-100 text-slate-700';
-    }
+    return 'bg-slate-100 text-slate-600';
   };
 
   const getStatusText = (status: string) => {
@@ -65,20 +58,20 @@ const CliniView: React.FC = () => {
     <div className="h-full bg-white overflow-auto">
       {isModalOpen && <ScheduleModal onClose={() => setIsModalOpen(false)} />}
 
-      {/* Thin divider instead of header */}
-      <div className="border-b border-slate-100 px-6 py-4">
-        <div className="flex items-center justify-between">
+      {/* Header */}
+      <div className="px-6 py-4">
+        <div className="flex items-center justify-end">
           <div className="flex items-center space-x-4">
             <span className="text-sm text-slate-500">
               Atualizado às {lastUpdated.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
             </span>
+            <button
+              onClick={refreshData}
+              className="flex items-center space-x-2 px-3 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+            >
+              <RefreshCw className="w-4 h-4" />
+            </button>
           </div>
-          <button
-            onClick={refreshData}
-            className="flex items-center space-x-2 px-3 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
-          >
-            <RefreshCw className="w-4 h-4" />
-          </button>
         </div>
       </div>
 
@@ -154,54 +147,18 @@ const CliniView: React.FC = () => {
               </button>
             </div>
 
-            {/* Status do sistema em tempo real */}
+            {/* Status Diário da Clínica */}
             <div className="bg-slate-50 rounded-xl p-5 border border-slate-100">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-slate-900">Status da Clínica</h3>
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <h3 className="font-semibold text-slate-900">Status Diário da Clínica</h3>
               </div>
               
-              <div className="space-y-3">
+              <div className="space-y-3 text-sm">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm text-slate-700">Sistema Online</span>
-                  </div>
-                  <Clock className="w-4 h-4 text-slate-400" />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-600">Salas ocupadas</span>
+                  <span className="text-slate-600">Salas ocupadas</span>
                   <span className="text-sm font-medium text-slate-900">
                     {statusSistema.salasOcupadas}/{statusSistema.totalSalas}
                   </span>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-600">Próxima consulta</span>
-                  <span className="text-sm font-medium text-oasis-blue">
-                    {statusSistema.proximaConsulta}
-                  </span>
-                </div>
-                
-                <div className="pt-2 border-t border-slate-200">
-                  <div className="flex items-center space-x-2">
-                    <div className={`w-2 h-2 rounded-full ${statusSistema.horarioFuncionamento ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                    <span className="text-sm text-slate-600">
-                      {statusSistema.horarioFuncionamento ? 'Horário comercial' : 'Fora do horário'}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Resumo rápido */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border border-blue-100">
-              <h3 className="font-semibold text-slate-900 mb-3">Resumo do Dia</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Taxa de ocupação</span>
-                  <span className="font-medium text-slate-900">85%</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-600">Consultas restantes</span>
@@ -210,7 +167,7 @@ const CliniView: React.FC = () => {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-600">Tempo médio</span>
+                  <span className="text-slate-600">Tempo médio de Consulta</span>
                   <span className="font-medium text-slate-900">28 min</span>
                 </div>
               </div>

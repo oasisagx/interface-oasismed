@@ -34,9 +34,6 @@ const chartConfig = {
     label: "Receita",
     color: "rgb(16, 185, 129)", // green-500
   },
-  label: {
-    color: "rgb(255, 255, 255)",
-  },
 } satisfies ChartConfig;
 
 export function EspecialidadeChart() {
@@ -83,7 +80,6 @@ export function EspecialidadeChart() {
             />
             <Bar
               dataKey="consultas"
-              layout="vertical"
               fill="rgb(91, 154, 225)"
               radius={6}
             >
@@ -109,10 +105,7 @@ export function EspecialidadeChart() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium text-success">
-          Aumento de 8.3% na demanda geral <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Clínica Geral mantém liderança com crescimento sustentado
+          Aumento de 8.3% na demanda geral
         </div>
       </CardFooter>
     </Card>

@@ -92,9 +92,9 @@ export function ConsultasChart() {
     <Card className="hover-lift">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b border-border py-5 sm:flex-row">
         <div className="grid flex-1 gap-1">
-          <CardTitle className="text-lg">Consultas e Procedimentos</CardTitle>
+          <CardTitle className="text-lg">Aquisição e Conversão</CardTitle>
           <CardDescription>
-            Evolução diária da produtividade da clínica
+            Demanda adquirida de pacientes e consultas agendadas
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
@@ -182,19 +182,21 @@ export function ConsultasChart() {
             />
             <Area
               dataKey="procedimentos"
-              type="natural"
+              type="linear"
               fill="url(#fillProcedimentos)"
               stroke="rgb(16, 185, 129)"
               stackId="a"
               strokeWidth={2}
+              name="Conversão"
             />
             <Area
               dataKey="consultas"
-              type="natural"
+              type="linear"
               fill="url(#fillConsultas)"
               stroke="rgb(91, 154, 225)"
               stackId="a"
               strokeWidth={2}
+              name="Aquisição"
             />
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
@@ -202,10 +204,10 @@ export function ConsultasChart() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium text-success">
-          Crescimento de 12.5% este mês <TrendingUp className="h-4 w-4" />
+          Crescimento de 12.5% este mês
         </div>
         <div className="text-muted-foreground leading-none">
-          Comparado ao período anterior - {filteredData.length} dias
+          Comparado ao período anterior de {filteredData.length} dias
         </div>
       </CardFooter>
     </Card>

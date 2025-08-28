@@ -34,11 +34,11 @@ const chartConfig = {
 
 export function QualidadeChart() {
   return (
-    <Card className="hover-lift">
+    <Card className="hover-lift h-full flex flex-col">
       <CardHeader className="items-center">
         <CardTitle className="text-lg">Métricas de Qualidade</CardTitle>
         <CardDescription>
-          Indicadores de performance da clínica (%)
+          Indicadores de Performance da Clinica
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-0">
@@ -84,14 +84,6 @@ export function QualidadeChart() {
           </RadarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 leading-none font-medium text-success">
-          Média geral de 90.8% de qualidade <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground flex items-center gap-2 leading-none">
-          Acima da média do setor - Resultados excepcionais
-        </div>
-      </CardFooter>
     </Card>
   );
 }

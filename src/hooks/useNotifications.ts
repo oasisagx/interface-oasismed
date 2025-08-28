@@ -10,27 +10,27 @@ export interface Notification {
 const mockNotifications: Notification[] = [
   {
     id: 1,
-    message: 'Nova consulta agendada para Maria Silva às 14:00.',
+    message: 'O paciente Daniel Souza agendou o retorno para o dia 12/11/2025 às 10:00.',
     read: false,
-    timestamp: 'há 5 minutos'
-  },
-  {
-    id: 2,
-    message: 'O paciente João Santos cancelou a consulta de amanhã.',
-    read: false,
-    timestamp: 'há 1 hora'
+    timestamp: '12/11/2025 09:30'
   },
   {
     id: 3,
-    message: 'Relatório de faturamento de Julho está pronto.',
+    message: 'O paciente João Santos cancelou a consulta do dia 10/11/2025 às 14:30.',
+    read: false,
+    timestamp: '10/11/2025 08:15'
+  },
+  {
+    id: 2,
+    message: 'Lembrete: 5 consultas agendadas para hoje.',
     read: true,
-    timestamp: 'ontem'
+    timestamp: '28/08/2025 17:00'
   },
   {
     id: 4,
-    message: 'Lembrete: 5 consultas agendadas para hoje.',
-    read: true,
-    timestamp: 'ontem'
+    message: 'Nova Primeira Consulta agendada para Maria Silva no dia 15/11/2025 às 14:00.',
+    read: false,
+    timestamp: '15/11/2025 11:20'
   }
 ];
 

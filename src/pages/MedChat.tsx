@@ -17,10 +17,10 @@ const MedChat: React.FC = () => {
 
   // Sugestões médicas específicas e práticas - REFINADAS
   const suggestions = [
-    "Como está o faturamento?",
-    "Próximas consultas agendadas?",
+    "Como está o faturamento",
+    "Próximas consultas agendadas",
     "Conversões do mês",
-    "Principais queixas da semana"
+    "Principais queixas dos pacientes da semana"
   ];
 
   const handleSendMessage = (

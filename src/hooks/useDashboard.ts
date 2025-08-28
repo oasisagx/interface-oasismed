@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 // Dados que simulam tempo real para demonstração
 export const useDashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [consultasDiarias, setConsultasDiarias] = useState(18);
-  const [faturamentoDiario, setFaturamentoDiario] = useState(3850);
-  const [pacientesAtivos, setPacientesAtivos] = useState(356);
-  const [satisfacao, setSatisfacao] = useState(4.6);
+  const [consultasDiarias, setConsultasDiarias] = useState(5);
+  const [faturamentoDiario, setFaturamentoDiario] = useState(41580);
+  const [pacientesAtivos, setPacientesAtivos] = useState(80);
+  const [satisfacao, setSatisfacao] = useState(4.9);
 
   // Simula mudanças em tempo real para demonstração
   useEffect(() => {
@@ -35,66 +35,49 @@ export const useDashboard = () => {
 
   // Dados de agenda em tempo real
   const getAgendaHoje = () => {
-    const now = new Date();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
-    
     const agenda = [
       { 
         id: 1, 
-        time: '14:00', 
-        patient: 'Maria Silva', 
+        time: '10:00', 
+        patient: 'Daniel Souza', 
         type: 'Retorno',
-        specialty: 'Cardiologia',
-        status: 'concluída'
+        specialty: 'Ortopedia',
+        status: 'agendado'
       },
       { 
         id: 2, 
+        time: '14:00', 
+        patient: 'Maria Silva', 
+        type: 'Primeira Consulta',
+        specialty: 'Cardiologia',
+        status: 'agendado'
+      },
+      { 
+        id: 3, 
         time: '14:30', 
         patient: 'João Santos', 
-        type: 'Consulta',
+        type: 'Primeira Consulta',
         specialty: 'Clínica Geral',
         status: 'cancelado'
       },
       { 
-        id: 3, 
+        id: 4, 
         time: '15:00', 
         patient: 'Ana Costa', 
-        type: 'Exame',
+        type: 'Retorno',
         specialty: 'Dermatologia',
         status: 'agendado'
       },
       { 
-        id: 4, 
+        id: 5, 
         time: '15:30', 
         patient: 'Carlos Lima', 
-        type: 'Consulta',
+        type: 'Primeira Consulta',
         specialty: 'Pediatria',
-        status: 'agendado'
-      },
-      { 
-        id: 5, 
-        time: '16:00', 
-        patient: 'Fernanda Souza', 
-        type: 'Consulta',
-        specialty: 'Ginecologia',
         status: 're-agendado'
       }
     ];
-
-    // Lógica para tornar os status dinâmicos baseados na hora atual
-    return agenda.map(item => {
-      if (item.status === 'cancelado' || item.status === 'concluída' || item.status === 're-agendado') return item;
-
-      const [hour, minute] = item.time.split(':').map(Number);
-      const itemTime = hour * 100 + minute;
-      const nowTime = currentHour * 100 + currentMinute;
-
-      if (nowTime >= itemTime) {
-        return { ...item, status: 'concluída' };
-      }
-      return item;
-    });
+    return agenda;
   };
 
   // Status do sistema em tempo real
@@ -133,13 +116,13 @@ export const useDashboard = () => {
       { 
         title: 'Consultas Hoje', 
         value: consultasDiarias.toString(), 
-        change: '+8%', 
+        change: null, 
         icon: 'Activity',
         color: 'blue' as const
       },
       { 
-        title: 'Faturamento', 
-        value: `R$ ${(faturamentoDiario/1000).toFixed(1)}k`, 
+        title: 'Faturamento Semanal', 
+        value: `R$ ${faturamentoDiario.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 
         change: '+12%',
         icon: 'TrendingUp',
         color: 'green' as const
@@ -147,7 +130,7 @@ export const useDashboard = () => {
       { 
         title: 'Pacientes Ativos', 
         value: pacientesAtivos.toLocaleString(), 
-        change: '+5%',
+        change: null,
         icon: 'Users',
         color: 'purple' as const
       },
