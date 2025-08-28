@@ -48,6 +48,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <NotificationToast 
             key={toast.id}
             message={toast.message} 
+            timestamp={toast.timestamp}
             onClose={() => handleCloseToast(toast.id)} 
           />
         ))}

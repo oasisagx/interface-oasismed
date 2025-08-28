@@ -23,8 +23,8 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ onClose }) => {
             key={notification.id}
             className={`p-3 border-b border-slate-100 ${!notification.read ? 'bg-blue-50' : ''}`}
           >
-            <p className="text-sm text-slate-700">{notification.message}</p>
-            <div className="flex items-center justify-between mt-2">
+            <p className="text-sm text-slate-700 mb-1">{notification.message}</p>
+            <div className="flex items-center justify-between">
               <span className="text-xs text-slate-500">{notification.timestamp}</span>
               {!notification.read && (
                 <button

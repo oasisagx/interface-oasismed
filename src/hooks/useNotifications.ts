@@ -10,24 +10,24 @@ export interface Notification {
 
 const baseNotifications: Omit<Notification, 'message'>[] = [
   {
-    id: 1,
+    id: 1, // Daniel Souza
     read: false,
-    timestamp: '12/11/2025 09:30'
+    timestamp: 'há 5 minutos'
   },
   {
-    id: 3,
+    id: 3, // João Santos
     read: false,
-    timestamp: '10/11/2025 08:15'
+    timestamp: 'há 1 hora'
   },
   {
-    id: 2,
+    id: 2, // Lembrete
     read: true,
-    timestamp: '28/08/2025 17:00'
+    timestamp: 'às 17:00'
   },
   {
-    id: 4,
+    id: 4, // Maria Silva
     read: false,
-    timestamp: '15/11/2025 11:20'
+    timestamp: 'ontem'
   }
 ];
 
@@ -38,16 +38,16 @@ export const useNotifications = () => {
 
   const mockNotifications: Notification[] = baseNotifications.map(n => {
     if (n.id === 1) {
-      return { ...n, message: 'Retorno de Daniel Souza confirmado para o dia 12/11.' };
+      return { ...n, message: 'Retorno de Daniel Souza confirmado para o dia 12/11 às 09h30.' };
     }
     if (n.id === 3) {
-      return { ...n, message: 'Cancelamento: A consulta de João Santos do dia 10/11 foi cancelada.' };
+      return { ...n, message: 'A consulta de João Santos do dia 10/11 às 08h15 foi cancelada.' };
     }
     if (n.id === 2) {
       return { ...n, message: `Lembrete: Você tem ${consultasAtivas} consultas ativas para hoje.` };
     }
     if (n.id === 4) {
-      return { ...n, message: 'Primeira consulta de Maria Silva confirmada para 15/11.' };
+      return { ...n, message: 'Primeira consulta de Maria Silva confirmada para 15/11 às 11h20.' };
     }
     return { ...n, message: '' }; // Fallback
   });

@@ -6,6 +6,7 @@ type NotificationType = 'info' | 'success' | 'error';
 
 interface NotificationToastProps {
   message: string;
+  timestamp: string;
   type?: NotificationType;
   onClose: () => void;
 }
@@ -31,7 +32,7 @@ const notificationConfig = {
   },
 };
 
-const NotificationToast: React.FC<NotificationToastProps> = ({ message, type = 'info', onClose }) => {
+const NotificationToast: React.FC<NotificationToastProps> = ({ message, timestamp, type = 'info', onClose }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
@@ -44,7 +45,7 @@ const NotificationToast: React.FC<NotificationToastProps> = ({ message, type = '
   const Icon = config.icon;
 
   return (
-    <div className="fixed top-6 right-6 w-96 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden animate-slide-in-right">
+    <div className="w-96 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden animate-slide-in-right">
       <div className="flex items-start p-4">
         <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0", config.bgClass)}>
           <Icon className={cn("w-5 h-5", config.iconClass)} />
@@ -52,11 +53,7 @@ const NotificationToast: React.FC<NotificationToastProps> = ({ message, type = '
         <div className="ml-3 flex-1">
           <h4 className="font-semibold text-sm text-slate-900">Nova Notificação</h4>
           <p className="text-sm text-slate-600 mt-1">{message}</p>
-          <div className="mt-2 flex space-x-2">
-            {/* Placeholder for actions */}
-            {/* <button className="text-xs font-semibold text-oasis-blue hover:underline">Ver</button> */}
-            {/* <button className="text-xs text-slate-500 hover:underline">Dispensar</button> */}
-          </div>
+          <p className="text-xs text-slate-500 mt-1">{timestamp}</p>
         </div>
         <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-full ml-4 flex-shrink-0">
           <X className="w-4 h-4 text-slate-500" />

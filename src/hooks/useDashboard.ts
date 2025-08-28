@@ -12,7 +12,7 @@ export const useDashboard = () => {
     const agenda = [
       { 
         id: 1, 
-        time: '10:00', 
+        time: '09:30', 
         patient: 'Daniel Souza', 
         type: 'Retorno',
         specialty: 'Ortopedia',
@@ -20,7 +20,7 @@ export const useDashboard = () => {
       },
       { 
         id: 2, 
-        time: '14:00', 
+        time: '11:20', 
         patient: 'Maria Silva', 
         type: 'Primeira Consulta',
         specialty: 'Cardiologia',
@@ -28,7 +28,7 @@ export const useDashboard = () => {
       },
       { 
         id: 3, 
-        time: '14:30', 
+        time: '08:15', 
         patient: 'João Santos', 
         type: 'Primeira Consulta',
         specialty: 'Clínica Geral',
