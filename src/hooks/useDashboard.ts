@@ -65,7 +65,7 @@ export const useDashboard = () => {
     return {
       salasOcupadas: salasOcupadas,
       totalSalas: 10, // Mantemos um número fixo para o total de salas
-      tempoMedio: '30 min', // Valor fixo e defensável
+      tempoMedio: '28 min', // Valor fixo e defensável
     };
   };
 
