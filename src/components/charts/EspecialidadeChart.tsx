@@ -19,10 +19,7 @@ import {
 const chartData = [
   { especialidade: "Clínica Geral", consultas: 186, receita: 45200 },
   { especialidade: "Cardiologia", consultas: 142, receita: 38500 },
-  { especialidade: "Dermatologia", consultas: 128, receita: 32100 },
   { especialidade: "Pediatria", consultas: 98, receita: 24700 },
-  { especialidade: "Ortopedia", consultas: 85, receita: 28900 },
-  { especialidade: "Ginecologia", consultas: 76, receita: 21800 },
 ];
 
 const chartConfig = {
@@ -41,10 +38,10 @@ export function EspecialidadeChart() {
     <Card className="hover-lift border-slate-100">
       <CardHeader>
         <CardTitle className="text-lg">Performance por Especialidade</CardTitle>
-        <CardDescription>Ranking de consultas realizadas este mês</CardDescription>
+        <CardDescription>Consultas realizadas nos últimos 30 dias</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="aspect-auto h-[300px] w-full">
+        <ChartContainer config={chartConfig} className="aspect-auto h-[180px] w-full">
           <BarChart
             accessibilityLayer
             data={chartData}
@@ -103,11 +100,6 @@ export function EspecialidadeChart() {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium text-success">
-          Aumento de 8.3% na demanda geral
-        </div>
-      </CardFooter>
     </Card>
   );
 }

@@ -26,36 +26,38 @@ import {
 } from '../ui/select';
 
 const chartData = [
-  { date: "2024-10-01", consultas: 45, procedimentos: 23 },
-  { date: "2024-10-02", consultas: 52, procedimentos: 31 },
-  { date: "2024-10-03", consultas: 48, procedimentos: 28 },
-  { date: "2024-10-04", consultas: 61, procedimentos: 35 },
-  { date: "2024-10-05", consultas: 55, procedimentos: 42 },
-  { date: "2024-10-06", consultas: 67, procedimentos: 38 },
-  { date: "2024-10-07", consultas: 43, procedimentos: 25 },
-  { date: "2024-10-08", consultas: 58, procedimentos: 33 },
-  { date: "2024-10-09", consultas: 62, procedimentos: 29 },
-  { date: "2024-10-10", consultas: 49, procedimentos: 31 },
-  { date: "2024-10-11", consultas: 71, procedimentos: 45 },
-  { date: "2024-10-12", consultas: 64, procedimentos: 38 },
-  { date: "2024-10-13", consultas: 59, procedimentos: 41 },
-  { date: "2024-10-14", consultas: 53, procedimentos: 28 },
-  { date: "2024-10-15", consultas: 68, procedimentos: 39 },
-  { date: "2024-10-16", consultas: 72, procedimentos: 44 },
-  { date: "2024-10-17", consultas: 56, procedimentos: 33 },
-  { date: "2024-10-18", consultas: 63, procedimentos: 37 },
-  { date: "2024-10-19", consultas: 69, procedimentos: 42 },
-  { date: "2024-10-20", consultas: 58, procedimentos: 35 },
-  { date: "2024-10-21", consultas: 65, procedimentos: 40 },
-  { date: "2024-10-22", consultas: 74, procedimentos: 46 },
-  { date: "2024-10-23", consultas: 61, procedimentos: 38 },
-  { date: "2024-10-24", consultas: 67, procedimentos: 41 },
-  { date: "2024-10-25", consultas: 70, procedimentos: 43 },
-  { date: "2024-10-26", consultas: 59, procedimentos: 36 },
-  { date: "2024-10-27", consultas: 66, procedimentos: 39 },
-  { date: "2024-10-28", consultas: 73, procedimentos: 45 },
-  { date: "2024-10-29", consultas: 68, procedimentos: 42 },
-  { date: "2024-10-30", consultas: 75, procedimentos: 47 },
+  // Taxa de conversão ~30% no início
+  { date: "2024-10-01", consultas: 45, procedimentos: 14 }, // 31%
+  { date: "2024-10-02", consultas: 52, procedimentos: 16 }, // 31%
+  { date: "2024-10-03", consultas: 48, procedimentos: 15 }, // 31%
+  { date: "2024-10-04", consultas: 61, procedimentos: 20 }, // 33%
+  { date: "2024-10-05", consultas: 55, procedimentos: 18 }, // 33%
+  { date: "2024-10-06", consultas: 67, procedimentos: 23 }, // 34%
+  { date: "2024-10-07", consultas: 43, procedimentos: 15 }, // 35%
+  { date: "2024-10-08", consultas: 58, procedimentos: 21 }, // 36%
+  { date: "2024-10-09", consultas: 62, procedimentos: 23 }, // 37%
+  { date: "2024-10-10", consultas: 49, procedimentos: 18 }, // 37%
+  { date: "2024-10-11", consultas: 71, procedimentos: 27 }, // 38%
+  { date: "2024-10-12", consultas: 64, procedimentos: 25 }, // 39%
+  { date: "2024-10-13", consultas: 59, procedimentos: 23 }, // 39%
+  { date: "2024-10-14", consultas: 53, procedimentos: 21 }, // 40%
+  { date: "2024-10-15", consultas: 68, procedimentos: 28 }, // 41%
+  { date: "2024-10-16", consultas: 72, procedimentos: 30 }, // 42%
+  { date: "2024-10-17", consultas: 56, procedimentos: 24 }, // 43%
+  { date: "2024-10-18", consultas: 63, procedimentos: 27 }, // 43%
+  { date: "2024-10-19", consultas: 69, procedimentos: 30 }, // 43%
+  { date: "2024-10-20", consultas: 58, procedimentos: 26 }, // 45%
+  { date: "2024-10-21", consultas: 65, procedimentos: 29 }, // 45%
+  { date: "2024-10-22", consultas: 74, procedimentos: 34 }, // 46%
+  { date: "2024-10-23", consultas: 61, procedimentos: 28 }, // 46%
+  { date: "2024-10-24", consultas: 67, procedimentos: 31 }, // 46%
+  { date: "2024-10-25", consultas: 70, procedimentos: 33 }, // 47%
+  { date: "2024-10-26", consultas: 59, procedimentos: 28 }, // 47%
+  { date: "2024-10-27", consultas: 66, procedimentos: 32 }, // 48%
+  { date: "2024-10-28", consultas: 73, procedimentos: 36 }, // 49%
+  { date: "2024-10-29", consultas: 68, procedimentos: 34 }, // 50%
+  // Taxa de conversão ~50% no final
+  { date: "2024-10-30", consultas: 75, procedimentos: 38 }, // 51%
 ];
 
 const chartConfig = {
@@ -99,7 +101,7 @@ export function ConsultasChart() {
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
-            className="w-[160px] rounded-lg"
+            className="w-[160px] rounded-lg border-slate-200"
             aria-label="Selecionar período"
           >
             <SelectValue placeholder="Último mês" />

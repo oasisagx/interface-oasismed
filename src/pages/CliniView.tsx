@@ -116,7 +116,7 @@ const CliniView: React.FC = () => {
               <div className="flex items-center space-x-2 mb-4">
                 <Calendar className="w-5 h-5 text-slate-600" />
                 <h3 className="font-semibold text-slate-900">Agenda de Hoje</h3>
-                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
                   {agendaHoje.length} consultas
                 </span>
               </div>
@@ -147,10 +147,10 @@ const CliniView: React.FC = () => {
               </button>
             </div>
 
-            {/* Status Diário da Clínica */}
+            {/* Status de Ocupação */}
             <div className="bg-slate-50 rounded-xl p-5 border border-slate-100">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-slate-900">Status Diário da Clínica</h3>
+                <h3 className="font-semibold text-slate-900">Status de Ocupação</h3>
               </div>
               
               <div className="space-y-3 text-sm">
@@ -158,12 +158,6 @@ const CliniView: React.FC = () => {
                   <span className="text-slate-600">Salas ocupadas</span>
                   <span className="text-sm font-medium text-slate-900">
                     {statusSistema.salasOcupadas}/{statusSistema.totalSalas}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">Consultas restantes</span>
-                  <span className="font-medium text-slate-900">
-                    {agendaHoje.filter(a => a.status === 'agendado' || a.status === 're-agendado').length}
                   </span>
                 </div>
                 <div className="flex justify-between">
