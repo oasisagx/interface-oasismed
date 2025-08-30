@@ -35,19 +35,22 @@ const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, ...rest }: any) => {
   const angle = Math.atan2(y - cy, x - cx);
   const cos = Math.cos(angle);
   const sin = Math.sin(angle);
+  
+  // Use a larger padding for side labels, keep top/bottom labels as they are
+  let PADDING = 15;
+  if (Math.abs(cos) > 0.5) { // Condition to identify side labels
+    PADDING = 45;
+  }
 
-  let textAnchor = "middle";
-  if (cos > 0.1) textAnchor = "start";
-  if (cos < -0.1) textAnchor = "end";
+  const translateX = PADDING * cos;
+  const translateY = PADDING * sin;
 
-  let dy = "0.35em"; // Padrão para alinhamento vertical
-  if (sin < -0.1) dy = "-1.5em"; // Ajuste para cima
-  if (sin > 0.1) dy = "1.2em"; // Ajuste para baixo
+  const verticalOffset = parts.length > 1 ? "-0.6em" : "0.3em";
 
   return (
-    <g transform={`translate(${x},${y})`}>
-      <text {...rest} textAnchor={textAnchor} dominantBaseline="middle" className="fill-slate-600" fontSize={12}>
-        <tspan x="0" dy={dy}>{parts[0]}</tspan>
+    <g transform={`translate(${x + translateX},${y + translateY})`}>
+      <text {...rest} textAnchor="middle" dominantBaseline="middle" className="fill-slate-600" fontSize={12}>
+        <tspan x="0" dy={verticalOffset}>{parts[0]}</tspan>
         {parts[1] && <tspan x="0" dy="1.2em">{parts[1]}</tspan>}
       </text>
     </g>
@@ -70,7 +73,7 @@ export function QualidadeChart() {
         >
           <RadarChart 
             data={chartData} 
-            outerRadius="70%"
+            outerRadius="80%"
             margin={{ top: 40, right: 50, bottom: 40, left: 50 }}
           >
             <ChartTooltip 
