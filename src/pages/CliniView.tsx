@@ -59,7 +59,7 @@ const CliniView: React.FC = () => {
       {isModalOpen && <ScheduleModal onClose={() => setIsModalOpen(false)} />}
 
       {/* Header */}
-      <div className="px-6 py-4">
+      <div className="px-6 pt-4 pb-0">
         <div className="flex items-center justify-end">
           <div className="flex items-center space-x-4">
             <span className="text-sm text-slate-500">
@@ -75,7 +75,7 @@ const CliniView: React.FC = () => {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="px-6 pt-2 pb-6">
         {/* Métricas que mudam em tempo real */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {metrics.map((metric, index) => (

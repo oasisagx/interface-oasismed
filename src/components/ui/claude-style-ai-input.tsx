@@ -308,7 +308,7 @@ const ClaudeChatInput: React.FC<ChatInputProps> = ({
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}
-            className="flex-1 min-h-[56px] max-h-[120px] p-4 pr-2 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-500 text-sm focus-visible:outline-none"
+            className="flex-1 min-h-[56px] max-h-[120px] p-4 pr-2 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-500 text-sm focus-visible:outline-none focus:ring-0"
             rows={1}
           />
           

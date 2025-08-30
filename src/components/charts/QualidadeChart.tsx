@@ -1,5 +1,5 @@
 import React from 'react';
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from 'recharts';
+import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from 'recharts';
 import {
   Card,
   CardContent,
@@ -16,11 +16,11 @@ import {
 
 const chartData = [
   { metrica: "Satisfação pelo\nAtendimento", valor: 92 },
-  { metrica: "Satisfação pela\nConsulta", valor: 85 },
+  { metrica: "Satisfação pela\nConsulta", valor: 95 },
   { metrica: "Satisfação pelo\nTratamento", valor: 96 },
-  { metrica: "Clareza na\nComunicação", valor: 88 },
-  { metrica: "Taxa de\nRetorno", valor: 94 },
-  { metrica: "Pontualidade das\nConsultas", valor: 90 },
+  { metrica: "Clareza na\nComunicação", valor: 94 },
+  { metrica: "Taxa de\nRetorno", valor: 82 },
+  { metrica: "Pontualidade\ndas Consultas", valor: 78 },
 ];
 
 const chartConfig = {
@@ -30,13 +30,24 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-// Componente customizado para o label do eixo (tick)
-const CustomPolarAngleAxisTick = ({ payload, x, y, textAnchor, ...rest }: any) => {
-  const parts = payload.value.split('\n');
+const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, ...rest }: any) => {
+  const parts = String(payload.value).split('\n');
+  const angle = Math.atan2(y - cy, x - cx);
+  const cos = Math.cos(angle);
+  const sin = Math.sin(angle);
+
+  let textAnchor = "middle";
+  if (cos > 0.1) textAnchor = "start";
+  if (cos < -0.1) textAnchor = "end";
+
+  let dy = "0.35em"; // Padrão para alinhamento vertical
+  if (sin < -0.1) dy = "-1.5em"; // Ajuste para cima
+  if (sin > 0.1) dy = "1.2em"; // Ajuste para baixo
+
   return (
     <g transform={`translate(${x},${y})`}>
-      <text {...rest} textAnchor={textAnchor} y={-12} dy={0}>
-        <tspan x="0" dy="0.5em">{parts[0]}</tspan>
+      <text {...rest} textAnchor={textAnchor} dominantBaseline="middle" className="fill-slate-600" fontSize={12}>
+        <tspan x="0" dy={dy}>{parts[0]}</tspan>
         {parts[1] && <tspan x="0" dy="1.2em">{parts[1]}</tspan>}
       </text>
     </g>
@@ -52,29 +63,34 @@ export function QualidadeChart() {
           Indicadores de Satisfação
         </CardDescription>
       </CardHeader>
-      <CardContent className="pb-0 flex-1 flex items-center justify-center">
+      <CardContent className="flex-1 flex items-center justify-center">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square h-[250px]"
+          className="mx-auto w-full max-w-[400px] h-[300px]"
         >
-          <RadarChart data={chartData} margin={{ top: 20, right: 60, bottom: 20, left: 60 }}>
+          <RadarChart 
+            data={chartData} 
+            outerRadius="70%"
+            margin={{ top: 40, right: 50, bottom: 40, left: 50 }}
+          >
             <ChartTooltip 
               cursor={false} 
               content={
                 <ChartTooltipContent 
-                  labelFormatter={(value) => value.replace('\n', ' ')}
+                  labelFormatter={(value) => String(value).replace('\n', ' ')}
                 />
               } 
             />
             <PolarAngleAxis 
               dataKey="metrica" 
-              tick={
-                <CustomPolarAngleAxisTick 
-                  fill='rgb(107, 114, 128)' 
-                  fontSize={11}
-                  fontWeight={500}
-                />
-              }
+              tick={<CustomPolarAngleAxisTick />}
+            />
+            <PolarRadiusAxis 
+              angle={90} 
+              domain={[0, 100]} 
+              tickCount={6}
+              tick={false} 
+              axisLine={false} 
             />
             <PolarGrid 
               stroke="rgb(229, 231, 235)"
