@@ -50,7 +50,6 @@ export function EspecialidadeChart() {
               right: 16,
             }}
           >
-            <CartesianGrid horizontal={false} stroke="rgb(229, 231, 235)" />
             <YAxis
               dataKey="especialidade"
               type="category"

@@ -96,7 +96,7 @@ export function QualidadeChart() {
               axisLine={false} 
             />
             <PolarGrid 
-              stroke="rgb(229, 231, 235)"
+              stroke="rgb(203, 213, 225)"
               strokeDasharray="2 2"
             />
             <Radar

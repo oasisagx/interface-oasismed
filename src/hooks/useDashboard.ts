@@ -15,7 +15,7 @@ export const useDashboard = () => {
         time: '09:30', 
         patient: 'Daniel Souza', 
         type: 'Retorno',
-        specialty: 'Ortopedia',
+        specialty: 'Clínica Geral',
         status: 'agendado'
       },
       { 
@@ -39,7 +39,7 @@ export const useDashboard = () => {
         time: '15:00', 
         patient: 'Ana Costa', 
         type: 'Retorno',
-        specialty: 'Dermatologia',
+        specialty: 'Cardiologia',
         status: 'agendado'
       },
       { 
