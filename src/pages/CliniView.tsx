@@ -79,7 +79,7 @@ const CliniView: React.FC = () => {
         {/* Métricas que mudam em tempo real */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {metrics.map((metric, index) => (
-            <div key={index} className="bg-slate-50 rounded-xl p-4 border border-slate-100 hover:shadow-sm transition-shadow">
+            <div key={index} className="bg-slate-50 rounded-xl p-4 border border-slate-100">
               <div className="flex items-center justify-between mb-2">
                 {getIconForMetric(metric.icon)}
                 {metric.change && (
@@ -102,7 +102,7 @@ const CliniView: React.FC = () => {
           <div className="xl:col-span-2 space-y-6">
             <ConsultasChart />
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <EspecialidadeChart />
               <QualidadeChart />
             </div>

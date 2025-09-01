@@ -42,7 +42,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
   };
 
   return (
-    <div className={cn("bg-card rounded-xl shadow-oasis border border-border p-6 hover:shadow-oasis-lg hover-lift transition-all", className)}>
+    <div className={cn("bg-card rounded-xl shadow-oasis border border-border p-6 hover-lift transition-all", className)}>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
           {title}

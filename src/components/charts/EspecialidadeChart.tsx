@@ -37,8 +37,7 @@ export function EspecialidadeChart() {
   return (
     <Card className="hover-lift border-slate-100">
       <CardHeader>
-        <CardTitle className="text-lg">Performance por Especialidade</CardTitle>
-        <CardDescription>Consultas realizadas nos últimos 30 dias</CardDescription>
+        <CardTitle className="text-lg">Consultas Concluídas no Mês Atual</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="aspect-auto h-[180px] w-full">

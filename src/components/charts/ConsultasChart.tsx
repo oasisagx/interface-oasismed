@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, Legend } from 'recharts';
-import { TrendingUp } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -25,48 +24,56 @@ import {
   SelectValue,
 } from '../ui/select';
 
-const chartData = [
-  // Aumento de conversão mais agressivo para impacto visual.
-  { date: "2024-10-01", consultas: 45, procedimentos: 13 }, // ~29%
-  { date: "2024-10-02", consultas: 52, procedimentos: 15 },
-  { date: "2024-10-03", consultas: 48, procedimentos: 15 },
-  { date: "2024-10-04", consultas: 61, procedimentos: 19 },
-  { date: "2024-10-05", consultas: 55, procedimentos: 18 },
-  { date: "2024-10-06", consultas: 67, procedimentos: 23 },
-  { date: "2024-10-07", consultas: 43, procedimentos: 16 },
-  { date: "2024-10-08", consultas: 58, procedimentos: 22 },
-  { date: "2024-10-09", consultas: 62, procedimentos: 25 },
-  { date: "2024-10-10", consultas: 49, procedimentos: 21 },
-  { date: "2024-10-11", consultas: 71, procedimentos: 30 },
-  { date: "2024-10-12", consultas: 64, procedimentos: 28 },
-  { date: "2024-10-13", consultas: 59, procedimentos: 27 },
-  { date: "2024-10-14", consultas: 53, procedimentos: 25 },
-  { date: "2024-10-15", consultas: 68, procedimentos: 33 },
-  { date: "2024-10-16", consultas: 72, procedimentos: 36 },
-  { date: "2024-10-17", consultas: 56, procedimentos: 29 },
-  { date: "2024-10-18", consultas: 63, procedimentos: 33 },
-  { date: "2024-10-19", consultas: 69, procedimentos: 37 },
-  { date: "2024-10-20", consultas: 58, procedimentos: 32 },
-  { date: "2024-10-21", consultas: 65, procedimentos: 36 },
-  { date: "2024-10-22", consultas: 74, procedimentos: 41 },
-  { date: "2024-10-23", consultas: 61, procedimentos: 35 },
-  { date: "2024-10-24", consultas: 67, procedimentos: 39 },
-  { date: "2024-10-25", consultas: 70, procedimentos: 42 },
-  { date: "2024-10-26", consultas: 59, procedimentos: 36 },
-  { date: "2024-10-27", consultas: 66, procedimentos: 41 },
-  { date: "2024-10-28", consultas: 73, procedimentos: 45 },
-  { date: "2024-10-29", consultas: 68, procedimentos: 43 },
-  { date: "2024-10-30", consultas: 75, procedimentos: 45 }, // 60%
+const originalData = [
+  { date: "2024-10-01", contatos: 45, agendamentos: 13 },
+  { date: "2024-10-02", contatos: 52, agendamentos: 15 },
+  { date: "2024-10-03", contatos: 48, agendamentos: 15 },
+  { date: "2024-10-04", contatos: 61, agendamentos: 19 },
+  { date: "2024-10-05", contatos: 55, agendamentos: 18 },
+  { date: "2024-10-06", contatos: 67, agendamentos: 23 },
+  { date: "2024-10-07", contatos: 43, agendamentos: 16 },
+  { date: "2024-10-08", contatos: 58, agendamentos: 22 },
+  { date: "2024-10-09", contatos: 62, agendamentos: 25 },
+  { date: "2024-10-10", contatos: 49, agendamentos: 21 },
+  { date: "2024-10-11", contatos: 71, agendamentos: 30 },
+  { date: "2024-10-12", contatos: 64, agendamentos: 28 },
+  { date: "2024-10-13", contatos: 59, agendamentos: 27 },
+  { date: "2024-10-14", contatos: 53, agendamentos: 25 },
+  { date: "2024-10-15", contatos: 68, agendamentos: 33 },
+  { date: "2024-10-16", contatos: 72, agendamentos: 36 },
+  { date: "2024-10-17", contatos: 56, agendamentos: 29 },
+  { date: "2024-10-18", contatos: 63, agendamentos: 33 },
+  { date: "2024-10-19", contatos: 69, agendamentos: 37 },
+  { date: "2024-10-20", contatos: 58, agendamentos: 32 },
+  { date: "2024-10-21", contatos: 65, agendamentos: 36 },
+  { date: "2024-10-22", contatos: 74, agendamentos: 41 },
+  { date: "2024-10-23", contatos: 61, agendamentos: 35 },
+  { date: "2024-10-24", contatos: 67, agendamentos: 39 },
+  { date: "2024-10-25", contatos: 70, agendamentos: 42 },
+  { date: "2024-10-26", contatos: 59, agendamentos: 36 },
+  { date: "2024-10-27", contatos: 66, agendamentos: 41 },
+  { date: "2024-10-28", contatos: 73, agendamentos: 45 },
+  { date: "2024-10-29", contatos: 68, agendamentos: 43 },
+  { date: "2024-10-30", contatos: 75, agendamentos: 45 },
 ];
 
+const chartData = originalData.map(item => ({
+  ...item,
+  consultas: Math.round(item.agendamentos * (0.75 + Math.random() * 0.1)), // 75% a 85% dos agendamentos
+}));
+
 const chartConfig = {
-  consultas: {
-    label: "Aquisição",
+  contatos: {
+    label: "Contatos",
     color: "rgb(91, 154, 225)", // oasis-blue
   },
-  procedimentos: {
-    label: "Conversão", 
+  agendamentos: {
+    label: "Agendamentos", 
     color: "rgb(16, 185, 129)", // green-500
+  },
+  consultas: {
+    label: "Consultas",
+    color: "rgb(236, 72, 153)", // pink-500
   },
 } satisfies ChartConfig;
 
@@ -93,10 +100,7 @@ export function ConsultasChart() {
     <Card className="hover-lift border-slate-100">
       <CardHeader className="flex items-center gap-2 space-y-0 py-5 sm:flex-row">
         <div className="grid flex-1 gap-1">
-          <CardTitle className="text-lg">Aquisição e Conversão</CardTitle>
-          <CardDescription>
-            Demanda adquirida de pacientes e consultas agendadas
-          </CardDescription>
+          <CardTitle className="text-lg">Conversão de Pacientes</CardTitle>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
@@ -125,7 +129,7 @@ export function ConsultasChart() {
         >
           <AreaChart data={filteredData}>
             <defs>
-              <linearGradient id="fillConsultas" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillContatos" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
                   stopColor="rgb(91, 154, 225)"
@@ -137,7 +141,7 @@ export function ConsultasChart() {
                   stopOpacity={0.1}
                 />
               </linearGradient>
-              <linearGradient id="fillProcedimentos" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="fillAgendamentos" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
                   stopColor="rgb(16, 185, 129)"
@@ -146,6 +150,18 @@ export function ConsultasChart() {
                 <stop
                   offset="95%"
                   stopColor="rgb(16, 185, 129)"
+                  stopOpacity={0.1}
+                />
+              </linearGradient>
+              <linearGradient id="fillConsultas" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="rgb(236, 72, 153)"
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="rgb(236, 72, 153)"
                   stopOpacity={0.1}
                 />
               </linearGradient>
@@ -182,32 +198,32 @@ export function ConsultasChart() {
             />
             <Legend content={<ChartLegendContent />} />
             <Area
-              dataKey="procedimentos"
+              dataKey="contatos"
               type="linear"
-              fill="url(#fillProcedimentos)"
+              fill="url(#fillContatos)"
+              stroke="rgb(91, 154, 225)"
+              strokeWidth={2}
+              name="Contatos"
+            />
+            <Area
+              dataKey="agendamentos"
+              type="linear"
+              fill="url(#fillAgendamentos)"
               stroke="rgb(16, 185, 129)"
               strokeWidth={2}
-              name="Conversão"
+              name="Agendamentos"
             />
             <Area
               dataKey="consultas"
               type="linear"
               fill="url(#fillConsultas)"
-              stroke="rgb(91, 154, 225)"
+              stroke="rgb(236, 72, 153)"
               strokeWidth={2}
-              name="Aquisição"
+              name="Consultas"
             />
           </AreaChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium text-success">
-          Crescimento de 12.5%
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Comparado ao período anterior de {filteredData.length} dias
-        </div>
-      </CardFooter>
     </Card>
   );
 }

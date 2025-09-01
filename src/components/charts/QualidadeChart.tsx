@@ -62,9 +62,6 @@ export function QualidadeChart() {
     <Card className="hover-lift h-full flex flex-col border-slate-100">
       <CardHeader className="items-center">
         <CardTitle className="text-lg">Experiência do Paciente</CardTitle>
-        <CardDescription>
-          Indicadores de Satisfação
-        </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 flex items-center justify-center">
         <ChartContainer

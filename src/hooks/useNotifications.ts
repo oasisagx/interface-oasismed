@@ -35,16 +35,44 @@ const mockNotifications: Omit<Notification, 'read'>[] = [
 let notificationStore: Notification[] = [];
 let listeners: React.Dispatch<React.SetStateAction<Notification[]>>[] = [];
 
+const STORAGE_KEY = 'read_notifications';
+
+const getReadIdsFromStorage = (): number[] => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error("Failed to parse read notifications from localStorage", error);
+    return [];
+  }
+};
+
+const setReadIdsInStorage = (ids: number[]) => {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  } catch (error) {
+    console.error("Failed to save read notifications to localStorage", error);
+  }
+};
+
 const initializeStore = () => {
-  // Evita reinicializar se já tiver dados (ex: HMR)
   if (notificationStore.length > 0) return;
 
-  // Simula a busca inicial do estado de leitura (ex: de um localStorage ou API)
-  // Para esta demo, vamos usar um estado inicial fixo.
+  let readIds = getReadIdsFromStorage();
+
+  // Se não houver nada no storage, define um estado inicial e salva.
+  if (readIds.length === 0) {
+    const initialReadIds = mockNotifications
+      .filter(n => n.id === 2 || n.id === 4)
+      .map(n => n.id);
+    setReadIdsInStorage(initialReadIds);
+    readIds = initialReadIds;
+  }
+
+  const readIdSet = new Set(readIds);
   notificationStore = mockNotifications.map(n => ({
     ...n,
-    // Define um estado inicial de leitura. Ex: as duas primeiras não lidas.
-    read: n.id === 2 || n.id === 4 
+    read: readIdSet.has(n.id)
   }));
 };
 
@@ -57,9 +85,18 @@ const broadcast = () => {
 };
 
 const markNotificationAsRead = (id: number) => {
+  const alreadyRead = notificationStore.find(n => n.id === id)?.read;
+  if (alreadyRead) return;
+
   notificationStore = notificationStore.map(n =>
     n.id === id ? { ...n, read: true } : n
   );
+  
+  const currentReadIds = getReadIdsFromStorage();
+  if (!currentReadIds.includes(id)) {
+    setReadIdsInStorage([...currentReadIds, id]);
+  }
+
   broadcast();
 };
 // --- Fim do Store ---

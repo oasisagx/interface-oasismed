@@ -50,7 +50,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
       <button
         ref={ref}
         className={cn(
-          "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-oasis-blue focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+          "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-lg border border-slate-200 bg-background px-3 py-2 text-sm font-medium shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:border-oasis-blue disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
           className
         )}
         onClick={() => setOpen(!open)}
@@ -87,7 +87,7 @@ const SelectContent: React.FC<SelectContentProps> = ({ className, children }) =>
       />
       <div
         className={cn(
-          "absolute top-full left-0 z-50 mt-1 min-w-[8rem] overflow-hidden rounded-lg border border-border bg-card text-card-foreground shadow-md animate-in fade-in-0 zoom-in-95",
+          "absolute top-full left-0 z-50 mt-1 min-w-[8rem] overflow-hidden rounded-lg border border-slate-200 bg-white text-card-foreground shadow-md animate-in fade-in-0 zoom-in-95",
           className
         )}
       >

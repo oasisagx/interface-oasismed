@@ -91,7 +91,7 @@ export const useDashboard = () => {
   return {
     metrics: [
       { 
-        title: 'Consultas Restantes de Hoje', 
+        title: 'Consultas Restantes do Dia', 
         value: consultasHoje.toString(), 
         change: null, 
         icon: 'Activity',
