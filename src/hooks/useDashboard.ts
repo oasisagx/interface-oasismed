@@ -98,13 +98,6 @@ export const useDashboard = () => {
         color: 'blue' as const
       },
       { 
-        title: 'Faturamento da Semana', 
-        value: `R$ ${faturamentoDiario.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 
-        change: '+12%',
-        icon: 'TrendingUp',
-        color: 'green' as const
-      },
-      { 
         title: 'Pacientes Ativos', 
         value: pacientesAtivos.toLocaleString(), 
         change: null,
@@ -116,6 +109,13 @@ export const useDashboard = () => {
         value: `${satisfacao.toFixed(1)}★`,
         icon: 'Heart',
         color: 'red' as const
+      },
+      { 
+        title: 'Faturamento da Semana', 
+        value: `R$ ${faturamentoDiario.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 
+        change: '+12%',
+        icon: 'TrendingUp',
+        color: 'green' as const
       },
     ],
     agendaHoje: agenda,

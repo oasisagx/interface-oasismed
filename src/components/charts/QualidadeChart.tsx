@@ -60,18 +60,18 @@ const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, ...rest }: any) => {
 export function QualidadeChart() {
   return (
     <Card className="hover-lift h-full flex flex-col border-slate-100">
-      <CardHeader className="items-center">
+      <CardHeader className="items-center pb-0">
         <CardTitle className="text-lg">Experiência do Paciente</CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 flex items-center justify-center">
+      <CardContent className="pt-4">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto w-full max-w-[400px] h-[300px]"
+          className="mx-auto w-full max-w-[400px] h-[275px]"
         >
           <RadarChart 
             data={chartData} 
-            outerRadius="80%"
-            margin={{ top: 40, right: 50, bottom: 40, left: 50 }}
+            outerRadius="75%"
+            margin={{ top: 0, right: 50, bottom: 40, left: 50 }}
           >
             <ChartTooltip 
               cursor={false} 
