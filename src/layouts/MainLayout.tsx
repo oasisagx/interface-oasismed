@@ -11,31 +11,19 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { notifications } = useNotifications();
   const [toasts, setToasts] = useState<Notification[]>([]);
-  const [shownToastIds, setShownToastIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    const unreadNotifications = notifications.filter(n => !n.read);
-    let delay = 0;
+    // Pega a primeira notificação não lida (a mais recente)
+    const latestUnreadToast = notifications.find(n => !n.read);
 
-    unreadNotifications.forEach(notification => {
-      if (!shownToastIds.has(notification.id)) {
-        // Adiciona um delay para cada nova notificação, para parecer mais real
-        setTimeout(() => {
-          setToasts(prev => {
-            if (prev.some(t => t.id === notification.id)) {
-              return prev;
-            }
-            return [...prev, notification];
-          });
-        }, delay);
-        
-        delay += 1000; // Aumenta o delay para a próxima notificação
-
-        setShownToastIds(prev => new Set(prev).add(notification.id));
-      }
-    });
-    
-  }, [notifications, shownToastIds]);
+    if (latestUnreadToast) {
+      // Mostra apenas essa notificação
+      setToasts([latestUnreadToast]);
+    } else {
+      // Garante que nenhum toast seja exibido se não houver não lidas
+      setToasts([]);
+    }
+  }, [notifications]);
 
   const handleCloseToast = (id: number) => {
     setToasts(prev => prev.filter(t => t.id !== id));
