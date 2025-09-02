@@ -11,33 +11,36 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { notifications } = useNotifications();
   const [toasts, setToasts] = useState<Notification[]>([]);
-  const [closedToastIds, setClosedToastIds] = useState<Set<number>>(new Set());
+  const [shownToastIds, setShownToastIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    // Encontra a notificação mais recente que não foi lida E ainda não foi fechada.
-    const latestUnreadToast = notifications.find(
-      n => !n.read && !closedToastIds.has(n.id)
-    );
+    const unreadNotifications = notifications.filter(n => !n.read);
+    let delay = 0;
 
-    if (latestUnreadToast) {
-      // Garante que apenas um toast seja exibido por vez.
-      setToasts(prev => {
-        if (prev.some(t => t.id === latestUnreadToast.id)) {
-          return prev;
-        }
-        return [latestUnreadToast];
-      });
-    } else {
-      // Limpa os toasts se não houver nenhum novo para mostrar.
-      setToasts([]);
-    }
-  }, [notifications, closedToastIds]);
+    unreadNotifications.forEach(notification => {
+      if (!shownToastIds.has(notification.id)) {
+        // Adiciona um delay para cada nova notificação, para parecer mais real
+        setTimeout(() => {
+          setToasts(prev => {
+            if (prev.some(t => t.id === notification.id)) {
+              return prev;
+            }
+            return [...prev, notification];
+          });
+        }, delay);
+        
+        delay += 1000; // Aumenta o delay para a próxima notificação
+
+        setShownToastIds(prev => new Set(prev).add(notification.id));
+      }
+    });
+    
+  }, [notifications, shownToastIds]);
 
   const handleCloseToast = (id: number) => {
-    // Remove o toast da tela
     setToasts(prev => prev.filter(t => t.id !== id));
-    // Adiciona o ID à lista de "fechados" para não reaparecer
-    setClosedToastIds(prev => new Set(prev).add(id));
+    // A notificação NÃO é marcada como lida ao fechar o toast,
+    // conforme a nova diretriz. O usuário deve fazer isso no painel.
   };
 
   return (
