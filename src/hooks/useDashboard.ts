@@ -105,8 +105,8 @@ export const useDashboard = () => {
         color: 'purple' as const
       },
       { 
-        title: 'Satisfação', 
-        value: `${satisfacao.toFixed(1)}★`,
+        title: 'Satisfação do Paciente', 
+        value: satisfacao.toFixed(1),
         icon: 'Heart',
         color: 'red' as const
       },
