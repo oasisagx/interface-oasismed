@@ -8,22 +8,30 @@ interface SalesChartProps {
 }
 
 const SalesChart: React.FC<SalesChartProps> = ({ data, className = '' }) => {
-  const defaultData = [
-    { month: 'Jan', consultas: 65, procedimentos: 28 },
-    { month: 'Fev', consultas: 59, procedimentos: 48 },
-    { month: 'Mar', consultas: 80, procedimentos: 40 },
-    { month: 'Abr', consultas: 81, procedimentos: 19 },
-    { month: 'Mai', consultas: 56, procedimentos: 86 },
-    { month: 'Jun', consultas: 55, procedimentos: 27 },
-    { month: 'Jul', consultas: 40, procedimentos: 90 },
-  ];
+  // Dados de exemplo para Outubro (31 dias)
+  const defaultData = Array.from({ length: 31 }, (_, i) => ({
+    day: i + 1,
+    consultas: Math.floor(Math.random() * 70) + 10, // Valores aleatórios entre 10 e 80
+    procedimentos: Math.floor(Math.random() * 70) + 10,
+  }));
 
   const chartData = data || defaultData;
+
+  // Processamento dos dados conforme solicitado
+  const processedData = chartData.map(item => ({
+    ...item,
+    consultas: Math.round(item.consultas / 2),
+    procedimentos: Math.round(item.procedimentos / 2),
+  }));
+
+  const formatXAxis = (tickItem: number) => {
+    return `${tickItem} Out`;
+  };
 
   return (
     <div className={`h-64 ${className}`}>
       <ChartContainer>
-        <AreaChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+        <AreaChart data={processedData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
           <defs>
             <linearGradient id="colorConsultas" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="rgb(var(--primary))" stopOpacity={0.8}/>
@@ -36,15 +44,19 @@ const SalesChart: React.FC<SalesChartProps> = ({ data, className = '' }) => {
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="rgb(var(--border))" />
           <XAxis 
-            dataKey="month" 
+            dataKey="day"
             tick={{ fill: 'rgb(var(--muted-foreground))', fontSize: 12 }}
             axisLine={{ stroke: 'rgb(var(--border))' }}
             tickLine={{ stroke: 'rgb(var(--border))' }}
+            ticks={[1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31]}
+            tickFormatter={formatXAxis}
           />
           <YAxis 
             tick={{ fill: 'rgb(var(--muted-foreground))', fontSize: 12 }}
             axisLine={{ stroke: 'rgb(var(--border))' }}
             tickLine={{ stroke: 'rgb(var(--border))' }}
+            domain={[0, 40]}
+            ticks={[10, 20, 30, 40]}
           />
           <ChartTooltip />
           <Area 
