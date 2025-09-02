@@ -35,7 +35,7 @@ const mockNotifications: Omit<Notification, 'read'>[] = [
 let notificationStore: Notification[] = [];
 let listeners: React.Dispatch<React.SetStateAction<Notification[]>>[] = [];
 
-const STORAGE_KEY = 'read_notifications';
+const STORAGE_KEY = 'read_notifications_v3';
 
 const getReadIdsFromStorage = (): number[] => {
   try {
@@ -63,7 +63,7 @@ const initializeStore = () => {
   // Se não houver nada no storage, define um estado inicial e salva.
   if (readIds.length === 0) {
     const initialReadIds = mockNotifications
-      .filter(n => n.id === 2 || n.id === 4)
+      .filter(n => n.id === 2 || n.id === 3 || n.id === 4)
       .map(n => n.id);
     setReadIdsInStorage(initialReadIds);
     readIds = initialReadIds;
