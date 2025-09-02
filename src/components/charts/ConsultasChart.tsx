@@ -18,51 +18,45 @@ import {
   SelectValue,
 } from '../ui/select';
 
-// Requirement: Data must be for October 2025
+// Requirement: Data must be for October 2025, with values adjusted to fit the 0-40 scale.
 const originalData = [
-  { date: "2025-10-01", contatos: 45, agendamentos: 13 },
-  { date: "2025-10-02", contatos: 52, agendamentos: 15 },
-  { date: "2025-10-03", contatos: 48, agendamentos: 15 },
-  { date: "2025-10-04", contatos: 61, agendamentos: 19 },
-  { date: "2025-10-05", contatos: 55, agendamentos: 18 },
-  { date: "2025-10-06", contatos: 67, agendamentos: 23 },
-  { date: "2025-10-07", contatos: 43, agendamentos: 16 },
-  { date: "2025-10-08", contatos: 58, agendamentos: 22 },
-  { date: "2025-10-09", contatos: 62, agendamentos: 25 },
-  { date: "2025-10-10", contatos: 49, agendamentos: 21 },
-  { date: "2025-10-11", contatos: 71, agendamentos: 30 },
-  { date: "2025-10-12", contatos: 64, agendamentos: 28 },
-  { date: "2025-10-13", contatos: 59, agendamentos: 27 },
-  { date: "2025-10-14", contatos: 53, agendamentos: 25 },
-  { date: "2025-10-15", contatos: 68, agendamentos: 33 },
-  { date: "2025-10-16", contatos: 72, agendamentos: 36 },
-  { date: "2025-10-17", contatos: 56, agendamentos: 29 },
-  { date: "2025-10-18", contatos: 63, agendamentos: 33 },
-  { date: "2025-10-19", contatos: 69, agendamentos: 37 },
-  { date: "2025-10-20", contatos: 58, agendamentos: 32 },
-  { date: "2025-10-21", contatos: 65, agendamentos: 36 },
-  { date: "2025-10-22", contatos: 74, agendamentos: 41 },
-  { date: "2025-10-23", contatos: 61, agendamentos: 35 },
-  { date: "2025-10-24", contatos: 67, agendamentos: 39 },
-  { date: "2025-10-25", contatos: 70, agendamentos: 42 },
-  { date: "2025-10-26", contatos: 59, agendamentos: 36 },
-  { date: "2025-10-27", contatos: 66, agendamentos: 41 },
-  { date: "2025-10-28", contatos: 73, agendamentos: 45 },
-  { date: "2025-10-29", contatos: 68, agendamentos: 43 },
-  { date: "2025-10-30", contatos: 75, agendamentos: 45 },
-  { date: "2025-10-31", contatos: 70, agendamentos: 42 },
+  { date: "2025-10-01", contatos: 23, agendamentos: 7 },
+  { date: "2025-10-02", contatos: 26, agendamentos: 8 },
+  { date: "2025-10-03", contatos: 24, agendamentos: 8 },
+  { date: "2025-10-04", contatos: 31, agendamentos: 10 },
+  { date: "2025-10-05", contatos: 28, agendamentos: 9 },
+  { date: "2025-10-06", contatos: 34, agendamentos: 12 },
+  { date: "2025-10-07", contatos: 22, agendamentos: 8 },
+  { date: "2025-10-08", contatos: 29, agendamentos: 11 },
+  { date: "2025-10-09", contatos: 31, agendamentos: 13 },
+  { date: "2025-10-10", contatos: 25, agendamentos: 11 },
+  { date: "2025-10-11", contatos: 36, agendamentos: 15 },
+  { date: "2025-10-12", contatos: 32, agendamentos: 14 },
+  { date: "2025-10-13", contatos: 30, agendamentos: 14 },
+  { date: "2025-10-14", contatos: 27, agendamentos: 13 },
+  { date: "2025-10-15", contatos: 34, agendamentos: 17 },
+  { date: "2025-10-16", contatos: 36, agendamentos: 18 },
+  { date: "2025-10-17", contatos: 28, agendamentos: 15 },
+  { date: "2025-10-18", contatos: 32, agendamentos: 17 },
+  { date: "2025-10-19", contatos: 35, agendamentos: 19 },
+  { date: "2025-10-20", contatos: 29, agendamentos: 16 },
+  { date: "2025-10-21", contatos: 33, agendamentos: 18 },
+  { date: "2025-10-22", contatos: 37, agendamentos: 21 },
+  { date: "2025-10-23", contatos: 31, agendamentos: 18 },
+  { date: "2025-10-24", contatos: 34, agendamentos: 20 },
+  { date: "2025-10-25", contatos: 35, agendamentos: 21 },
+  { date: "2025-10-26", contatos: 30, agendamentos: 18 },
+  { date: "2025-10-27", contatos: 33, agendamentos: 21 },
+  { date: "2025-10-28", contatos: 37, agendamentos: 23 },
+  { date: "2025-10-29", contatos: 34, agendamentos: 22 },
+  { date: "2025-10-30", contatos: 38, agendamentos: 23 },
+  { date: "2025-10-31", contatos: 35, agendamentos: 21 },
 ];
 
-// Requirement: All values must be divided by 2
-const chartData = originalData.map(item => {
-  const agendamentos = Math.round(item.agendamentos / 2);
-  return {
-    date: item.date,
-    contatos: Math.round(item.contatos / 2),
-    agendamentos: agendamentos,
-    consultas: Math.round(agendamentos * 0.8),
-  };
-});
+const chartData = originalData.map(item => ({
+  ...item,
+  consultas: Math.round(item.agendamentos * 0.8),
+}));
 
 const chartConfig = {
   contatos: { label: "Contatos", color: "rgb(91, 154, 225)" },
@@ -72,9 +66,12 @@ const chartConfig = {
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
-    const formattedLabel = new Date(label + "T00:00:00Z").toLocaleDateString("pt-BR", {
-      day: "numeric", month: "long",
-    });
+    const date = new Date(label);
+    const formattedLabel = new Intl.DateTimeFormat('pt-BR', {
+      day: 'numeric',
+      month: 'long',
+      timeZone: 'UTC',
+    }).format(date);
     return (
       <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-lg">
         <p className="label text-base font-bold text-slate-800 mb-2">{formattedLabel}</p>
@@ -117,7 +114,7 @@ export function ConsultasChart() {
 
   // Requirement: Y-Axis must be 0-40
   const yDomain = [0, 40];
-  const yAxisTicks = [0, 10, 20, 30, 40];
+  const yAxisTicks = [10, 20, 30, 40];
   
   // Requirement: X-Axis labels must be 1, 4, 7...
   const xAxisTicks = useMemo(() => {
@@ -162,16 +159,16 @@ export function ConsultasChart() {
             <CartesianGrid vertical={false} stroke="rgb(229, 231, 235)" strokeDasharray="3 3" />
             <XAxis
               dataKey="date"
+              type="category"
               ticks={xAxisTicks}
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              domain={['dataMin', 'dataMax']}
               tick={{ fill: 'rgb(107, 114, 128)', fontSize: 12 }}
               tickFormatter={(value) => {
-                const date = new Date(value + "T00:00:00Z");
-                const day = date.getDate();
-                const month = date.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '');
+                const date = new Date(value);
+                const day = new Intl.DateTimeFormat('pt-BR', { day: 'numeric', timeZone: 'UTC' }).format(date);
+                const month = new Intl.DateTimeFormat('pt-BR', { month: 'short', timeZone: 'UTC' }).format(date).replace('.', '');
                 return `${day} ${month.charAt(0).toUpperCase() + month.slice(1)}`;
               }}
             />
