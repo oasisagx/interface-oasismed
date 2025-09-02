@@ -11,24 +11,33 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { notifications } = useNotifications();
   const [toasts, setToasts] = useState<Notification[]>([]);
+  const [closedToastIds, setClosedToastIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    // Pega a primeira notificação não lida (a mais recente)
-    const latestUnreadToast = notifications.find(n => !n.read);
+    // Encontra a notificação mais recente que não foi lida E ainda não foi fechada.
+    const latestUnreadToast = notifications.find(
+      n => !n.read && !closedToastIds.has(n.id)
+    );
 
     if (latestUnreadToast) {
-      // Mostra apenas essa notificação
-      setToasts([latestUnreadToast]);
+      // Garante que apenas um toast seja exibido por vez.
+      setToasts(prev => {
+        if (prev.some(t => t.id === latestUnreadToast.id)) {
+          return prev;
+        }
+        return [latestUnreadToast];
+      });
     } else {
-      // Garante que nenhum toast seja exibido se não houver não lidas
+      // Limpa os toasts se não houver nenhum novo para mostrar.
       setToasts([]);
     }
-  }, [notifications]);
+  }, [notifications, closedToastIds]);
 
   const handleCloseToast = (id: number) => {
+    // Remove o toast da tela
     setToasts(prev => prev.filter(t => t.id !== id));
-    // A notificação NÃO é marcada como lida ao fechar o toast,
-    // conforme a nova diretriz. O usuário deve fazer isso no painel.
+    // Adiciona o ID à lista de "fechados" para não reaparecer
+    setClosedToastIds(prev => new Set(prev).add(id));
   };
 
   return (
