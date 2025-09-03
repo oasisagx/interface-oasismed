@@ -59,11 +59,11 @@ export const useDashboard = () => {
     const agenda = getAgendaHoje();
     const consultasAtivas = agenda.filter(a => a.status !== 'cancelado');
     
-    const salasOcupadas = 8; // Valor fixo para "otimismo"
+    const salasOcupadas = 2; // Valor fixo para "otimismo"
 
     return {
       salasOcupadas: salasOcupadas,
-      totalSalas: 10, 
+      totalSalas: 3, 
       tempoMedio: '28 min',
     };
   };
