@@ -21,53 +21,53 @@ const TranscricaoSidebar: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 border-l border-border p-4 space-y-4">
-      {/* History Section */}
-      <div>
-        <h3 className="text-sm font-semibold text-foreground mb-3">Histórico</h3>
-        <div className="space-y-1">
-          {history.map((item) => (
-            <button key={item.id} className="w-full text-left text-sm p-2 rounded-md hover:bg-secondary">
-              <p className="font-medium text-foreground">{item.title}</p>
-              <p className="text-xs text-muted-foreground">{item.subtitle}</p>
-            </button>
-          ))}
+    <div className="flex flex-col h-full border-l border-slate-100 p-4">
+      <div className="bg-slate-50 rounded-xl border border-slate-100 flex-1 flex flex-col">
+        {/* History Section */}
+        <div className="p-4">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Histórico</h3>
+          <div className="space-y-1">
+            {history.map((item) => (
+              <button key={item.id} className="w-full text-left text-sm p-2 rounded-md hover:bg-secondary">
+                <p className="font-medium text-foreground">{item.title}</p>
+                <p className="text-xs text-muted-foreground">{item.subtitle}</p>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="h-px bg-border"></div>
+        <div className="h-px bg-slate-100 mx-4"></div>
 
-      {/* Templates Section */}
-      <div className="flex-1 overflow-y-auto scrollbar-thin">
-        <h3 className="text-sm font-semibold text-foreground mb-3">Templates</h3>
-        <div className="space-y-2">
-          {templates.map((template) => (
-            <button
-              key={template.id}
-              onClick={() => setSelectedTemplate(template.id)}
-              className={cn(
-                'w-full text-left p-3 rounded-lg border transition-colors',
-                selectedTemplate === template.id
-                  ? 'bg-primary/10 border-primary/20'
-                  : 'bg-card border-border hover:border-slate-300'
-              )}
-            >
-              <div className="flex items-center">
-                <FileText className="w-4 h-4 mr-3 text-muted-foreground" />
-                <div>
-                  <p className="font-semibold text-foreground">{template.title}</p>
-                  <p className="text-xs text-slate-600">{template.description}</p>
+        {/* Templates Section */}
+        <div className="flex-1 p-4 overflow-y-auto scrollbar-thin">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Templates</h3>
+          <div className="space-y-2">
+            {templates.map((template) => (
+              <button
+                key={template.id}
+                onClick={() => setSelectedTemplate(template.id)}
+                className={cn(
+                  'w-full text-left p-3 rounded-lg border transition-colors',
+                  selectedTemplate === template.id
+                    ? 'bg-primary/10 border-primary/20'
+                    : 'bg-card border-slate-200 hover:border-slate-300'
+                )}
+              >
+                <div className="flex items-center">
+                  <FileText className="w-4 h-4 mr-3 text-muted-foreground" />
+                  <div>
+                    <p className="font-semibold text-foreground">{template.title}</p>
+                    <p className="text-xs text-slate-600">{template.description}</p>
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-
-      <div className="h-px bg-border"></div>
 
       {/* Action Button */}
-      <div>
+      <div className="pt-4">
         <Button className="w-full">
           <Send className="w-4 h-4 mr-2" />
           Editar / Enviar
