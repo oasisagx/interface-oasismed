@@ -21,10 +21,49 @@ export function AIVoiceInput({
   demoInterval = 3000,
   className
 }: AIVoiceInputProps) {
-  // Lógica de estado e efeitos comentada para depuração
-  const submitted = false; // Hardcoded para teste
-  const time = 0;
-  const isClient = true;
+  const [submitted, setSubmitted] = useState(false);
+  const [time, setTime] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+  const [isDemo, setIsDemo] = useState(demoMode);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    let intervalId: number;
+
+    if (submitted) {
+      onStart?.();
+      intervalId = setInterval(() => {
+        setTime((t) => t + 1);
+      }, 1000);
+    } else {
+      onStop?.(time);
+      setTime(0);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [submitted, time, onStart, onStop]);
+
+  useEffect(() => {
+    if (!isDemo) return;
+
+    let timeoutId: number;
+    const runAnimation = () => {
+      setSubmitted(true);
+      timeoutId = setTimeout(() => {
+        setSubmitted(false);
+        timeoutId = setTimeout(runAnimation, 1000);
+      }, demoInterval);
+    };
+
+    const initialTimeout = setTimeout(runAnimation, 100);
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(initialTimeout);
+    };
+  }, [isDemo, demoInterval]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -32,25 +71,35 @@ export function AIVoiceInput({
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
+  const handleClick = () => {
+    if (isDemo) {
+      setIsDemo(false);
+      setSubmitted(false);
+    } else {
+      setSubmitted((prev) => !prev);
+    }
+  };
+
   return (
     <div className={cn("w-full py-4", className)}>
       <div className="relative max-w-xl w-full mx-auto flex items-center flex-col gap-2">
         <button
           className={cn(
-            "group w-16 h-16 rounded-xl flex items-center justify-center transition-colors",
+            "group w-16 h-16 rounded-full flex items-center justify-center transition-colors border-2",
             submitted
-              ? "bg-none"
-              : "bg-none hover:bg-black/10"
+              ? "border-destructive"
+              : "border-border hover:bg-secondary"
           )}
           type="button"
+          onClick={handleClick}
         >
           {submitted ? (
             <div
-              className="w-6 h-6 rounded-sm animate-spin bg-black cursor-pointer pointer-events-auto"
-              style={{ animationDuration: "3s" }}
+              className="w-6 h-6 rounded-sm animate-spin bg-destructive cursor-pointer pointer-events-auto"
+              style={{ animationDuration: "1.5s" }}
             />
           ) : (
-            <Mic className="w-6 h-6 text-black/70" />
+            <Mic className="w-6 h-6 text-muted-foreground" />
           )}
         </button>
 
@@ -58,8 +107,8 @@ export function AIVoiceInput({
           className={cn(
             "font-mono text-sm transition-opacity duration-300",
             submitted
-              ? "text-black/70"
-              : "text-black/30"
+              ? "text-foreground"
+              : "text-muted-foreground"
           )}
         >
           {formatTime(time)}
@@ -72,8 +121,8 @@ export function AIVoiceInput({
               className={cn(
                 "w-0.5 rounded-full transition-all duration-300",
                 submitted
-                  ? "bg-black/50 animate-pulse"
-                  : "bg-black/10 h-1"
+                  ? "bg-primary/50 animate-pulse"
+                  : "bg-secondary h-1"
               )}
               style={
                 submitted && isClient
@@ -86,10 +135,8 @@ export function AIVoiceInput({
             />
           ))}
         </div>
-
-        <p className="h-4 text-xs text-black/70">
-          {submitted ? "Listening..." : "Click to speak"}
-        </p>
+        
+        <div className="h-4"></div>
       </div>
     </div>
   );
