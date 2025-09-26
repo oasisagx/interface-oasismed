@@ -73,8 +73,19 @@ export default {
         'fade-in': 'fadeIn 0.3s ease-in-out',
         'gentle-float': 'gentleFloat 20s ease-in-out infinite',
         'gentle-pulse': 'gentlePulse 15s ease-in-out infinite',
+        'pulse-ring': 'pulseRing 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite',
       },
       keyframes: {
+        pulseRing: {
+          '0%': {
+            transform: 'scale(1)',
+            opacity: '0.5',
+          },
+          '100%': {
+            transform: 'scale(1.5)',
+            opacity: '0',
+          },
+        },
         fadeIn: {
           from: {
             opacity: '0',

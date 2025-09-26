@@ -8,7 +8,7 @@ const Sidebar: React.FC = () => {
   const navItems = [
     { to: '/', label: 'MedChat', icon: MessageCircle },
     { to: '/cliniview', label: 'Cliniview', icon: BarChart3 },
-    { to: '/promptmd', label: 'PromptMD', icon: FileText },
+    { to: '/assistentes', label: 'Assistentes', icon: FileText },
     { to: '/conhecimento', label: 'Conhecimento', icon: Database },
     { to: '/search', label: 'Busca', icon: Search },
   ];

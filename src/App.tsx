@@ -6,7 +6,8 @@ import { Loader2 } from 'lucide-react';
 // Lazy load pages for better performance
 const MedChat = React.lazy(() => import('./pages/MedChat'));
 const CliniView = React.lazy(() => import('./pages/CliniView'));
-const PromptMD = React.lazy(() => import('./pages/PromptMD'));
+const Assistentes = React.lazy(() => import('./pages/Assistentes'));
+const TranscricaoAssistente = React.lazy(() => import('./pages/assistentes/Transcricao'));
 const Conhecimento = React.lazy(() => import('./pages/Conhecimento'));
 
 const LoadingSpinner = () => (
@@ -23,7 +24,8 @@ function App() {
           <Routes>
             <Route path="/" element={<MedChat />} />
             <Route path="/cliniview" element={<CliniView />} />
-            <Route path="/promptmd" element={<PromptMD />} />
+            <Route path="/assistentes" element={<Assistentes />} />
+            <Route path="/assistentes/transcricao" element={<TranscricaoAssistente />} />
             <Route path="/conhecimento" element={<Conhecimento />} />
             <Route path="/search" element={<div className="p-8 text-center text-muted-foreground">Página em desenvolvimento</div>} />
           </Routes>
