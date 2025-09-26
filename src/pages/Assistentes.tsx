@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AssistantCard from '../components/AssistantCard';
 import { Mic, Wand2 } from 'lucide-react';
 
 const Assistentes: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleCardClick = () => {
-    // Lógica para navegar para a página de transcrição será implementada depois
-    console.log('Navegando para o Assistente de Transcrição...');
+    navigate('/assistentes/transcricao');
   };
 
   return (
