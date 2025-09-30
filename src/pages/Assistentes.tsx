@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AssistantCard from '../components/AssistantCard';
-import { Mic, Wand2 } from 'lucide-react';
+import { Bot } from 'lucide-react';
 
 const Assistentes: React.FC = () => {
   const navigate = useNavigate();
@@ -16,22 +16,22 @@ const Assistentes: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <AssistantCard
             title="Transcrição de Consulta"
-            description="Transcreva áudio de consultas em texto estruturado."
+            description="Transcreva áudio de consultas em texto estruturado"
             status="active"
-            icon={Mic}
+            icon={Bot}
             onClick={handleCardClick}
           />
           <AssistantCard
-            title="Análise de Exames"
+            title="Assistente 02"
             description="Em breve"
             status="coming-soon"
-            icon={Wand2}
+            icon={Bot}
           />
           <AssistantCard
-            title="Sugestão de Diagnóstico"
+            title="Assistente 03"
             description="Em breve"
             status="coming-soon"
-            icon={Wand2}
+            icon={Bot}
           />
         </div>
       </div>

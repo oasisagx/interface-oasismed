@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '../ui/button';
 import { FileText, Send } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
-const TranscricaoSidebar: React.FC = () => {
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+interface Template {
+  id: string;
+  title: string;
+  description: string;
+  formatter: (transcription: string) => string;
+}
 
+interface TranscricaoSidebarProps {
+  templates: Template[];
+  selectedTemplate: string | null;
+  onTemplateClick: (template: Template) => void;
+  isEditing: boolean;
+  onEditClick: () => void;
+  onSaveClick: () => void;
+  onSendClick: () => void;
+  isTemplateSelected: boolean;
+}
+
+const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
+  templates,
+  selectedTemplate,
+  onTemplateClick,
+  isEditing,
+  onEditClick,
+  onSaveClick,
+  onSendClick,
+  isTemplateSelected,
+}) => {
   const history = [
     { id: 1, title: 'Consulta 01', subtitle: '25/09/2025 - João Silva' },
     { id: 2, title: 'Consulta 02', subtitle: '24/09/2025 - Maria Costa' },
     { id: 3, title: 'Consulta 03', subtitle: '23/09/2025 - Pedro Alves' },
-  ];
-
-  const templates = [
-    { id: 'clinico', title: 'Clínico', description: 'Template para avaliação geral.' },
-    { id: 'diagnostico', title: 'Diagnóstico', description: 'Template para hipótese diagnóstica.' },
-    { id: 'retorno', title: 'Retorno', description: 'Template para consulta de retorno.' },
-    { id: 'encaminhamento', title: 'Encaminhamento', description: 'Template para especialistas.' },
-    { id: 'atestado', title: 'Atestado', description: 'Template para emissão de atestado.' },
   ];
 
   return (
@@ -45,7 +62,7 @@ const TranscricaoSidebar: React.FC = () => {
             {templates.map((template) => (
               <button
                 key={template.id}
-                onClick={() => setSelectedTemplate(template.id)}
+                onClick={() => onTemplateClick(template)}
                 className={cn(
                   'w-full text-left p-3 rounded-lg border transition-colors',
                   selectedTemplate === template.id
@@ -68,10 +85,19 @@ const TranscricaoSidebar: React.FC = () => {
 
       {/* Action Button */}
       <div className="pt-4">
-        <Button className="w-full">
-          <Send className="w-4 h-4 mr-2" />
-          Editar / Enviar
-        </Button>
+        {isTemplateSelected && (
+          <div className="flex items-center space-x-2">
+            {isEditing ? (
+              <Button onClick={onSaveClick} className="flex-1">Salvar</Button>
+            ) : (
+              <Button variant="ghost" onClick={onEditClick} className="flex-1">Editar</Button>
+            )}
+            <Button onClick={onSendClick} className="flex-1">
+              <Send className="w-4 h-4 mr-2" />
+              Enviar
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

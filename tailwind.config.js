@@ -74,8 +74,17 @@ export default {
         'gentle-float': 'gentleFloat 20s ease-in-out infinite',
         'gentle-pulse': 'gentlePulse 15s ease-in-out infinite',
         'pulse-ring': 'pulseRing 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+        'pulse-blue': 'pulseBlue 2s infinite',
       },
       keyframes: {
+        pulseBlue: {
+          '0%, 100%': {
+            boxShadow: '0 0 0 0 rgba(var(--primary), 0.4)',
+          },
+          '70%': {
+            boxShadow: '0 0 0 10px rgba(var(--primary), 0)',
+          },
+        },
         pulseRing: {
           '0%': {
             transform: 'scale(1)',

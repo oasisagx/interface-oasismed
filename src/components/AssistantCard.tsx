@@ -21,7 +21,7 @@ const AssistantCard: React.FC<AssistantCardProps> = ({ title, description, statu
         'w-full max-w-xs rounded-xl bg-card shadow-soft transition-all duration-200 ease-in-out border border-slate-100',
         isActive
           ? 'cursor-pointer hover:border-primary/30 hover:shadow-oasis'
-          : 'cursor-not-allowed bg-secondary'
+          : 'cursor-not-allowed bg-secondary opacity-60'
       )}
     >
       <CardHeader className="p-5">

@@ -87,20 +87,13 @@ export function AIVoiceInput({
           className={cn(
             "group w-16 h-16 rounded-full flex items-center justify-center transition-colors border-2",
             submitted
-              ? "border-destructive"
-              : "border-border hover:bg-secondary"
+              ? "bg-oasis-blue border-oasis-blue animate-pulse"
+              : "border-oasis-blue hover:bg-oasis-blue-50"
           )}
           type="button"
           onClick={handleClick}
         >
-          {submitted ? (
-            <div
-              className="w-6 h-6 rounded-sm animate-spin bg-destructive cursor-pointer pointer-events-auto"
-              style={{ animationDuration: "1.5s" }}
-            />
-          ) : (
-            <Mic className="w-6 h-6 text-muted-foreground" />
-          )}
+          <Mic className={cn("w-6 h-6", submitted ? "text-white" : "text-oasis-blue")} />
         </button>
 
         <span
