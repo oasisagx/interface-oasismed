@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AssistantCard from '../components/AssistantCard';
-import { Bot } from 'lucide-react';
+import { Mic, Bot } from 'lucide-react';
 
 const Assistentes: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Assistentes: React.FC = () => {
             title="Transcrição de Consulta"
             description="Transcreva áudio de consultas em texto estruturado"
             status="active"
-            icon={Bot}
+            icon={Mic}
             onClick={handleCardClick}
           />
           <AssistantCard

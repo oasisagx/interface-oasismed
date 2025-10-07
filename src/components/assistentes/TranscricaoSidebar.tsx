@@ -1,19 +1,27 @@
 import React from 'react';
 import { Button } from '../ui/button';
-import { FileText, Send } from 'lucide-react';
+import { FileText } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface Template {
   id: string;
   title: string;
-  description: string;
-  formatter: (transcription: string) => string;
+}
+
+interface HistoryItem {
+  id: number;
+  title: string;
+  subtitle: string;
+  transcription: string;
 }
 
 interface TranscricaoSidebarProps {
   templates: Template[];
   selectedTemplate: string | null;
   onTemplateClick: (template: Template) => void;
+  history: HistoryItem[];
+  selectedHistory: number | null;
+  onHistoryClick: (historyItem: HistoryItem) => void;
   isEditing: boolean;
   onEditClick: () => void;
   onSaveClick: () => void;
@@ -25,27 +33,31 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
   templates,
   selectedTemplate,
   onTemplateClick,
+  history,
+  selectedHistory,
+  onHistoryClick,
   isEditing,
   onEditClick,
   onSaveClick,
   onSendClick,
   isTemplateSelected,
 }) => {
-  const history = [
-    { id: 1, title: 'Consulta 01', subtitle: '25/09/2025 - João Silva' },
-    { id: 2, title: 'Consulta 02', subtitle: '24/09/2025 - Maria Costa' },
-    { id: 3, title: 'Consulta 03', subtitle: '23/09/2025 - Pedro Alves' },
-  ];
-
   return (
     <div className="flex flex-col h-full border-l border-slate-100 p-4">
       <div className="bg-slate-50 rounded-xl border border-slate-100 flex-1 flex flex-col">
         {/* History Section */}
-        <div className="p-4">
+        <div className="flex-1 p-4 overflow-y-auto scrollbar-thin">
           <h3 className="text-sm font-semibold text-foreground mb-3">Histórico</h3>
           <div className="space-y-1">
             {history.map((item) => (
-              <button key={item.id} className="w-full text-left text-sm p-2 rounded-md hover:bg-secondary">
+              <button
+                key={item.id}
+                onClick={() => onHistoryClick(item)}
+                className={cn(
+                  'w-full text-left text-sm p-2 rounded-md hover:bg-secondary',
+                  selectedHistory === item.id && 'bg-secondary'
+                )}
+              >
                 <p className="font-medium text-foreground">{item.title}</p>
                 <p className="text-xs text-muted-foreground">{item.subtitle}</p>
               </button>
@@ -56,7 +68,7 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
         <div className="h-px bg-slate-100 mx-4"></div>
 
         {/* Templates Section */}
-        <div className="flex-1 p-4 overflow-y-auto scrollbar-thin">
+        <div className="p-4">
           <h3 className="text-sm font-semibold text-foreground mb-3">Templates</h3>
           <div className="space-y-2">
             {templates.map((template) => (
@@ -70,13 +82,7 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
                     : 'bg-card border-slate-200 hover:border-slate-300'
                 )}
               >
-                <div className="flex items-center">
-                  <FileText className="w-4 h-4 mr-3 text-muted-foreground" />
-                  <div>
-                    <p className="font-semibold text-foreground">{template.title}</p>
-                    <p className="text-xs text-slate-600">{template.description}</p>
-                  </div>
-                </div>
+                <p className="font-semibold text-foreground text-sm">{template.title}</p>
               </button>
             ))}
           </div>
@@ -93,7 +99,6 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
               <Button variant="ghost" onClick={onEditClick} className="flex-1">Editar</Button>
             )}
             <Button onClick={onSendClick} className="flex-1">
-              <Send className="w-4 h-4 mr-2" />
               Enviar
             </Button>
           </div>
