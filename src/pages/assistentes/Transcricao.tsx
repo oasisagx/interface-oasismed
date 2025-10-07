@@ -109,7 +109,7 @@ const Transcricao: React.FC = () => {
               />
             ) : (
               <div
-                className="max-w-none whitespace-pre-wrap"
+                className="prose prose-lg max-w-none dark:prose-invert whitespace-pre-wrap"
                 dangerouslySetInnerHTML={{ 
                   __html: marked(displayedContent)
                 }}
