@@ -49,16 +49,16 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
       <div className="bg-slate-50 rounded-xl border border-slate-100 flex-1 flex flex-col">
         {/* New Recording Button */}
         {selectedHistory && (
-          <div className="p-4 border-b border-slate-100">
-            <Button onClick={onNewRecordingClick} className="w-full">
+          <div className="p-4 pb-2 border-b border-slate-100">
+            <Button variant="secondary" onClick={onNewRecordingClick} className="w-full bg-white">
               Nova Gravação/Transcrição
             </Button>
           </div>
         )}
 
         {/* History Section */}
-        <div className="flex-1 p-4 overflow-y-auto scrollbar-thin">
-          <h3 className="text-sm font-semibold text-foreground mb-3">Histórico</h3>
+        <div className="p-4 overflow-y-auto scrollbar-thin">
+          <h3 className="text-base text-center font-semibold text-foreground mb-3">Histórico</h3>
           <div className="space-y-1">
             {history.map((item) => (
               <button
@@ -82,7 +82,7 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
 
         {/* Templates Section */}
         <div className="p-4">
-          <h3 className="text-sm font-semibold text-foreground mb-3">Templates</h3>
+          <h3 className="text-base text-center font-semibold text-foreground mb-3">Templates</h3>
           <div className="space-y-2">
             {templates.map((template) => (
               <button
@@ -100,22 +100,22 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Action Button */}
-      <div className="pt-4">
-        {isTemplateSelected && (
-          <div className="flex items-center space-x-2">
-            {isEditing ? (
-              <Button onClick={onSaveClick} className="flex-1">Salvar</Button>
-            ) : (
-              <Button variant="ghost" onClick={onEditClick} className="flex-1">Editar</Button>
-            )}
-            <Button onClick={onSendClick} className="flex-1">
-              Enviar
-            </Button>
-          </div>
-        )}
+        {/* Action Button */}
+        <div className="p-4 mt-auto">
+          {isTemplateSelected && (
+            <div className="flex items-center space-x-2">
+              {isEditing ? (
+                <Button variant="secondary" onClick={onSaveClick} className="flex-1 bg-white">Salvar</Button>
+              ) : (
+                <Button variant="secondary" onClick={onEditClick} className="flex-1 bg-white">Editar</Button>
+              )}
+              <Button variant="secondary" onClick={onSendClick} className="flex-1 bg-white">
+                Enviar
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
