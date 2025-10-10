@@ -27,7 +27,7 @@ function App() {
             <Route path="/assistentes" element={<Assistentes />} />
             <Route path="/assistentes/transcricao" element={<TranscricaoAssistente />} />
             <Route path="/conhecimento" element={<Conhecimento />} />
-            <Route path="/search" element={<div className="p-8 text-center text-muted-foreground">Página em desenvolvimento</div>} />
+            <Route path="/search" element={<div />} />
           </Routes>
         </Suspense>
       </MainLayout>
