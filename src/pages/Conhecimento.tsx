@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
-import { Upload, FileText, Search, Plus, MoreVertical, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Upload, FileText, Search, MoreVertical, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Conhecimento: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [documents, setDocuments] = useState([
     { 
       id: 1, 
-      name: 'Protocolo COVID-19.pdf', 
+      name: 'Manejo Clínico de Arboviroses: Dengue e Oropouche', 
       size: '2.4 MB', 
       type: 'PDF', 
       date: 'Hoje',
@@ -16,7 +16,7 @@ const Conhecimento: React.FC = () => {
     },
     { 
       id: 2, 
-      name: 'Diretrizes Cardiologia.docx', 
+      name: 'Diretriz Brasileira de Hipertensão Arterial (2025)', 
       size: '1.8 MB', 
       type: 'DOCX', 
       date: 'Ontem',
@@ -26,7 +26,7 @@ const Conhecimento: React.FC = () => {
     },
     { 
       id: 3, 
-      name: 'Bulas Medicamentos.xlsx', 
+      name: 'PCDT - Diabetes Mellitus Tipo 2', 
       size: '890 KB', 
       type: 'XLSX', 
       date: '3 dias',
@@ -122,27 +122,6 @@ const Conhecimento: React.FC = () => {
 
   return (
     <div className="h-full flex flex-col bg-white">
-      {/* Thin divider instead of header */}
-      <div className="border-b border-slate-100 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Buscar documentos..."
-              className="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-oasis-blue focus:border-transparent outline-none"
-            />
-          </div>
-          <button 
-            onClick={() => document.getElementById('file-input')?.click()}
-            className="flex items-center space-x-2 px-4 py-2 bg-oasis-blue text-white rounded-lg hover:bg-oasis-blue/90 transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Adicionar</span>
-          </button>
-        </div>
-      </div>
-
       <div className="flex-1 p-6">
         {/* Upload Area - Funcional */}
         <div
@@ -158,20 +137,27 @@ const Conhecimento: React.FC = () => {
         >
           <Upload className="w-8 h-8 text-slate-400 mx-auto mb-3" />
           <h3 className="text-base font-medium text-slate-900 mb-1">
-            Envie documentos médicos
+            Enviar documentos
           </h3>
           <p className="text-sm text-slate-600 mb-3">
-            Arraste arquivos ou clique para selecionar
-          </p>
-          <p className="text-xs text-slate-500">
-            PDF, DOCX, XLSX, TXT suportados • Máximo 50MB
+            Arraste os arquivos ou clique para buscar
           </p>
         </div>
 
         {/* Documents List - Com uploads simulados */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-slate-900">Documentos</h3>
+            <div className="flex items-center space-x-4">
+              <h3 className="text-lg font-semibold text-slate-900">Documentos</h3>
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Buscar em documentos ..."
+                  className="w-72 pl-10 pr-4 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-oasis-blue focus:border-transparent outline-none shadow-sm"
+                />
+              </div>
+            </div>
             <span className="text-sm text-slate-500">{documents.length} documentos</span>
           </div>
           
@@ -187,31 +173,18 @@ const Conhecimento: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-slate-900">{doc.name}</h4>
-                    <div className="flex items-center space-x-3 text-sm text-slate-500">
-                      <span>{doc.size}</span>
-                      <span>•</span>
-                      <span>{doc.category}</span>
-                      <span>•</span>
-                      <div className="flex items-center space-x-1">
-                        <Clock className="w-3 h-3" />
-                        <span>{doc.date}</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-2">
-                  <span className={`text-xs px-2 py-1 rounded font-medium ${
-                    doc.uploadStatus === 'uploading' ? 'bg-blue-100 text-blue-700' :
-                    doc.uploadStatus === 'complete' ? 'bg-green-100 text-green-700' :
-                    doc.uploadStatus === 'error' ? 'bg-red-100 text-red-700' :
-                    'bg-slate-100 text-slate-700'
-                  }`}>
-                    {doc.uploadStatus === 'uploading' ? 'Processando...' :
-                     doc.uploadStatus === 'complete' ? 'Ativo' :
-                     doc.uploadStatus === 'error' ? 'Erro' :
-                     doc.status}
-                  </span>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-3 text-sm text-slate-500">
+                    <span>{doc.size}</span>
+                    <span>•</span>
+                    <div className="flex items-center space-x-1">
+                      <Clock className="w-3 h-3" />
+                      <span>{doc.date}</span>
+                    </div>
+                  </div>
                   <button className="p-2 hover:bg-slate-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
                     <MoreVertical className="w-4 h-4 text-slate-500" />
                   </button>
