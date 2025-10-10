@@ -27,6 +27,7 @@ interface TranscricaoSidebarProps {
   onSaveClick: () => void;
   onSendClick: () => void;
   isTemplateSelected: boolean;
+  onNewRecordingClick: () => void;
 }
 
 const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
@@ -41,10 +42,20 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
   onSaveClick,
   onSendClick,
   isTemplateSelected,
+  onNewRecordingClick,
 }) => {
   return (
     <div className="flex flex-col h-full border-l border-slate-100 p-4">
       <div className="bg-slate-50 rounded-xl border border-slate-100 flex-1 flex flex-col">
+        {/* New Recording Button */}
+        {selectedHistory && (
+          <div className="p-4 border-b border-slate-100">
+            <Button onClick={onNewRecordingClick} className="w-full">
+              Nova Gravação/Transcrição
+            </Button>
+          </div>
+        )}
+
         {/* History Section */}
         <div className="flex-1 p-4 overflow-y-auto scrollbar-thin">
           <h3 className="text-sm font-semibold text-foreground mb-3">Histórico</h3>
@@ -54,11 +65,13 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
                 key={item.id}
                 onClick={() => onHistoryClick(item)}
                 className={cn(
-                  'w-full text-left text-sm p-2 rounded-md hover:bg-secondary',
-                  selectedHistory === item.id && 'bg-secondary'
+                  'w-full text-left p-3 rounded-lg border transition-colors',
+                  selectedHistory === item.id
+                    ? 'bg-primary/10 border-primary/20'
+                    : 'bg-card border-slate-200 hover:border-slate-300'
                 )}
               >
-                <p className="font-medium text-foreground">{item.title}</p>
+                <p className="font-semibold text-foreground text-sm">{item.title}</p>
                 <p className="text-xs text-muted-foreground">{item.subtitle}</p>
               </button>
             ))}

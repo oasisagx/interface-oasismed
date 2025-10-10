@@ -16,7 +16,7 @@ const Assistentes: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <AssistantCard
             title="Transcrição de Consulta"
-            description="Transcreva áudio de consultas em texto estruturado"
+            description="Grave e transcreva suas consultas para diversos formatos de texto"
             status="active"
             icon={Mic}
             onClick={handleCardClick}
