@@ -49,7 +49,7 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
       <div className="bg-slate-50 rounded-xl border border-slate-100 flex-1 flex flex-col">
         {/* New Recording Button */}
         {selectedHistory && (
-          <div className="p-4 pb-2 border-b border-slate-100">
+          <div className="p-2 pb-1 border-b border-slate-100">
             <Button variant="secondary" onClick={onNewRecordingClick} className="w-full bg-white">
               Nova Gravação/Transcrição
             </Button>
@@ -57,7 +57,7 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
         )}
 
         {/* History Section */}
-        <div className="p-4 overflow-y-auto scrollbar-thin">
+        <div className="p-2 overflow-y-auto scrollbar-thin">
           <h3 className="text-base text-center font-semibold text-foreground mb-3">Histórico</h3>
           <div className="space-y-1">
             {history.map((item) => (
@@ -78,10 +78,10 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
           </div>
         </div>
 
-        <div className="h-px bg-slate-100 mx-4"></div>
+        <div className="h-px bg-slate-100 mx-2"></div>
 
         {/* Templates Section */}
-        <div className="p-4">
+        <div className="p-2">
           <h3 className="text-base text-center font-semibold text-foreground mb-3">Templates</h3>
           <div className="space-y-2">
             {templates.map((template) => (
@@ -102,7 +102,7 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
         </div>
 
         {/* Action Button */}
-        <div className="p-4 mt-auto">
+        <div className="p-2">
           {isTemplateSelected && (
             <div className="flex items-center space-x-2">
               {isEditing ? (

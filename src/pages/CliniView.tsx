@@ -6,7 +6,6 @@ import { useDashboard } from '../hooks/useDashboard';
 import ScheduleModal from '../components/ScheduleModal';
 import { 
   Loader2, 
-  RefreshCw, 
   Calendar,
   Users,
   Activity,
@@ -17,7 +16,7 @@ import {
 } from 'lucide-react';
 
 const CliniView: React.FC = () => {
-  const { metrics, agendaHoje, statusSistema, isLoading, refreshData, lastUpdated } = useDashboard();
+  const { metrics, agendaHoje, statusSistema, isLoading } = useDashboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getStatusColor = (status: string) => {
@@ -58,24 +57,7 @@ const CliniView: React.FC = () => {
     <div className="h-full bg-white overflow-auto">
       {isModalOpen && <ScheduleModal onClose={() => setIsModalOpen(false)} />}
 
-      {/* Header */}
-      <div className="px-6 pt-4 pb-0">
-        <div className="flex items-center justify-end">
-          <div className="flex items-center space-x-4">
-            <span className="text-sm text-slate-500">
-              Atualizado às {lastUpdated.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
-            </span>
-            <button
-              onClick={refreshData}
-              className="flex items-center space-x-2 px-3 py-2 text-sm text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="px-6 pt-2 pb-6">
+      <div className="px-6 pt-6 pb-6">
         {/* Métricas que mudam em tempo real */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {metrics.map((metric, index) => (
