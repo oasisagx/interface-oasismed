@@ -177,10 +177,15 @@ const Conhecimento: React.FC = () => {
                 </div>
                 
                 <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-3 text-sm text-slate-500">
-                    <span>{doc.size}</span>
-                    <span>•</span>
-                    <div className="flex items-center space-x-1">
+                  <div className="flex items-center justify-end text-sm text-slate-500 font-mono w-48">
+                    {/* Coluna Esquerda */}
+                    <span className="w-20 text-right">{doc.size}</span>
+                    
+                    {/* Coluna Central */}
+                    <span className="w-8 text-center">•</span>
+                    
+                    {/* Coluna Direita */}
+                    <div className="flex items-center space-x-1 flex-grow">
                       <Clock className="w-3 h-3" />
                       <span>{doc.date}</span>
                     </div>
