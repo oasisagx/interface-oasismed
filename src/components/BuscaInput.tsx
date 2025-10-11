@@ -38,14 +38,14 @@ const BuscaInput: React.FC<BuscaInputProps> = ({
     <div className="relative w-full max-w-4xl mx-auto">
       <div className="bg-white border border-slate-200 rounded-2xl shadow-sm min-h-[64px] flex items-center pr-2">
         <Search className="h-5 w-5 text-slate-400 ml-5 mr-3 flex-shrink-0" />
-        <input
-          type="text"
+        <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleKeyDown as any} // Cast needed as onKeyDown type differs slightly
           placeholder={placeholder}
           disabled={disabled}
-          className="flex-1 h-[64px] resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-500 text-base focus:outline-none focus:ring-0"
+          rows={1}
+          className="flex-1 h-[64px] py-5 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-500 text-base focus:outline-none focus-visible:ring-0"
         />
         <Button
           size="icon"
