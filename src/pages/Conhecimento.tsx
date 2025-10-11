@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Upload, FileText, Search, MoreVertical, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Switch } from '../components/ui/Switch';
 
 const Conhecimento: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
@@ -35,6 +36,22 @@ const Conhecimento: React.FC = () => {
       uploadStatus: 'complete'
     }
   ]);
+
+  const [integrations, setIntegrations] = useState([
+    { id: 'mv-clinic', name: 'MV Clinic', logo: '/assets/integrations/mv-clinic.svg', enabled: true },
+    { id: 'tasy', name: 'Tasy', logo: '/assets/integrations/tasy.svg', enabled: false },
+    { id: 'app-health', name: 'App Health', logo: '/assets/integrations/app-health.svg', enabled: false },
+    { id: 'google-sheets', name: 'Google Sheets', logo: '/assets/integrations/google-sheets.svg', enabled: true },
+    { id: 'microsoft-excel', name: 'Microsoft Excel', logo: '/assets/integrations/microsoft-excel.svg', enabled: false },
+  ]);
+
+  const handleIntegrationToggle = (id: string, enabled: boolean) => {
+    setIntegrations(prev => 
+      prev.map(integration => 
+        integration.id === id ? { ...integration, enabled } : integration
+      )
+    );
+  };
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -207,6 +224,25 @@ const Conhecimento: React.FC = () => {
               </p>
             </div>
           )}
+        </div>
+
+        {/* Integrations Section */}
+        <div className="mt-10">
+          <h3 className="text-lg font-semibold text-slate-900 mb-4">Integrações</h3>
+          <div className="flex items-center space-x-8">
+            {integrations.map((integration) => (
+              <div key={integration.id} className="flex items-center space-x-3">
+                <img src={integration.logo} alt={integration.name} className="w-8 h-8 object-contain" />
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm font-medium text-slate-800">{integration.name}</span>
+                  <Switch
+                    checked={integration.enabled}
+                    onCheckedChange={(enabled) => handleIntegrationToggle(integration.id, enabled)}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
