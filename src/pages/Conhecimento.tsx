@@ -38,10 +38,10 @@ const Conhecimento: React.FC = () => {
   ]);
 
   const [integrations, setIntegrations] = useState([
-    { id: 'mv-clinic', name: 'MV Clinic', logo: '/assets/integrations/mv-clinic.svg', enabled: true },
+    { id: 'mv-clinic', name: 'MV Clinic', logo: '/assets/integrations/mv-clinic.svg', enabled: false },
     { id: 'tasy', name: 'Tasy', logo: '/assets/integrations/tasy.svg', enabled: false },
     { id: 'app-health', name: 'App Health', logo: '/assets/integrations/app-health.svg', enabled: false },
-    { id: 'google-sheets', name: 'Google Sheets', logo: '/assets/integrations/google-sheets.svg', enabled: true },
+    { id: 'google-sheets', name: 'Google Sheets', logo: '/assets/integrations/google-sheets.svg', enabled: false },
     { id: 'microsoft-excel', name: 'Microsoft Excel', logo: '/assets/integrations/microsoft-excel.svg', enabled: false },
   ]);
 
@@ -207,7 +207,10 @@ const Conhecimento: React.FC = () => {
                       <span>{doc.date}</span>
                     </div>
                   </div>
-                  <button className="p-2 hover:bg-slate-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button 
+                    className="p-2 hover:bg-slate-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                    aria-label="Mais opções do documento"
+                  >
                     <MoreVertical className="w-4 h-4 text-slate-500" />
                   </button>
                 </div>
@@ -228,20 +231,95 @@ const Conhecimento: React.FC = () => {
 
         {/* Integrations Section */}
         <div className="mt-10">
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">Integrações</h3>
-          <div className="flex items-center space-x-8">
-            {integrations.map((integration) => (
-              <div key={integration.id} className="flex items-center space-x-3">
-                <img src={integration.logo} alt={integration.name} className="w-8 h-8 object-contain" />
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm font-medium text-slate-800">{integration.name}</span>
+          <h3 className="text-lg font-semibold text-slate-900 mb-6">Integrações</h3>
+          <div className="space-y-8">
+            {/* Primeira linha: MV Clinic e Google Sheets */}
+            <div className="flex items-center space-x-36">
+              {/* MV Clinic */}
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="/assets/integrations/mv-clinic.svg" 
+                  alt="MV Clinic" 
+                  className="object-contain w-16 h-16 ml-4" 
+                />
+                <div className="flex items-center space-x-6">
                   <Switch
-                    checked={integration.enabled}
-                    onCheckedChange={(enabled) => handleIntegrationToggle(integration.id, enabled)}
+                    checked={integrations.find(i => i.id === 'mv-clinic')?.enabled}
+                    onCheckedChange={(enabled) => handleIntegrationToggle('mv-clinic', enabled)}
+                    className="ml-29"
                   />
                 </div>
               </div>
-            ))}
+              
+              {/* Google Sheets */}
+              <div className="flex items-center space-x-1">
+                <img 
+                  src="/assets/integrations/google-sheets.svg" 
+                  alt="Google Sheets" 
+                  className="object-contain w-20 h-20" 
+                />
+                <div className="flex items-center space-x-6">
+                  <span className="text-sm font-medium text-slate-800">Google Sheets</span>
+                  <Switch
+                    checked={integrations.find(i => i.id === 'google-sheets')?.enabled}
+                    onCheckedChange={(enabled) => handleIntegrationToggle('google-sheets', enabled)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Segunda linha: Tasy e Microsoft Excel */}
+            <div className="flex items-center space-x-36">
+              {/* Tasy */}
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="/assets/integrations/tasy.svg" 
+                  alt="Tasy" 
+                  className="object-contain w-16 h-16 ml-3" 
+                />
+                <div className="flex items-center space-x-6">
+                  <Switch
+                    checked={integrations.find(i => i.id === 'tasy')?.enabled}
+                    onCheckedChange={(enabled) => handleIntegrationToggle('tasy', enabled)}
+                    className="ml-31"
+                  />
+                </div>
+              </div>
+              
+              {/* Microsoft Excel */}
+              <div className="flex items-center space-x-4">
+                <img 
+                  src="/assets/integrations/microsoft-excel.svg" 
+                  alt="Microsoft Excel" 
+                  className="object-contain w-16 h-16 ml-1" 
+                />
+                <div className="flex items-center space-x-5">
+                  <span className="text-sm font-medium text-slate-800">Microsoft Excel</span>
+                  <Switch
+                    checked={integrations.find(i => i.id === 'microsoft-excel')?.enabled}
+                    onCheckedChange={(enabled) => handleIntegrationToggle('microsoft-excel', enabled)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Terceira linha: App Health centralizado */}
+            <div className="flex justify-start">
+              <div className="flex items-center space-x-3">
+                <img 
+                  src="/assets/integrations/app-health.svg" 
+                  alt="App Health" 
+                  className="object-contain w-32 h-32" 
+                />
+                <div className="flex items-center space-x-26">
+                  <Switch
+                    checked={integrations.find(i => i.id === 'app-health')?.enabled}
+                    onCheckedChange={(enabled) => handleIntegrationToggle('app-health', enabled)}
+                    className="ml-18"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -254,6 +332,7 @@ const Conhecimento: React.FC = () => {
         accept=".pdf,.doc,.docx,.xls,.xlsx,.txt"
         onChange={handleFileInput}
         className="hidden"
+        aria-label="Selecionar arquivos para upload"
       />
     </div>
   );
