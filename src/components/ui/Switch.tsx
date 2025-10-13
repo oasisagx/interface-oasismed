@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { cn } from '../../lib/utils';
-
-interface SwitchProps extends React.HTMLAttributes<HTMLButtonElement> {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  onCheckedChange?: (checked: boolean) => void;
-}
+import type { SwitchProps } from './types';
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
   ({ className, checked, defaultChecked = false, onCheckedChange, ...props }, ref) => {
@@ -22,20 +17,26 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
       onCheckedChange?.(newChecked);
     };
 
+    // Garantir que aria-checked seja uma das opções válidas
+    const ariaChecked: "true" | "false" = currentChecked ? "true" : "false";
+
+    // Construir as props do button de forma mais explícita
+    const buttonProps = {
+      ...props,
+      ref,
+      type: "button" as const,
+      role: "switch" as const,
+      "aria-checked": ariaChecked,
+      onClick: handleToggle,
+      className: cn(
+        'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
+        currentChecked ? 'bg-[#00a63e]' : 'bg-slate-300',
+        className
+      ),
+    };
+
     return (
-      <button
-        ref={ref}
-        type="button"
-        role="switch"
-        aria-checked={currentChecked}
-        onClick={handleToggle}
-        className={cn(
-          'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
-          currentChecked ? 'bg-[#00a63e]' : 'bg-slate-300',
-          className
-        )}
-        {...props}
-      >
+      <button {...buttonProps}>
         <span
           aria-hidden="true"
           className={cn(

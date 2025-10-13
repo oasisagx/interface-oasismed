@@ -1,9 +1,10 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartLegend } from './ui/chart';
+import { DonutData } from '../types';
 
 interface DonutChartProps {
-  data?: any[];
+  data?: DonutData[];
   className?: string;
 }
 
@@ -24,7 +25,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data, className = '' }) => {
       <ChartContainer>
         <PieChart>
           <Pie
-            data={chartData}
+            data={chartData.map(item => ({ ...item }))}
             cx="50%"
             cy="50%"
             innerRadius={60}
@@ -34,7 +35,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data, className = '' }) => {
             animationBegin={0}
             animationDuration={800}
           >
-            {chartData.map((entry, index) => (
+            {chartData.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>

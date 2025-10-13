@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
-import { ConsultasChart } from '../components/charts/ConsultasChart';
-import { EspecialidadeChart } from '../components/charts/EspecialidadeChart';
-import { QualidadeChart } from '../components/charts/QualidadeChart';
+import React, { useState, Suspense } from 'react';
 import { useDashboard } from '../hooks/useDashboard';
 import ScheduleModal from '../components/ScheduleModal';
+import ChartFallback from '../components/ChartFallback';
 import { 
   Loader2, 
   Calendar,
   Users,
   Activity,
   TrendingUp,
-  Clock,
-  Heart,
-  Wifi
+  Heart
 } from 'lucide-react';
+
+// Lazy load charts para melhor performance
+const ConsultasChart = React.lazy(() => import('../components/charts/ConsultasChart').then(module => ({ default: module.ConsultasChart })));
+const EspecialidadeChart = React.lazy(() => import('../components/charts/EspecialidadeChart').then(module => ({ default: module.EspecialidadeChart })));
+const QualidadeChart = React.lazy(() => import('../components/charts/QualidadeChart').then(module => ({ default: module.QualidadeChart })));
 
 const CliniView: React.FC = () => {
   const { metrics, agendaHoje, statusSistema, isLoading } = useDashboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = () => {
     return 'bg-slate-100 text-slate-600';
   };
 
@@ -65,7 +66,7 @@ const CliniView: React.FC = () => {
               <div className="flex items-center justify-between mb-2">
                 {getIconForMetric(metric.icon)}
                 {metric.change && (
-                  <span className="text-xs text-green-600 font-medium">{metric.change}</span>
+                  <span className="text-xl text-green-600 font-bold">{metric.change}</span>
                 )}
               </div>
               <div>
@@ -82,11 +83,17 @@ const CliniView: React.FC = () => {
           
           {/* Gráficos principais */}
           <div className="xl:col-span-2 space-y-6">
-            <ConsultasChart />
+            <Suspense fallback={<ChartFallback />}>
+              <ConsultasChart />
+            </Suspense>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <EspecialidadeChart />
-              <QualidadeChart />
+              <Suspense fallback={<ChartFallback height="h-48" />}>
+                <EspecialidadeChart />
+              </Suspense>
+              <Suspense fallback={<ChartFallback height="h-48" />}>
+                <QualidadeChart />
+              </Suspense>
             </div>
           </div>
 
@@ -98,9 +105,6 @@ const CliniView: React.FC = () => {
               <div className="flex items-center space-x-2 mb-4">
                 <Calendar className="w-5 h-5 text-slate-600" />
                 <h3 className="font-semibold text-slate-900">Agenda de Hoje</h3>
-                <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
-                  {agendaHoje.length} consultas
-                </span>
               </div>
               
               <div className="space-y-3">
@@ -108,7 +112,7 @@ const CliniView: React.FC = () => {
                   <div key={appointment.id} className="bg-white rounded-lg p-3 border border-slate-200 hover:border-slate-300 transition-colors">
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-medium text-slate-900">{appointment.time}</span>
-                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${getStatusColor(appointment.status)}`}>
+                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${getStatusColor()}`}>
                         {getStatusText(appointment.status)}
                       </span>
                     </div>

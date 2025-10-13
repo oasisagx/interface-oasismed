@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import {
   Card,
@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from '../ui/card';
 import {
-  ChartConfig,
   ChartContainer,
 } from '../ui/chart';
 import {
@@ -15,42 +14,41 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from '../ui/select';
 
 // Requirement: Data must be for October 2025, with values adjusted to fit the 0-40 scale.
 const originalData = [
-  { date: "2025-10-01", contatos: 23, agendamentos: 7 },
-  { date: "2025-10-02", contatos: 26, agendamentos: 8 },
-  { date: "2025-10-03", contatos: 24, agendamentos: 8 },
-  { date: "2025-10-04", contatos: 31, agendamentos: 10 },
-  { date: "2025-10-05", contatos: 28, agendamentos: 9 },
-  { date: "2025-10-06", contatos: 34, agendamentos: 12 },
-  { date: "2025-10-07", contatos: 22, agendamentos: 8 },
-  { date: "2025-10-08", contatos: 29, agendamentos: 11 },
-  { date: "2025-10-09", contatos: 31, agendamentos: 13 },
-  { date: "2025-10-10", contatos: 25, agendamentos: 11 },
-  { date: "2025-10-11", contatos: 36, agendamentos: 15 },
-  { date: "2025-10-12", contatos: 32, agendamentos: 14 },
-  { date: "2025-10-13", contatos: 30, agendamentos: 14 },
-  { date: "2025-10-14", contatos: 27, agendamentos: 13 },
-  { date: "2025-10-15", contatos: 34, agendamentos: 17 },
-  { date: "2025-10-16", contatos: 36, agendamentos: 18 },
-  { date: "2025-10-17", contatos: 28, agendamentos: 15 },
-  { date: "2025-10-18", contatos: 32, agendamentos: 17 },
-  { date: "2025-10-19", contatos: 35, agendamentos: 19 },
-  { date: "2025-10-20", contatos: 29, agendamentos: 16 },
-  { date: "2025-10-21", contatos: 33, agendamentos: 18 },
-  { date: "2025-10-22", contatos: 37, agendamentos: 21 },
-  { date: "2025-10-23", contatos: 31, agendamentos: 18 },
-  { date: "2025-10-24", contatos: 34, agendamentos: 20 },
-  { date: "2025-10-25", contatos: 35, agendamentos: 21 },
-  { date: "2025-10-26", contatos: 30, agendamentos: 18 },
-  { date: "2025-10-27", contatos: 33, agendamentos: 21 },
-  { date: "2025-10-28", contatos: 37, agendamentos: 23 },
-  { date: "2025-10-29", contatos: 34, agendamentos: 22 },
-  { date: "2025-10-30", contatos: 38, agendamentos: 23 },
-  { date: "2025-10-31", contatos: 35, agendamentos: 21 },
+  { date: "2025-12-01", contatos: 23, agendamentos: 7 },
+  { date: "2025-12-02", contatos: 26, agendamentos: 8 },
+  { date: "2025-12-03", contatos: 24, agendamentos: 8 },
+  { date: "2025-12-04", contatos: 31, agendamentos: 10 },
+  { date: "2025-12-05", contatos: 28, agendamentos: 9 },
+  { date: "2025-12-06", contatos: 34, agendamentos: 12 },
+  { date: "2025-12-07", contatos: 22, agendamentos: 8 },
+  { date: "2025-12-08", contatos: 29, agendamentos: 11 },
+  { date: "2025-12-09", contatos: 31, agendamentos: 13 },
+  { date: "2025-12-10", contatos: 25, agendamentos: 11 },
+  { date: "2025-12-11", contatos: 36, agendamentos: 15 },
+  { date: "2025-12-12", contatos: 32, agendamentos: 14 },
+  { date: "2025-12-13", contatos: 30, agendamentos: 14 },
+  { date: "2025-12-14", contatos: 27, agendamentos: 13 },
+  { date: "2025-12-15", contatos: 34, agendamentos: 17 },
+  { date: "2025-12-16", contatos: 36, agendamentos: 18 },
+  { date: "2025-12-17", contatos: 28, agendamentos: 15 },
+  { date: "2025-12-18", contatos: 32, agendamentos: 17 },
+  { date: "2025-12-19", contatos: 35, agendamentos: 19 },
+  { date: "2025-12-20", contatos: 29, agendamentos: 16 },
+  { date: "2025-12-21", contatos: 33, agendamentos: 18 },
+  { date: "2025-12-22", contatos: 37, agendamentos: 21 },
+  { date: "2025-12-23", contatos: 31, agendamentos: 18 },
+  { date: "2025-12-24", contatos: 34, agendamentos: 20 },
+  { date: "2025-12-25", contatos: 35, agendamentos: 21 },
+  { date: "2025-12-26", contatos: 30, agendamentos: 18 },
+  { date: "2025-12-27", contatos: 33, agendamentos: 21 },
+  { date: "2025-12-28", contatos: 37, agendamentos: 23 },
+  { date: "2025-12-29", contatos: 34, agendamentos: 22 },
+  { date: "2025-12-30", contatos: 38, agendamentos: 23 },
+  { date: "2025-12-31", contatos: 35, agendamentos: 21 },
 ];
 
 const chartData = originalData.map(item => ({
@@ -58,13 +56,7 @@ const chartData = originalData.map(item => ({
   consultas: Math.round(item.agendamentos * 0.8),
 }));
 
-const chartConfig = {
-  contatos: { label: "Contatos", color: "rgb(91, 154, 225)" },
-  agendamentos: { label: "Agendamentos", color: "rgb(16, 185, 129)" },
-  consultas: { label: "Consultas", color: "rgb(236, 72, 153)" },
-} satisfies ChartConfig;
-
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip = ({ active, payload, label }: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
   if (active && payload && payload.length) {
     const date = new Date(label);
     const formattedLabel = new Intl.DateTimeFormat('pt-BR', {
@@ -72,16 +64,27 @@ const CustomTooltip = ({ active, payload, label }: any) => {
       month: 'long',
       timeZone: 'UTC',
     }).format(date);
+    // Definir cores fixas para cada item
+    const legendItems = [
+      { name: 'Contatos', color: 'bg-[rgb(91,154,225)]' },
+      { name: 'Agendamentos', color: 'bg-[rgb(16,185,129)]' },
+      { name: 'Consultas', color: 'bg-[rgb(236,72,153)]' },
+    ];
+    // Mapear valores do payload
+    const values: Record<string, number> = {};
+    payload.forEach((pld: any) => { values[String(pld.name)] = pld.value; });
     return (
       <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-lg">
         <p className="label text-base font-bold text-slate-800 mb-2">{formattedLabel}</p>
-        {payload.map((pld: any, index: number) => (
-          <div key={index} className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: pld.color }} />
-            <p className="text-sm text-slate-600">{`${pld.name}:`}</p>
-            <p className="text-sm font-semibold text-slate-900">{pld.value}</p>
-          </div>
-        ))}
+        <div className="flex flex-col gap-1">
+          {legendItems.map((item) => (
+            <div key={item.name} className="flex items-center gap-2">
+              <span className={`inline-block rounded-full w-3 h-3 ${item.color}`} />
+              <span className="text-sm font-semibold text-slate-800">{item.name}:</span>
+              <span className="text-base font-bold text-slate-900">{values[item.name] ?? 0}</span>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -90,9 +93,13 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export function ConsultasChart() {
   const [timeRange, setTimeRange] = useState("30d");
+  // Label para o SelectValue
+  const timeRangeLabel = timeRange === '7d' ? '7 dias' : timeRange === '30d' ? '30 dias' : timeRange === '90d' ? '90 dias' : '';
 
   const filteredData = useMemo(() => {
-    const endDate = new Date("2025-10-31T00:00:00Z");
+    // Use the last date available in the data as the end date
+    const lastDateStr = chartData[chartData.length - 1]?.date;
+    const endDate = new Date(lastDateStr + "T00:00:00Z");
     let daysToSubtract = 30;
     if (timeRange === "7d") {
       daysToSubtract = 6; // 7 days total including end date
@@ -102,10 +109,10 @@ export function ConsultasChart() {
       // Default to 30d, showing the whole month
       return chartData;
     }
-    
+
     const startDate = new Date(endDate);
     startDate.setDate(endDate.getDate() - daysToSubtract);
-    
+
     return chartData.filter((item) => {
       const itemDate = new Date(item.date + "T00:00:00Z");
       return itemDate >= startDate && itemDate <= endDate;
@@ -130,7 +137,7 @@ export function ConsultasChart() {
         {/* Requirement: Selector must be enabled */}
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger className="w-[160px] rounded-lg border-slate-200" aria-label="Selecionar período">
-            <SelectValue />
+            <span className="pl-2 text-sm font-medium">{timeRangeLabel}</span>
           </SelectTrigger>
           <SelectContent className="rounded-xl">
             <SelectItem value="7d" className="rounded-lg">Últimos 7 dias</SelectItem>
@@ -140,7 +147,7 @@ export function ConsultasChart() {
         </Select>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        <ChartContainer config={chartConfig} className="aspect-auto h-[300px] w-full">
+        <ChartContainer className="aspect-auto h-[300px] w-full">
           <AreaChart data={filteredData}>
             <defs>
               <linearGradient id="fillContatos" x1="0" y1="0" x2="0" y2="1">
@@ -168,8 +175,10 @@ export function ConsultasChart() {
               tickFormatter={(value) => {
                 const date = new Date(value);
                 const day = new Intl.DateTimeFormat('pt-BR', { day: 'numeric', timeZone: 'UTC' }).format(date);
-                const month = new Intl.DateTimeFormat('pt-BR', { month: 'short', timeZone: 'UTC' }).format(date).replace('.', '');
-                return `${day} ${month.charAt(0).toUpperCase() + month.slice(1)}`;
+                let month = new Intl.DateTimeFormat('pt-BR', { month: 'short', timeZone: 'UTC' }).format(date).replace('.', '');
+                if (month.toLowerCase() === 'out') month = 'Dez';
+                else month = month.charAt(0).toUpperCase() + month.slice(1);
+                return `${day} ${month}`;
               }}
             />
             <YAxis
@@ -188,15 +197,15 @@ export function ConsultasChart() {
         </ChartContainer>
         <div className="flex justify-center items-center space-x-6 pt-4">
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'rgb(91, 154, 225)' }} />
+            <div className="w-3 h-3 rounded-full bg-[rgb(91,154,225)]" />
             <span className="text-sm text-muted-foreground font-medium">Contatos</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'rgb(16, 185, 129)' }} />
+            <div className="w-3 h-3 rounded-full bg-[rgb(16,185,129)]" />
             <span className="text-sm text-muted-foreground font-medium">Agendamentos</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'rgb(236, 72, 153)' }} />
+            <div className="w-3 h-3 rounded-full bg-[rgb(236,72,153)]" />
             <span className="text-sm text-muted-foreground font-medium">Consultas</span>
           </div>
         </div>

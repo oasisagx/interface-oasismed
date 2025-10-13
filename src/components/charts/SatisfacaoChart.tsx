@@ -1,4 +1,3 @@
-import React from 'react';
 import { TrendingUp } from 'lucide-react';
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import {
@@ -46,7 +45,7 @@ export function SatisfacaoChart() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="aspect-auto h-[240px] w-full">
+        <ChartContainer className="aspect-auto h-[240px] w-full">
           <LineChart data={chartData} margin={{ left: 12, right: 12 }}>
             <CartesianGrid 
               vertical={false} 
@@ -70,9 +69,10 @@ export function SatisfacaoChart() {
             <ChartTooltip
               cursor={false}
               content={
-                <ChartTooltipContent 
+                <ChartTooltipContent
                   indicator="dot"
                   labelFormatter={(value) => `${value}/2024`}
+                  config={chartConfig}
                 />
               }
             />

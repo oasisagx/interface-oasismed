@@ -55,7 +55,7 @@ const NotificationToast: React.FC<NotificationToastProps> = ({ message, timestam
           <p className="text-sm text-slate-600 mt-1">{message}</p>
           <p className="text-xs text-slate-500 mt-1">{timestamp}</p>
         </div>
-        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-full ml-4 flex-shrink-0">
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-full ml-4 flex-shrink-0" aria-label="Fechar notificação">
           <X className="w-4 h-4 text-slate-500" />
         </button>
       </div>

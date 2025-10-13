@@ -1,19 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from 'react';
 import { ResponsiveContainer } from 'recharts';
+import './chart.css';
+
+const getColorClass = (color: string) => {
+  if (color === 'rgb(91, 154, 225)') return 'chart-color-oasis-blue';
+  if (color === 'rgb(16, 185, 129)') return 'chart-color-green';
+  return '';
+};
+
+const getBgClass = (color: string) => {
+  if (color === 'rgb(91, 154, 225)') return 'chart-bg-oasis-blue';
+  if (color === 'rgb(16, 185, 129)') return 'chart-bg-green';
+  return '';
+};
 
 interface ChartContainerProps {
-  children: React.ReactNode;
+  children: React.ReactElement;
   className?: string;
-  config?: any;
 }
 
 export const ChartContainer: React.FC<ChartContainerProps> = ({ 
   children, 
-  className = '',
-  config 
+  className = ''
 }) => {
   return (
-    <div className={`w-full ${className}`} style={config?.style}>
+    <div className={`w-full ${className}`}>
       <ResponsiveContainer width="100%" height="100%">
         {children}
       </ResponsiveContainer>
@@ -46,7 +59,7 @@ export const ChartTooltip: React.FC<ChartTooltipProps> = ({
       <p className="text-sm font-medium text-card-foreground">{label}</p>
       {payload.map((entry, index) => (
         <p key={index} className="text-sm text-muted-foreground">
-          <span className="font-medium" style={{ color: entry.color }}>
+          <span className={`font-medium ${getColorClass(entry.color)}`}>
             {entry.name}:
           </span>{' '}
           {entry.value}
@@ -88,15 +101,14 @@ export const ChartTooltipContent: React.FC<ChartTooltipContentProps> = ({
         <div key={index} className="flex items-center text-sm text-muted-foreground">
           {indicator === 'dot' && (
             <div 
-              className="w-2 h-2 rounded-full mr-2"
-              style={{ backgroundColor: entry.color }}
+              className={`w-2 h-2 rounded-full mr-2 ${getBgClass(entry.color)}`}
             />
           )}
           {formatter ? (
             formatter(entry.value, entry.name, entry)
           ) : (
             <>
-              <span className="font-medium" style={{ color: entry.color }}>
+              <span className={`font-medium ${getColorClass(entry.color)}`}>
                 {config?.[entry.dataKey]?.label || entry.name}:
               </span>
               <span className="ml-1 font-semibold text-foreground">{entry.value}</span>
@@ -125,8 +137,7 @@ export const ChartLegend: React.FC<ChartLegendProps> = ({ payload, content }) =>
       {payload.map((entry, index) => (
         <div key={index} className="flex items-center">
           <div
-            className="w-3 h-3 rounded-full mr-2"
-            style={{ backgroundColor: entry.color }}
+            className={`w-3 h-3 rounded-full mr-2 ${getBgClass(entry.color)}`}
           />
           <span className="text-sm text-muted-foreground font-medium">{entry.value}</span>
         </div>
@@ -147,8 +158,7 @@ export const ChartLegendContent: React.FC<ChartLegendContentProps> = ({ payload 
       {payload.map((entry, index) => (
         <div key={index} className="flex items-center space-x-2">
           <div
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: entry.color }}
+            className={`w-3 h-3 rounded-full ${getBgClass(entry.color)}`}
           />
           <span className="text-sm text-muted-foreground font-medium">{entry.value}</span>
         </div>

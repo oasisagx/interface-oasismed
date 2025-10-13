@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { MessageCircle, BarChart3, Bot, Search, Database, ChevronLeft } from 'lucide-react';
+import { MessageCircle, BarChart3, Bot, Search, ChevronLeft, Brain } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -9,7 +9,7 @@ const Sidebar: React.FC = () => {
     { to: '/', label: 'MedChat', icon: MessageCircle },
     { to: '/cliniview', label: 'Cliniview', icon: BarChart3 },
     { to: '/assistentes', label: 'Assistentes', icon: Bot },
-    { to: '/conhecimento', label: 'Conhecimento', icon: Database },
+    { to: '/conhecimento', label: 'Conhecimento', icon: Brain },
     { to: '/search', label: 'Busca', icon: Search },
   ];
 
@@ -50,6 +50,7 @@ const Sidebar: React.FC = () => {
                 </NavLink>
               <button
                 onClick={() => setIsCollapsed(!isCollapsed)}
+                title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
                 className="absolute top-1/2 mt-[1px] -translate-y-1/2 right-[-15px] translate-x-1/2 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-all z-10 group"
               >
                   <ChevronLeft className={`w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-all duration-300 ${isCollapsed ? 'rotate-180' : ''}`} />

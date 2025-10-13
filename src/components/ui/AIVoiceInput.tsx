@@ -85,15 +85,18 @@ export function AIVoiceInput({
       <div className="relative max-w-xl w-full mx-auto flex items-center flex-col gap-2">
         <button
           className={cn(
-            "group w-16 h-16 rounded-full flex items-center justify-center transition-colors border-2",
+            "w-16 h-16 rounded-full flex items-center justify-center transition-colors border-2",
             submitted
-              ? "bg-oasis-blue border-oasis-blue animate-pulse"
-              : "border-oasis-blue hover:bg-oasis-blue-50"
+              ? "bg-oasis-blue border-oasis-blue animate-pulse cursor-default"
+              : "border-oasis-blue cursor-pointer"
           )}
           type="button"
           onClick={handleClick}
+          title={submitted ? "Stop recording" : "Start recording"}
         >
-          <Mic className={cn("w-6 h-6", submitted ? "text-white" : "text-oasis-blue")} />
+          <Mic
+            className={submitted ? "w-6 h-6 text-white" : "w-6 h-6 text-oasis-blue"}
+          />
         </button>
 
         <span
@@ -108,25 +111,29 @@ export function AIVoiceInput({
         </span>
 
         <div className="h-4 w-64 flex items-center justify-center gap-0.5">
-          {[...Array(visualizerBars)].map((_, i) => (
-            <div
-              key={i}
-              className={cn(
-                "w-0.5 rounded-full transition-all duration-300",
-                submitted
-                  ? "bg-primary/50 animate-pulse"
-                  : "bg-secondary h-1"
-              )}
-              style={
-                submitted && isClient
-                  ? {
-                      height: `${20 + Math.random() * 80}%`,
-                      animationDelay: `${i * 0.05}s`,
-                    }
-                  : undefined
-              }
-            />
-          ))}
+          {[...Array(visualizerBars)].map((_, i) => {
+            const height = submitted && isClient ? 20 + Math.random() * 80 : 25;
+            const delay = i * 0.05;
+            return (
+              <div
+                key={i}
+                className={cn(
+                  "w-0.5 rounded-full transition-all duration-300",
+                  submitted
+                    ? "bg-primary/50 animate-pulse"
+                    : "bg-secondary h-1"
+                )}
+                {...(submitted && isClient && {
+                  style: {
+                    '--bar-height': `${height}%`,
+                    '--animation-delay': `${delay}s`,
+                    height: `var(--bar-height)`,
+                    animationDelay: `var(--animation-delay)`
+                  } as React.CSSProperties
+                })}
+              />
+            );
+          })}
         </div>
         
         <div className="h-4"></div>

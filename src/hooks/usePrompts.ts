@@ -226,7 +226,7 @@ export const usePrompts = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>('1'); // Inicia com categoria selecionada
   const [selectedTemplate, setSelectedTemplate] = useState<PromptTemplate | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   useEffect(() => {
     // Simula carregamento rápido

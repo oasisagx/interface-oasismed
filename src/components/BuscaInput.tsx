@@ -22,7 +22,7 @@ const BuscaInput: React.FC<BuscaInputProps> = ({
   }, [query, disabled, onSearch]);
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === "Enter" && !e.nativeEvent.isComposing) {
         e.preventDefault();
         handleSearch();
@@ -41,19 +41,19 @@ const BuscaInput: React.FC<BuscaInputProps> = ({
         <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown as any} // Cast needed as onKeyDown type differs slightly
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled}
           rows={1}
-          className="flex-1 h-[64px] py-5 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-500 text-base focus:outline-none focus-visible:ring-0"
+          className="flex-1 h-[64px] py-5 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-450 text-base focus:outline-none focus-visible:ring-0"
         />
         <Button
           size="icon"
           className={cn(
-            "h-12 w-12 p-0 rounded-lg transition-colors ml-2 flex-shrink-0",
+            "h-12 w-12 p-0 rounded-lg transition-colors ml-2 flex-shrink-0 border",
             canSearch
-              ? "bg-slate-900 hover:bg-slate-800 text-white"
-              : "bg-slate-100 text-slate-400 cursor-not-allowed"
+              ? "bg-oasis-blue hover:bg-oasis-blue-600 text-white border-transparent"
+              : "bg-oasis-blue/20 text-oasis-blue cursor-not-allowed border-oasis-blue/30"
           )}
           onClick={handleSearch}
           disabled={!canSearch}

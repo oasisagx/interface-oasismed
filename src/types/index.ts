@@ -26,6 +26,12 @@ export interface ChartDataPoint {
   procedimentos: number;
 }
 
+export interface SalesDataPoint {
+  day: number;
+  consultas: number;
+  procedimentos: number;
+}
+
 export interface DonutData {
   name: string;
   value: number;
@@ -50,4 +56,28 @@ export interface PromptCategory {
   description: string;
   icon: string;
   templates: PromptTemplate[];
+}
+
+// Agenda Types
+export interface AgendaItem {
+  id: number;
+  time: string;
+  patient: string;
+  type: string;
+  specialty: string;
+  status: string;
+  start?: Date;
+  end?: Date;
+}
+
+// Document Types
+export interface DocumentData {
+  id: number;
+  name: string;
+  size: string;
+  type: string;
+  date: string;
+  category: string;
+  status: string;
+  uploadStatus: string;
 }

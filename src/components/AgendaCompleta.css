@@ -86,3 +86,9 @@
 .rbc-off-range-bg {
   background: rgb(var(--secondary)); /* #f8fafc */
 }
+
+/* Correção para erro de sintaxe no CSS do react-big-calendar */
+.rbc-time-view-resources .rbc-header,
+.rbc-time-view-resources .rbc-day-bg {
+  flex-basis: 0px !important;
+}

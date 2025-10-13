@@ -1,7 +1,6 @@
 import React from 'react';
 import ClaudeChatInput from '../components/ui/claude-style-ai-input';
 import { useChat } from '../hooks/useChat';
-import { FileWithPreview, PastedContent } from '../components/ui/claude-style-ai-input';
 import { User, Bot, RefreshCw, Archive } from 'lucide-react';
 
 const MedChat: React.FC = () => {
@@ -23,11 +22,7 @@ const MedChat: React.FC = () => {
     "Principais queixas dos pacientes da semana"
   ];
 
-  const handleSendMessage = (
-    message: string,
-    files: FileWithPreview[],
-    pastedContent: PastedContent[]
-  ) => {
+  const handleSendMessage = (message: string) => {
     if (message.trim()) {
       sendMessage(message);
     }
@@ -61,7 +56,10 @@ const MedChat: React.FC = () => {
                 <RefreshCw className="w-3 h-3" />
                 <span>Nova conversa</span>
               </button>
-              <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition-colors">
+              <button 
+                className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition-colors"
+                title="Arquivar conversa"
+              >
                 <Archive className="w-4 h-4" />
               </button>
             </div>
@@ -114,13 +112,13 @@ const MedChat: React.FC = () => {
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
                   <Bot className="w-4 h-4 text-slate-600" />
-                </div>
                 <div className="bg-slate-100 rounded-2xl px-4 py-3">
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce [animation-delay:0.1s]"></div>
+                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></div>
                   </div>
+                </div>
                 </div>
               </div>
             )}
@@ -142,7 +140,7 @@ const MedChat: React.FC = () => {
             {suggestions.map((suggestion, index) => (
               <button
                 key={index}
-                onClick={() => handleSendMessage(suggestion, [], [])}
+                onClick={() => handleSendMessage(suggestion)}
                 className="p-5 text-left text-sm text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200 hover:border-slate-300 transition-all duration-200 hover:shadow-sm group"
               >
                 <span className="group-hover:text-slate-900 transition-colors font-medium">

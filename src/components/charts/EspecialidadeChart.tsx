@@ -1,16 +1,11 @@
-import React from 'react';
-import { TrendingUp } from 'lucide-react';
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, LabelList, XAxis, YAxis } from 'recharts';
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '../ui/card';
 import {
-  ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -22,17 +17,6 @@ const chartData = [
   { especialidade: "Pediatria", consultas: 98, receita: 24700 },
 ];
 
-const chartConfig = {
-  consultas: {
-    label: "Consultas",
-    color: "rgb(91, 154, 225)", // oasis-blue
-  },
-  receita: {
-    label: "Receita",
-    color: "rgb(16, 185, 129)", // green-500
-  },
-} satisfies ChartConfig;
-
 export function EspecialidadeChart() {
   return (
     <Card className="hover-lift border-slate-100">
@@ -40,7 +24,7 @@ export function EspecialidadeChart() {
         <CardTitle className="text-lg">Consultas Concluídas no Mês Atual</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="aspect-auto h-[180px] w-full">
+        <ChartContainer className="aspect-auto h-[180px] w-full">
           <BarChart
             accessibilityLayer
             data={chartData}
@@ -83,15 +67,15 @@ export function EspecialidadeChart() {
                 position="insideLeft"
                 offset={8}
                 className="fill-white"
-                fontSize={12}
-                fontWeight="500"
+                fontSize={15}
+                fontWeight="700"
               />
               <LabelList
                 dataKey="consultas"
                 position="right"
                 offset={8}
                 className="fill-foreground"
-                fontSize={12}
+                fontSize={14}
                 fontWeight="600"
               />
             </Bar>

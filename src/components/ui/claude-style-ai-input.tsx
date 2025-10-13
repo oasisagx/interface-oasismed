@@ -11,11 +11,9 @@ import {
   Video,
   Music,
   Archive,
-  Loader2,
-  AlertCircle,
-  Copy,
-  Mic,
+  // Mic,
 } from "lucide-react";
+import PulsingMic from './PulsingMic';
 import { Button } from "./button";
 import { cn } from "../../lib/utils";
 
@@ -65,41 +63,6 @@ const getFileIcon = (type: string) => {
   if (type.includes("zip") || type.includes("rar") || type.includes("tar"))
     return <Archive className="h-4 w-4 text-slate-400" />;
   return <FileText className="h-4 w-4 text-slate-400" />;
-};
-
-const formatFileSize = (bytes: number): string => {
-  if (bytes === 0) return "0 Bytes";
-  const k = 1024;
-  const sizes = ["Bytes", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return (
-    Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
-  );
-};
-
-// Helper function to check if a file is textual
-const isTextualFile = (file: File): boolean => {
-  const textualTypes = [
-    "text/",
-    "application/json",
-    "application/xml",
-    "application/javascript",
-    "application/typescript",
-  ];
-
-  const textualExtensions = [
-    "txt", "md", "py", "js", "ts", "jsx", "tsx", "html", "htm", "css", 
-    "json", "xml", "yaml", "yml", "csv", "sql", "java", "c", "cpp"
-  ];
-
-  const isTextualMimeType = textualTypes.some((type) =>
-    file.type.toLowerCase().startsWith(type)
-  );
-
-  const extension = file.name.split(".").pop()?.toLowerCase() || "";
-  const isTextualExtension = textualExtensions.includes(extension);
-
-  return isTextualMimeType || isTextualExtension;
 };
 
 // File Preview Component
@@ -220,153 +183,125 @@ const ClaudeChatInput: React.FC<ChatInputProps> = ({
     setIsDragging(false);
   }, []);
   
-  const handleDrop = useCallback(
-    (e: React.DragEvent) => {
+    // Helper: canSend
+    const canSend = message.trim().length > 0 || files.length > 0;
+
+    // Handlers
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey && canSend) {
+        e.preventDefault();
+        handleSend();
+      }
+    };
+
+    const handleSend = () => {
+      if (!canSend || disabled) return;
+      if (onSendMessage) {
+        onSendMessage(message, files, []);
+      }
+      setMessage("");
+      setFiles([]);
+    };
+
+    const handleVoiceToggle = () => {
+      setIsRecording((prev) => !prev);
+    };
+
+    const handleDrop = useCallback((e: React.DragEvent) => {
       e.preventDefault();
       setIsDragging(false);
       if (e.dataTransfer.files) {
         handleFileSelect(e.dataTransfer.files);
       }
-    },
-    [handleFileSelect]
-  );
+    }, [handleFileSelect]);
 
-  const handleSend = useCallback(() => {
-    if (disabled || (!message.trim() && files.length === 0)) return;
-
-    onSendMessage?.(message, files, []);
-
-    setMessage("");
-    files.forEach((file) => {
-      if (file.preview) URL.revokeObjectURL(file.preview);
-    });
-    setFiles([]);
-    if (textareaRef.current) textareaRef.current.style.height = "auto";
-  }, [message, files, disabled, onSendMessage]);
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-        e.preventDefault();
-        handleSend();
-      }
-    },
-    [handleSend]
-  );
-
-  const handleVoiceToggle = useCallback(() => {
-    setIsRecording(!isRecording);
-    // Aqui seria implementada a funcionalidade de gravação de voz
-    if (!isRecording) {
-      console.log("Iniciando gravação...");
-    } else {
-      console.log("Parando gravação...");
-    }
-  }, [isRecording]);
-
-  const hasContent = message.trim() || files.length > 0;
-  const canSend = hasContent && !disabled;
-
-  return (
-    <div
-      className="relative w-full max-w-3xl mx-auto"
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
-      {isDragging && (
-        <div className="absolute inset-0 z-50 bg-blue-50 border-2 border-dashed border-blue-300 rounded-2xl flex flex-col items-center justify-center pointer-events-none">
-          <p className="text-sm text-blue-600 flex items-center gap-2">
-            <ImageIcon className="w-4 h-4" />
-            Solte os arquivos aqui
-          </p>
-        </div>
-      )}
-
-      <div className="bg-white border border-slate-200 rounded-2xl shadow-sm min-h-[56px] flex flex-col overflow-hidden">
-        {/* Files Preview */}
-        {files.length > 0 && (
-          <div className="border-b border-slate-100 p-3">
-            <div className="flex gap-2 overflow-x-auto scrollbar-thin">
-              {files.map((file) => (
-                <FilePreviewCard
-                  key={file.id}
-                  file={file}
-                  onRemove={removeFile}
-                />
-              ))}
-            </div>
+    // ...existing code...
+    return (
+      <div className="relative w-full max-w-3xl mx-auto" onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
+        {isDragging && (
+          <div className="absolute inset-0 z-50 bg-blue-50 border-2 border-dashed border-blue-300 rounded-2xl flex flex-col items-center justify-center pointer-events-none">
+            <p className="text-sm text-blue-600 flex items-center gap-2">
+              <ImageIcon className="w-4 h-4" />
+              Solte os arquivos aqui
+            </p>
           </div>
         )}
-
-        {/* Input Area */}
-        <div className="flex items-end">
-          <textarea
-            ref={textareaRef}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder={placeholder}
-            disabled={disabled}
-            className="flex-1 min-h-[56px] max-h-[120px] p-4 pr-2 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-500 text-sm focus-visible:outline-none focus:ring-0"
-            rows={1}
-          />
-          
-          <div className="flex items-center gap-1 p-2">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="h-8 w-8 p-0 text-slate-400 hover:text-slate-600 hover:bg-slate-100"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={disabled || files.length >= maxFiles}
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-            
-            <Button
-              size="icon"
-              variant="ghost"
-              className={cn(
-                "h-8 w-8 p-0 transition-colors",
-                isRecording 
-                  ? "text-red-500 bg-red-50 hover:bg-red-100" 
-                  : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
-              )}
-              onClick={handleVoiceToggle}
+        <div className="bg-white border border-slate-200 rounded-2xl shadow-sm min-h-[56px] flex flex-col overflow-hidden">
+          {/* Files Preview */}
+          {files.length > 0 && (
+            <div className="border-b border-slate-100 p-3">
+              <div className="flex gap-2 overflow-x-auto scrollbar-thin">
+                {files.map((file) => (
+                  <FilePreviewCard key={file.id} file={file} onRemove={removeFile} />
+                ))}
+              </div>
+            </div>
+          )}
+          {/* Input Area */}
+          <div className="flex items-end">
+            <textarea
+              ref={textareaRef}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder={placeholder}
               disabled={disabled}
-            >
-              <Mic className="h-4 w-4" />
-            </Button>
-            
-            <Button
-              size="icon"
-              className={cn(
-                "h-8 w-8 p-0 rounded-lg transition-colors ml-1",
-                canSend
-                  ? "bg-slate-900 hover:bg-slate-800 text-white"
-                  : "bg-slate-100 text-slate-400 cursor-not-allowed"
-              )}
-              onClick={handleSend}
-              disabled={!canSend}
-            >
-              <ArrowUp className="h-4 w-4" />
-            </Button>
+              className="flex-1 min-h-[56px] max-h-[120px] p-4 pr-2 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-450 placeholder:mt-4 text-sm focus-visible:outline-none focus:ring-0"
+              rows={1}
+            />
+            <div className="flex items-center">
+              <div className="ai-input-icon-wrapper -translate-y-2 -translate-x-3">
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-8 w-8 p-0 text-oasis-blue hover:text-oasis-blue-600 hover:bg-oasis-blue-50 m-0"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={disabled || files.length >= maxFiles}
+                  >
+                    <Plus className="h-5 w-5" />
+                  </Button>
+                </div>
+              <div className="ai-input-icon-wrapper -translate-y-2 -translate-x-3">
+                <PulsingMic
+                  isRecording={isRecording}
+                  size="md"
+                  onClick={handleVoiceToggle}
+                  disabled={disabled}
+                  className="mx-0"
+                />
+              </div>
+              <div className="ai-input-icon-wrapper -translate-y-2 -translate-x-3">
+                <Button
+                  size="icon"
+                  className={cn(
+                    "h-8 w-8 p-0 rounded-lg transition-colors ml-1",
+                    canSend
+                      ? "bg-oasis-blue hover:bg-oasis-blue-600 text-white"
+                      : "bg-oasis-blue/20 text-slate-400 cursor-not-allowed border border-oasis-blue/30"
+                  )}
+                  onClick={handleSend}
+                  disabled={!canSend}
+                >
+                  <ArrowUp className={canSend ? "h-4 w-4" : "h-4 w-4 text-oasis-blue/70"} />
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
+        <input
+          ref={fileInputRef}
+          type="file"
+          multiple
+          className="hidden"
+          aria-label="Upload files"
+          onChange={(e) => {
+            handleFileSelect(e.target.files);
+            if (e.target) e.target.value = "";
+          }}
+        />
       </div>
-
-      <input
-        ref={fileInputRef}
-        type="file"
-        multiple
-        className="hidden"
-        onChange={(e) => {
-          handleFileSelect(e.target.files);
-          if (e.target) e.target.value = "";
-        }}
-      />
-    </div>
-  );
+    );
+// ...existing code...
 };
 
 export default ClaudeChatInput;

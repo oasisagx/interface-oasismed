@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 * {
   font-family: 'Inter', 'Montserrat', sans-serif;
@@ -51,11 +53,6 @@ body {
 }
 
 /* Scrollbar ultra minimalista */
-.scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: rgb(var(--muted-foreground) / 0.2) transparent;
-}
-
 .scrollbar-thin::-webkit-scrollbar {
   width: 3px;
 }
