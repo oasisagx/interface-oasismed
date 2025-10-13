@@ -28,7 +28,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, ...rest }: any) => {
+const CustomPolarAngleAxisTick = ({ payload, x, y, cx, cy, ...rest }: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
   const parts = String(payload.value).split('\n');
   const angle = Math.atan2(y - cy, x - cx);
   const cos = Math.cos(angle);

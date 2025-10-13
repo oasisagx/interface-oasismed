@@ -22,7 +22,7 @@ const BuscaInput: React.FC<BuscaInputProps> = ({
   }, [query, disabled, onSearch]);
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === "Enter" && !e.nativeEvent.isComposing) {
         e.preventDefault();
         handleSearch();
@@ -41,7 +41,7 @@ const BuscaInput: React.FC<BuscaInputProps> = ({
         <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown as any} // Cast needed as onKeyDown type differs slightly
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled}
           rows={1}

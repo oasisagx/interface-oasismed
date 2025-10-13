@@ -57,7 +57,7 @@ const chartData = originalData.map(item => ({
   consultas: Math.round(item.agendamentos * 0.8),
 }));
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip = ({ active, payload, label }: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
   if (active && payload && payload.length) {
     const date = new Date(label);
     const formattedLabel = new Intl.DateTimeFormat('pt-BR', {
@@ -68,7 +68,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return (
       <div className="p-4 bg-white border border-slate-200 rounded-lg shadow-lg">
         <p className="label text-base font-bold text-slate-800 mb-2">{formattedLabel}</p>
-        {payload.map((pld: any, index: number) => (
+        {payload.map((pld: any, index: number) => ( // eslint-disable-line @typescript-eslint/no-explicit-any
           <div key={index} className="flex items-center space-x-2">
             <div className={`w-3 h-3 rounded-full bg-[${pld.color}]`} />
             <p className="text-sm text-slate-600">{`${pld.name}:`}</p>

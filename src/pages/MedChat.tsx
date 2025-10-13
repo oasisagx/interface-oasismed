@@ -1,7 +1,6 @@
 import React from 'react';
 import ClaudeChatInput from '../components/ui/claude-style-ai-input';
 import { useChat } from '../hooks/useChat';
-import { FileWithPreview, PastedContent } from '../components/ui/claude-style-ai-input';
 import { User, Bot, RefreshCw, Archive } from 'lucide-react';
 
 const MedChat: React.FC = () => {
@@ -23,11 +22,7 @@ const MedChat: React.FC = () => {
     "Principais queixas dos pacientes da semana"
   ];
 
-  const handleSendMessage = (
-    message: string,
-    _files: FileWithPreview[],
-    _pastedContent: PastedContent[]
-  ) => {
+  const handleSendMessage = (message: string) => {
     if (message.trim()) {
       sendMessage(message);
     }
@@ -145,7 +140,7 @@ const MedChat: React.FC = () => {
             {suggestions.map((suggestion, index) => (
               <button
                 key={index}
-                onClick={() => handleSendMessage(suggestion, [], [])}
+                onClick={() => handleSendMessage(suggestion)}
                 className="p-5 text-left text-sm text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200 hover:border-slate-300 transition-all duration-200 hover:shadow-sm group"
               >
                 <span className="group-hover:text-slate-900 transition-colors font-medium">

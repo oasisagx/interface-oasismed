@@ -1,9 +1,10 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartLegend } from './ui/chart';
+import { DonutData } from '../types';
 
 interface DonutChartProps {
-  data?: any[];
+  data?: DonutData[];
   className?: string;
 }
 

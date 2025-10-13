@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { Upload, FileText, Search, MoreVertical, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { Switch } from '../components/ui/Switch';
+import { DocumentData } from '../types';
 
 // Constantes
 const INITIAL_DOCUMENTS = [
@@ -28,7 +29,7 @@ const StatusIcon = ({ uploadStatus }: { uploadStatus: string }) => {
   return icons[uploadStatus as keyof typeof icons] || icons.default;
 };
 
-const DocumentItem = ({ doc }: { doc: any }) => (
+const DocumentItem = ({ doc }: { doc: DocumentData }) => (
   <div className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-slate-300 hover:bg-slate-50 transition-colors group">
     <div className="flex items-center space-x-3">
       <div className="w-10 h-10 bg-oasis-blue/10 rounded-lg flex items-center justify-center">

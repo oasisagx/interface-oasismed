@@ -20,7 +20,7 @@ const CliniView: React.FC = () => {
   const { metrics, agendaHoje, statusSistema, isLoading } = useDashboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const getStatusColor = (_status: string) => {
+  const getStatusColor = () => {
     return 'bg-slate-100 text-slate-600';
   };
 
@@ -115,7 +115,7 @@ const CliniView: React.FC = () => {
                   <div key={appointment.id} className="bg-white rounded-lg p-3 border border-slate-200 hover:border-slate-300 transition-colors">
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-medium text-slate-900">{appointment.time}</span>
-                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${getStatusColor(appointment.status)}`}>
+                      <span className={`text-xs px-2 py-1 rounded-full font-medium ${getStatusColor()}`}>
                         {getStatusText(appointment.status)}
                       </span>
                     </div>

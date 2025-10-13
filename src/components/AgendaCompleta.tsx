@@ -6,18 +6,19 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './AgendaCompleta.css';
 import { useDashboard } from '../hooks/useDashboard';
 import CustomEvent from './CustomEvent';
+import { AgendaItem } from '../types';
 
 moment.locale('pt-br');
 const localizer = momentLocalizer(moment);
 
 // Função para gerar dados mockados consistentes
-const generateMockAppointments = (agendaHoje: any[]) => {
+const generateMockAppointments = (agendaHoje: AgendaItem[]) => {
   const mockAppointments = [...agendaHoje];
   const today = moment();
   
   // Adiciona os dados de hoje com data/hora corretas
   agendaHoje.forEach(item => {
-    const [hour, minute] = item.time.split(':');
+    const [hour, minute] = item.time.split(':').map(Number);
     item.start = today.clone().hour(hour).minute(minute).toDate();
     item.end = moment(item.start).add(30, 'minutes').toDate();
   });
@@ -48,11 +49,11 @@ const AgendaCompleta: React.FC = () => {
 
   const allEvents = useMemo(() => {
     const mockData = generateMockAppointments(agendaHoje);
-    return mockData.map((a: any) => ({
+    return mockData.map((a: AgendaItem) => ({
       id: a.id,
       title: `${a.patient} - ${a.type}`,
-      start: a.start,
-      end: a.end,
+      start: a.start!,
+      end: a.end!,
       resource: { status: a.status, specialty: a.specialty },
     }));
   }, [agendaHoje]);
@@ -61,10 +62,10 @@ const AgendaCompleta: React.FC = () => {
 
   const formats = {
     dateFormat: 'D',
-    dayFormat: (date: Date, culture: any, localizer: any) => localizer.format(date, 'dddd', culture),
-    dayHeaderFormat: (date: Date, culture: any, localizer: any) => localizer.format(date, 'dddd, D [de] MMMM', culture),
-    monthHeaderFormat: (date: Date, culture: any, localizer: any) => localizer.format(date, 'MMMM [de] YYYY', culture),
-    dayRangeHeaderFormat: ({ start, end }: { start: Date, end: Date }, culture: any, localizer: any) =>
+    dayFormat: (date: Date, culture: any, localizer: any) => localizer.format(date, 'dddd', culture), // eslint-disable-line @typescript-eslint/no-explicit-any
+    dayHeaderFormat: (date: Date, culture: any, localizer: any) => localizer.format(date, 'dddd, D [de] MMMM', culture), // eslint-disable-line @typescript-eslint/no-explicit-any
+    monthHeaderFormat: (date: Date, culture: any, localizer: any) => localizer.format(date, 'MMMM [de] YYYY', culture), // eslint-disable-line @typescript-eslint/no-explicit-any
+    dayRangeHeaderFormat: ({ start, end }: { start: Date, end: Date }, culture: any, localizer: any) => // eslint-disable-line @typescript-eslint/no-explicit-any
       `${localizer.format(start, 'D [de] MMMM', culture)} - ${localizer.format(end, 'D [de] MMMM', culture)}`,
   };
 

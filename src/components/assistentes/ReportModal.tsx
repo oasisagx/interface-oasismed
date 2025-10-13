@@ -33,7 +33,7 @@ const ReportModal: React.FC<ReportModalProps> = ({
     if (template) {
       setTemplateSkeleton(template.prompt || DUMMY_SKELETON);
     }
-  }, [template]);
+  }, [template]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     // Simulação de formatação em tempo real

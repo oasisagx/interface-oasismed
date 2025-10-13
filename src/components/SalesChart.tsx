@@ -1,9 +1,10 @@
 import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { ChartContainer, ChartTooltip } from './ui/chart';
+import { SalesDataPoint } from '../types';
 
 interface SalesChartProps {
-  data?: any[];
+  data?: SalesDataPoint[];
   className?: string;
 }
 

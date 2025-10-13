@@ -1,4 +1,4 @@
-// eslint-disable no-inline-styles
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React from 'react';
 import { ResponsiveContainer } from 'recharts';
