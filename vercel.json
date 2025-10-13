@@ -1,5 +1,4 @@
 {
-  "version": 18,
   "rewrites": [
     {
       "source": "/(.*)",
