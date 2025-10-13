@@ -25,7 +25,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data, className = '' }) => {
       <ChartContainer>
         <PieChart>
           <Pie
-            data={chartData}
+            data={chartData.map(item => ({ ...item }))}
             cx="50%"
             cy="50%"
             innerRadius={60}

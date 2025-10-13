@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { MessageCircle, BarChart3, Bot, Search, Database, ChevronLeft } from 'lucide-react';
+import { MessageCircle, BarChart3, Bot, Search, ChevronLeft, Brain } from 'lucide-react';
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -9,7 +9,7 @@ const Sidebar: React.FC = () => {
     { to: '/', label: 'MedChat', icon: MessageCircle },
     { to: '/cliniview', label: 'Cliniview', icon: BarChart3 },
     { to: '/assistentes', label: 'Assistentes', icon: Bot },
-    { to: '/conhecimento', label: 'Conhecimento', icon: Database },
+    { to: '/conhecimento', label: 'Conhecimento', icon: Brain },
     { to: '/search', label: 'Busca', icon: Search },
   ];
 

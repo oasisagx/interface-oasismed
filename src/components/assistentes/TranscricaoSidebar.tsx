@@ -44,7 +44,7 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
   onNewRecordingClick,
 }) => {
   return (
-    <div className="flex flex-col h-full border-l border-slate-100 p-4">
+  <div className="flex flex-col h-full border-l border-slate-100 pl-0 pr-4 pt-4 pb-4 scrollbar-none overflow-y-auto">
       <div className="bg-slate-50 rounded-xl border border-slate-100 flex-1 flex flex-col">
         {/* New Recording Button */}
         {selectedHistory && (
@@ -70,8 +70,8 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
                     : 'bg-card border-slate-200 hover:border-slate-300'
                 )}
               >
-                <p className="font-semibold text-foreground text-sm">{item.title}</p>
-                <p className="text-xs text-muted-foreground">{item.subtitle}</p>
+                <p className="font-semibold text-foreground text-sm mb-1">{item.title}</p>
+                <p className="text-xs text-slate-900">{item.subtitle}</p>
               </button>
             ))}
           </div>

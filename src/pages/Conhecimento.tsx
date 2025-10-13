@@ -29,31 +29,70 @@ const StatusIcon = ({ uploadStatus }: { uploadStatus: string }) => {
   return icons[uploadStatus as keyof typeof icons] || icons.default;
 };
 
-const DocumentItem = ({ doc }: { doc: DocumentData }) => (
-  <div className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-slate-300 hover:bg-slate-50 transition-colors group">
-    <div className="flex items-center space-x-3">
-      <div className="w-10 h-10 bg-oasis-blue/10 rounded-lg flex items-center justify-center">
-        <StatusIcon uploadStatus={doc.uploadStatus} />
-      </div>
-      <div>
-        <h4 className="font-medium text-slate-900">{doc.name}</h4>
-      </div>
-    </div>
-    <div className="flex items-center space-x-4">
-      <div className="flex items-center justify-end text-sm text-slate-500 font-mono w-48">
-        <span className="w-20 text-right">{doc.size}</span>
-        <span className="w-8 text-center">•</span>
-        <div className="flex items-center space-x-1 flex-grow">
-          <Clock className="w-3 h-3" />
-          <span>{doc.date}</span>
+const DocumentItem = ({ doc, onDelete }: { doc: DocumentData, onDelete?: (id: number) => void }) => {
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const menuRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    if (menuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [menuOpen]);
+
+  return (
+    <div className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-slate-300 hover:bg-slate-50 transition-colors group relative">
+      <div className="flex items-center space-x-3">
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+          <StatusIcon uploadStatus={doc.uploadStatus} />
+        </div>
+        <div>
+          <h4 className="font-medium text-slate-900">{doc.name}</h4>
         </div>
       </div>
-      <button className="p-2 hover:bg-slate-100 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Mais opções do documento">
-        <MoreVertical className="w-4 h-4 text-slate-500" />
-      </button>
+      <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-end text-sm text-slate-500 font-mono w-48">
+          <span className="w-20 text-right">{doc.size}</span>
+          <span className="w-8 text-center">•</span>
+          <div className="flex items-center space-x-1 flex-grow">
+            <Clock className="w-3 h-3" />
+            <span>{doc.date}</span>
+          </div>
+        </div>
+        <button
+          className="p-2 hover:bg-slate-100 rounded-lg opacity-100 transition-opacity relative"
+          aria-label="Mais opções do documento"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <MoreVertical className="w-4 h-4 text-slate-500" />
+        </button>
+        {menuOpen && (
+          <div ref={menuRef} className="absolute right-0 top-12 z-10 bg-white border border-slate-200 rounded-lg shadow-lg py-2 w-32 flex flex-col">
+            <button
+              className="px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 text-left"
+              onClick={() => { setMenuOpen(false); alert(`Visualizar: ${doc.name}`); }}
+            >
+              Visualizar
+            </button>
+            <button
+              className="px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left"
+              onClick={() => { setMenuOpen(false); onDelete && onDelete(doc.id); }}
+            >
+              Deletar
+            </button>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const IntegrationModule = ({ logo, alt, className, children, containerClassName = "" }: {
   logo: string;
@@ -177,7 +216,13 @@ const Conhecimento: React.FC = () => {
           </div>
           
           <div className="space-y-2">
-            {documents.map((doc) => <DocumentItem key={doc.id} doc={doc} />)}
+            {documents.map((doc) => (
+              <DocumentItem
+                key={doc.id}
+                doc={doc}
+                onDelete={(id) => setDocuments(prev => prev.filter(d => d.id !== id))}
+              />
+            ))}
           </div>
 
           {documents.length === 0 && (
@@ -203,11 +248,12 @@ const Conhecimento: React.FC = () => {
               >
                 <div className="flex items-center space-x-6">
                   <span className="text-sm font-medium text-slate-800 ml-1">MV Clinic</span>
-                  <Switch
-                    checked={integrationData['mv-clinic'].enabled}
-                    onCheckedChange={(enabled) => handleIntegrationToggle('mv-clinic', enabled)}
-                    className="ml-5"
-                  />
+                  <div className="pl-4">
+                    <Switch
+                      checked={integrationData['mv-clinic'].enabled}
+                      onCheckedChange={(enabled) => handleIntegrationToggle('mv-clinic', enabled)}
+                    />
+                  </div>
                 </div>
               </IntegrationModule>
               
@@ -261,22 +307,6 @@ const Conhecimento: React.FC = () => {
             </div>
 
             {/* Terceira linha: App Health centralizado */}
-            <div className="flex justify-start">
-              <IntegrationModule
-                logo="/assets/integrations/app-health.svg"
-                alt="App Health"
-                className="object-contain w-34 h-34 ml-5 transform -translate-y-1"
-                containerClassName="mt-3"
-              >
-                <div className="flex items-center space-x-26">
-                  <Switch
-                    checked={integrationData['app-health'].enabled}
-                    onCheckedChange={(enabled) => handleIntegrationToggle('app-health', enabled)}
-                    className="ml-11"
-                  />
-                </div>
-              </IntegrationModule>
-            </div>
           </div>
         </div>
       </div>

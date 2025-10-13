@@ -50,10 +50,10 @@ const BuscaInput: React.FC<BuscaInputProps> = ({
         <Button
           size="icon"
           className={cn(
-            "h-12 w-12 p-0 rounded-lg transition-colors ml-2 flex-shrink-0",
+            "h-12 w-12 p-0 rounded-lg transition-colors ml-2 flex-shrink-0 border",
             canSearch
-              ? "bg-oasis-blue hover:bg-oasis-blue-600 text-white"
-              : "bg-slate-100 text-slate-400 cursor-not-allowed"
+              ? "bg-oasis-blue hover:bg-oasis-blue-600 text-white border-transparent"
+              : "bg-oasis-blue/20 text-oasis-blue cursor-not-allowed border-oasis-blue/30"
           )}
           onClick={handleSearch}
           disabled={!canSearch}

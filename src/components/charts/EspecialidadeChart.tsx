@@ -67,15 +67,15 @@ export function EspecialidadeChart() {
                 position="insideLeft"
                 offset={8}
                 className="fill-white"
-                fontSize={12}
-                fontWeight="500"
+                fontSize={15}
+                fontWeight="700"
               />
               <LabelList
                 dataKey="consultas"
                 position="right"
                 offset={8}
                 className="fill-foreground"
-                fontSize={12}
+                fontSize={14}
                 fontWeight="600"
               />
             </Bar>

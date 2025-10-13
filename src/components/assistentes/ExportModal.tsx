@@ -19,7 +19,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-lg">
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-foreground">Enviar ou Exportar</h2>
+          <h2 className="text-lg font-bold text-foreground">Enviar ou Exportar</h2>
         </div>
         
         <div className="bg-slate-50 rounded-lg p-4 border border-slate-200 mb-6 max-h-60 overflow-y-auto scrollbar-thin">
@@ -42,7 +42,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 placeholder="medico@clinica.com"
               />
               <Button className="rounded-l-none border border-slate-300 py-1.5">
-                Enviar
+                <span className="font-semibold">Enviar</span>
               </Button>
             </div>
           </div>

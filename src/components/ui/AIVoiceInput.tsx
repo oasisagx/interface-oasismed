@@ -85,16 +85,18 @@ export function AIVoiceInput({
       <div className="relative max-w-xl w-full mx-auto flex items-center flex-col gap-2">
         <button
           className={cn(
-            "group w-16 h-16 rounded-full flex items-center justify-center transition-colors border-2",
+            "w-16 h-16 rounded-full flex items-center justify-center transition-colors border-2",
             submitted
-              ? "bg-oasis-blue border-oasis-blue animate-pulse"
-              : "border-oasis-blue hover:bg-oasis-blue-50"
+              ? "bg-oasis-blue border-oasis-blue animate-pulse cursor-default"
+              : "border-oasis-blue cursor-pointer"
           )}
           type="button"
           onClick={handleClick}
           title={submitted ? "Stop recording" : "Start recording"}
         >
-          <Mic className={cn("w-6 h-6", submitted ? "text-white" : "text-oasis-blue")} />
+          <Mic
+            className={submitted ? "w-6 h-6 text-white" : "w-6 h-6 text-oasis-blue"}
+          />
         </button>
 
         <span

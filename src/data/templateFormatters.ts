@@ -4,7 +4,7 @@ export const templateContents: Record<string, Record<string, (historyItem: Histo
   anamnese: {
     '1': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# ANAMNESE
+        return `<br><br><br># ANAMNESE
 ## Identificação
 • Nome: ${name}
 • Data de nascimento/Idade:
@@ -88,7 +88,7 @@ de forma especial que o repouso é fundamental para a recuperação do quadro.`;
     },
     '2': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# ANAMNESE
+        return `<br><br><br># ANAMNESE
 ## Identificação
 • Nome: ${name}
 • Data de nascimento/Idade:
@@ -179,7 +179,7 @@ compreensão de todas as orientações fornecidas.`;
     },
     '3': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# ANAMNESE
+        return `<br><br><br># ANAMNESE
 ## Identificação
 • Nome: ${name}
 • Data de nascimento/Idade: 45 anos
@@ -286,7 +286,7 @@ concordou em seguir o plano proposto.`;
   evolucao_clinica: {
     '1': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# EVOLUÇÃO CLÍNICA
+        return `<br><br><br># EVOLUÇÃO CLÍNICA
 Data: ${date}
 Paciente: ${name}
 
@@ -310,7 +310,7 @@ Cefaleia tensional, relacionada a estresse, má postura, tensão muscular e priv
     },
     '2': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# EVOLUÇÃO CLÍNICA
+        return `<br><br><br># EVOLUÇÃO CLÍNICA
 Data: ${date}
 Paciente: ${name}
 
@@ -335,7 +335,7 @@ Infecção urinária - Cistite (infecção na bexiga).
     },
     '3': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# EVOLUÇÃO CLÍNICA
+        return `<br><br><br># EVOLUÇÃO CLÍNICA
 Data: ${date}
 Paciente: ${name}
 
@@ -365,7 +365,7 @@ Hipertensão arterial (primeira documentação em consultório médico).
   prescricao_simples: {
     '1': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# PRESCRIÇÃO SIMPLES
+        return `<br><br><br># PRESCRIÇÃO SIMPLES
 ### CABEÇALHO
 **Médico/Clínica:** _______________________ **CRM:** _______________________
 **Endereço:** _______________________ **Telefone:** _______________________
@@ -399,7 +399,7 @@ Hipertensão arterial (primeira documentação em consultório médico).
     },
     '2': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# PRESCRIÇÃO SIMPLES
+        return `<br><br><br># PRESCRIÇÃO SIMPLES
 ### CABEÇALHO
 **Médico/Clínica:** _______________________ **CRM:** _______________________
 **Endereço:** _______________________ **Telefone:** _______________________
@@ -440,7 +440,7 @@ Hipertensão arterial (primeira documentação em consultório médico).
     },
     '3': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# PRESCRIÇÃO SIMPLES
+        return `<br><br><br># PRESCRIÇÃO SIMPLES
 ### CABEÇALHO
 **Médico/Clínica:** _______________________ **CRM:** _______________________
 **Endereço:** _______________________ **Telefone:** _______________________
@@ -491,8 +491,8 @@ Nenhum medicamento prescrito nesta consulta.
   prescricao_controle_especial: {
     '1': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
-\`\`\`
+        return `<br><br><br>
+
 RECEITUÁRIO DE CONTROLE ESPECIAL
 IDENTIFICAÇÃO DO EMITENTE
 Nome do Médico: _______________________
@@ -541,7 +541,7 @@ Data da Dispensação: ___/___/______
 Farmacêutico Responsável: _____________
 CRF: __________________________________
 Assinatura: ___________________________
-\`\`\`
+
 ### OBSERVAÇÃO IMPORTANTE
 **ESTE MEDICAMENTO NÃO REQUER RECEITUÁRIO DE CONTROLE ESPECIAL**
 
@@ -556,8 +556,7 @@ Para esta prescrição, seria adequado utilizar:
     },
     '2': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
-\`\`\`
+        return `<br><br><br>
 RECEITUÁRIO DE CONTROLE ESPECIAL
 IDENTIFICAÇÃO DO EMITENTE
 Nome do Médico: _______________________
@@ -612,7 +611,7 @@ Data da Dispensação: ___/___/______
 Farmacêutico Responsável: _____________
 CRF: __________________________________
 Assinatura: ___________________________
-\`\`\`
+
 ### OBSERVAÇÃO IMPORTANTE
 **ESTE MEDICAMENTO NÃO REQUER RECEITUÁRIO DE CONTROLE ESPECIAL**
 
@@ -639,7 +638,7 @@ Para esta prescrição, seria adequado utilizar:
     },
     '3': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
+        return `<br><br><br>
 ### OBSERVAÇÃO IMPORTANTE
 Após análise completa e minuciosa da transcrição fornecida, **NÃO FOI IDENTIFICADA PRESCRIÇÃO DE MEDICAMENTOS** nesta consulta.
 
@@ -652,7 +651,6 @@ Após análise completa e minuciosa da transcrição fornecida, **NÃO FOI IDENT
 
 ---
 
-\`\`\`
 DOCUMENTO DE ORIENTAÇÕES MÉDICAS
 IDENTIFICAÇÃO DO PROFISSIONAL
 Nome do Médico: _______________________
@@ -724,15 +722,13 @@ Trazer: Tabela com todas as medições de pressão arterial
 ----------------------------------------
 Data da Consulta: ${date}
 Assinatura: _________________________
-\`\`\`
 `;
     },
   },
   exames_procedimentos: {
     '1': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
-\`\`\`
+        return `<br><br><br>
 REQUISIÇÃO DE EXAMES E PROCEDIMENTOS
 CABEÇALHO
 Nome do Médico: _______________________
@@ -776,13 +772,11 @@ febre ou vômitos, ou houver piora significativa da cefaleia
 ASSINATURA
 _____________________________________________
 Assinatura e Carimbo do Médico
-\`\`\`
 `;
     },
     '2': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
-\`\`\`
+        return `<br><br><br>
 REQUISIÇÃO DE EXAMES E PROCEDIMENTOS
 CABEÇALHO
 Nome do Médico: _______________________
@@ -834,13 +828,11 @@ confirmar erradicação da infecção
 ASSINATURA
 _____________________________________________
 Assinatura e Carimbo do Médico
-\`\`\`
 `;
     },
     '3': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
-\`\`\`
+        return `<br><br><br>
 REQUISIÇÃO DE EXAMES E PROCEDIMENTOS
 CABEÇALHO
 Nome do Médico: _______________________
@@ -909,14 +901,13 @@ apresentar:
 ASSINATURA
 _____________________________________________
 Assinatura e Carimbo do Médico
-\`\`\`
 `;
     },
   },
   encaminhamento: {
     '1': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# ENCAMINHAMENTO MÉDICO
+        return `<br><br><br># ENCAMINHAMENTO MÉDICO
 
 ### Identificação:
 - **Médico Remetente:** _______________________
@@ -977,7 +968,7 @@ Cefaleia tensional secundária a estresse, tensão muscular, má postura e priva
     },
     '2': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# ENCAMINHAMENTO MÉDICO
+        return `<br><br><br># ENCAMINHAMENTO MÉDICO
 
 ### Identificação:
 - **Médico Remetente:** _______________________
@@ -1038,7 +1029,7 @@ Cistite aguda (infecção do trato urinário baixo)
     },
     '3': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# ENCAMINHAMENTO MÉDICO
+        return `<br><br><br># ENCAMINHAMENTO MÉDICO
 
 ### Identificação:
 - **Médico Remetente:** _______________________
@@ -1108,7 +1099,7 @@ Hipertensão Arterial Sistêmica (primeira documentação em consultório médic
   laudo_medico: {
     '1': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# LAUDO MÉDICO
+        return `<br><br><br># LAUDO MÉDICO
 
 ### Identificação do Médico e do Paciente
 **Médico:**
@@ -1170,7 +1161,7 @@ Paciente relata período de estresse ocupacional intenso e privação crônica d
     },
     '2': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# LAUDO MÉDICO
+        return `<br><br><br># LAUDO MÉDICO
 
 ### Identificação do Médico e do Paciente
 **Médico:**
@@ -1236,7 +1227,7 @@ Paciente relata início de dor ao urinar há 2 dias (início anteontem pela manh
     },
     '3': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `# LAUDO MÉDICO
+        return `<br><br><br># LAUDO MÉDICO
 
 ### Identificação do Médico e do Paciente
 **Médico:**
@@ -1325,8 +1316,7 @@ Paciente relata que realizou medição de pressão arterial em farmácia no dia 
   atestado_medico: {
     '1': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
-\`\`\`
+        return `<br><br><br>
 ATESTADO MÉDICO
 IDENTIFICAÇÃO DO MÉDICO
 Nome: _______________________
@@ -1350,13 +1340,11 @@ _____________________________
 Assinatura e Carimbo do Médico
 [NOME NÃO DISPONÍVEL]
 CRM: [NÃO DISPONÍVEL]
-\`\`\`
 `;
     },
     '2': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
-\`\`\`
+        return `<br><br><br>
 ATESTADO MÉDICO
 IDENTIFICAÇÃO DO MÉDICO
 Nome: _______________________
@@ -1390,13 +1378,11 @@ _____________________________
 Assinatura e Carimbo do Médico
 [NOME NÃO DISPONÍVEL]
 CRM: [NÃO DISPONÍVEL]
-\`\`\`
 `;
     },
     '3': (historyItem) => {
         const [date, name] = historyItem.subtitle.split(' - ');
-        return `
-\`\`\`
+        return `<br><br><br>
 ATESTADO MÉDICO
 IDENTIFICAÇÃO DO MÉDICO
 Nome: _______________________
@@ -1441,7 +1427,6 @@ _____________________________
 Assinatura e Carimbo do Médico
 [NOME NÃO DISPONÍVEL]
 CRM: [NÃO DISPONÍVEL]
-\`\`\`
 `;
     },
   }

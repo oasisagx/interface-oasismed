@@ -66,7 +66,7 @@ const CliniView: React.FC = () => {
               <div className="flex items-center justify-between mb-2">
                 {getIconForMetric(metric.icon)}
                 {metric.change && (
-                  <span className="text-xs text-green-600 font-medium">{metric.change}</span>
+                  <span className="text-xl text-green-600 font-bold">{metric.change}</span>
                 )}
               </div>
               <div>
@@ -105,9 +105,6 @@ const CliniView: React.FC = () => {
               <div className="flex items-center space-x-2 mb-4">
                 <Calendar className="w-5 h-5 text-slate-600" />
                 <h3 className="font-semibold text-slate-900">Agenda de Hoje</h3>
-                <span className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
-                  {agendaHoje.length} consultas
-                </span>
               </div>
               
               <div className="space-y-3">

@@ -1,3 +1,11 @@
+/* Garante que o ícone de microfone fique branco durante a gravação, mesmo em hover */
+.mic-force-white,
+.mic-force-white:hover,
+.mic-force-white:active,
+.mic-force-white:focus {
+  color: #fff !important;
+  fill: #fff !important;
+}
 .chart-color-oasis-blue {
   color: rgb(91, 154, 225);
 }
@@ -12,4 +20,14 @@
 
 .chart-bg-green {
   background-color: rgb(16, 185, 129);
+}
+
+/* Remove o contorno azul de seleção/foco do gráfico de barras e seus elementos internos */
+.recharts-wrapper:focus,
+.recharts-wrapper *:focus,
+.recharts-bar-rectangle:focus,
+.recharts-bar-rectangle:active,
+.recharts-bar-rectangle {
+  outline: none !important;
+  box-shadow: none !important;
 }
