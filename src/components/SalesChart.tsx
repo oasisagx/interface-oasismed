@@ -1,6 +1,6 @@
 import React from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
-import { ChartContainer, ChartTooltip, ChartLegend } from './ui/chart';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { ChartContainer, ChartTooltip } from './ui/chart';
 
 interface SalesChartProps {
   data?: any[];

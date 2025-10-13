@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import TranscricaoSidebar from '../../components/assistentes/TranscricaoSidebar';
+import React, { useState, useEffect, Suspense } from 'react';
 import { AIVoiceInput } from '../../components/ui/AIVoiceInput';
 import { Textarea } from '../../components/ui/textarea';
-import ExportModal from '../../components/assistentes/ExportModal';
 import { templateContents } from '../../data/templateFormatters';
 import { marked } from 'marked';
+
+// Lazy load components para melhor performance
+const TranscricaoSidebar = React.lazy(() => import('../../components/assistentes/TranscricaoSidebar'));
+const ExportModal = React.lazy(() => import('../../components/assistentes/ExportModal'));
 
 export interface HistoryItem {
   id: number;
@@ -121,7 +123,7 @@ const Transcricao: React.FC = () => {
               <Textarea
                 value={displayedContent}
                 onChange={(e) => setDisplayedContent(e.target.value)}
-                className="w-full h-full resize-none border-none focus:ring-0 bg-transparent"
+                className="w-full h-full resize-none border-none focus:ring-1 focus:ring-slate-200 focus:outline-none bg-transparent"
               />
             ) : (
               <div
@@ -143,28 +145,34 @@ const Transcricao: React.FC = () => {
 
         {/* Sidebar */}
         <div className="w-96 h-full">
-          <TranscricaoSidebar
-            templates={templates}
-            selectedTemplate={activeTemplate?.id || null}
-            onTemplateClick={handleTemplateClick}
-            history={history}
-            selectedHistory={selectedHistory?.id || null}
-            onHistoryClick={handleHistoryClick}
-            isEditing={isEditing}
-            onEditClick={handleEditClick}
-            onSaveClick={handleSaveClick}
-            onSendClick={handleSendClick}
-            isTemplateSelected={!!activeTemplate || !!selectedHistory}
-            onNewRecordingClick={handleNewRecordingClick}
-          />
+          <Suspense fallback={
+            <div className="w-full h-full bg-slate-50 animate-pulse rounded-lg" />
+          }>
+            <TranscricaoSidebar
+              templates={templates}
+              selectedTemplate={activeTemplate?.id || null}
+              onTemplateClick={handleTemplateClick}
+              history={history}
+              selectedHistory={selectedHistory?.id || null}
+              onHistoryClick={handleHistoryClick}
+              isEditing={isEditing}
+              onEditClick={handleEditClick}
+              onSaveClick={handleSaveClick}
+              onSendClick={handleSendClick}
+              isTemplateSelected={!!activeTemplate || !!selectedHistory}
+              onNewRecordingClick={handleNewRecordingClick}
+            />
+          </Suspense>
         </div>
       </div>
 
-      <ExportModal
-        isOpen={isExportModalOpen}
-        onClose={() => setIsExportModalOpen(false)}
-        transcription={displayedContent}
-      />
+      <Suspense fallback={null}>
+        <ExportModal
+          isOpen={isExportModalOpen}
+          onClose={() => setIsExportModalOpen(false)}
+          transcription={displayedContent}
+        />
+      </Suspense>
     </>
   );
 };

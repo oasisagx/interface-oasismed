@@ -51,11 +51,6 @@ body {
 }
 
 /* Scrollbar ultra minimalista */
-.scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: rgb(var(--muted-foreground) / 0.2) transparent;
-}
-
 .scrollbar-thin::-webkit-scrollbar {
   width: 3px;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import {
   Card,
@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from '../ui/card';
 import {
-  ChartConfig,
   ChartContainer,
 } from '../ui/chart';
 import {
@@ -58,12 +57,6 @@ const chartData = originalData.map(item => ({
   consultas: Math.round(item.agendamentos * 0.8),
 }));
 
-const chartConfig = {
-  contatos: { label: "Contatos", color: "rgb(91, 154, 225)" },
-  agendamentos: { label: "Agendamentos", color: "rgb(16, 185, 129)" },
-  consultas: { label: "Consultas", color: "rgb(236, 72, 153)" },
-} satisfies ChartConfig;
-
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const date = new Date(label);
@@ -77,7 +70,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
         <p className="label text-base font-bold text-slate-800 mb-2">{formattedLabel}</p>
         {payload.map((pld: any, index: number) => (
           <div key={index} className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: pld.color }} />
+            <div className={`w-3 h-3 rounded-full bg-[${pld.color}]`} />
             <p className="text-sm text-slate-600">{`${pld.name}:`}</p>
             <p className="text-sm font-semibold text-slate-900">{pld.value}</p>
           </div>
@@ -140,7 +133,7 @@ export function ConsultasChart() {
         </Select>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        <ChartContainer config={chartConfig} className="aspect-auto h-[300px] w-full">
+        <ChartContainer className="aspect-auto h-[300px] w-full">
           <AreaChart data={filteredData}>
             <defs>
               <linearGradient id="fillContatos" x1="0" y1="0" x2="0" y2="1">
@@ -188,15 +181,15 @@ export function ConsultasChart() {
         </ChartContainer>
         <div className="flex justify-center items-center space-x-6 pt-4">
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'rgb(91, 154, 225)' }} />
+            <div className="w-3 h-3 rounded-full bg-[rgb(91,154,225)]" />
             <span className="text-sm text-muted-foreground font-medium">Contatos</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'rgb(16, 185, 129)' }} />
+            <div className="w-3 h-3 rounded-full bg-[rgb(16,185,129)]" />
             <span className="text-sm text-muted-foreground font-medium">Agendamentos</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'rgb(236, 72, 153)' }} />
+            <div className="w-3 h-3 rounded-full bg-[rgb(236,72,153)]" />
             <span className="text-sm text-muted-foreground font-medium">Consultas</span>
           </div>
         </div>

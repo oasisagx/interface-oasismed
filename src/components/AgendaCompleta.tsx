@@ -10,17 +10,6 @@ import CustomEvent from './CustomEvent';
 moment.locale('pt-br');
 const localizer = momentLocalizer(moment);
 
-interface MyEvent {
-  id: number;
-  title: string;
-  start: Date;
-  end: Date;
-  resource: {
-    status: string;
-    specialty: string;
-  };
-}
-
 // Função para gerar dados mockados consistentes
 const generateMockAppointments = (agendaHoje: any[]) => {
   const mockAppointments = [...agendaHoje];

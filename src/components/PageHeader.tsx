@@ -2,7 +2,7 @@ import React from 'react';
 import { DivideIcon as LucideIcon } from 'lucide-react';
 
 interface PageHeaderProps {
-  icon: LucideIcon;
+  icon: typeof LucideIcon;
   title: string;
   description: string;
   children?: React.ReactNode;

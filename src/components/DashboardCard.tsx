@@ -67,11 +67,13 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
             {sparklineData.map((value, i) => (
               <div
                 key={i}
-                className="w-1 rounded-full transition-all duration-300 hover-lift"
-                style={{ 
-                  height: `${(value / Math.max(...sparklineData)) * 100}%`,
-                  backgroundColor: trend === 'up' ? 'rgb(91, 154, 225)' : trend === 'down' ? 'rgb(239, 68, 68)' : 'rgb(156, 163, 175)'
-                }}
+                className={cn(
+                  "w-1 rounded-full transition-all duration-300 hover-lift sparkline-bar",
+                  trend === 'up' && "bg-oasis-blue",
+                  trend === 'down' && "bg-red-500",
+                  trend === 'flat' && "bg-gray-400"
+                )}
+                data-height={`${(value / Math.max(...sparklineData)) * 100}%`}
               />
             ))}
           </div>

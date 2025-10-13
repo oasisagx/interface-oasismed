@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from '../ui/Modal';
 import { Button } from '../ui/button';
-import { X, Send, FileText, FileDown } from 'lucide-react';
 
 interface ExportModalProps {
   isOpen: boolean;
@@ -32,34 +31,32 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
         <div className="space-y-4">
           <div>
-            <label htmlFor="recipient-email" className="text-sm font-medium text-foreground">
+            <label htmlFor="recipient-email" className="text-sm font-bold text-foreground">
               Enviar por e-mail
             </label>
             <div className="flex items-center mt-2">
               <input
                 id="recipient-email"
                 type="email"
-                className="flex-1 px-3 py-2 bg-background border border-slate-200 rounded-l-md text-sm focus:outline-none focus:ring-1 focus:ring-primary"
-                placeholder="ex: medico@email.com"
+                className="flex-1 px-3 py-[7px] bg-background border border-slate-300 rounded-l-md text-sm focus:outline-none focus:ring-0 focus:border-slate-300 focus-visible:outline-none [&:focus]:shadow-none"
+                placeholder="medico@clinica.com"
               />
-              <Button className="rounded-l-none">
+              <Button className="rounded-l-none border border-slate-300 py-1.5">
                 Enviar
               </Button>
             </div>
           </div>
 
           <div>
-            <label className="text-sm font-medium text-foreground">
+            <label className="text-sm font-bold text-foreground">
               Exportar como arquivo
             </label>
             <div className="grid grid-cols-2 gap-2 mt-2">
-              <Button variant="outline">
-                <FileText className="w-4 h-4 mr-2" />
-                Exportar .txt
+              <Button variant="outline" className="border-slate-300">
+                Arquivo de Texto
               </Button>
-              <Button variant="outline">
-                <FileDown className="w-4 h-4 mr-2" />
-                Exportar .docx
+              <Button variant="outline" className="border-slate-300">
+                PDF
               </Button>
             </div>
           </div>

@@ -11,9 +11,6 @@ import {
   Video,
   Music,
   Archive,
-  Loader2,
-  AlertCircle,
-  Copy,
   Mic,
 } from "lucide-react";
 import { Button } from "./button";
@@ -65,41 +62,6 @@ const getFileIcon = (type: string) => {
   if (type.includes("zip") || type.includes("rar") || type.includes("tar"))
     return <Archive className="h-4 w-4 text-slate-400" />;
   return <FileText className="h-4 w-4 text-slate-400" />;
-};
-
-const formatFileSize = (bytes: number): string => {
-  if (bytes === 0) return "0 Bytes";
-  const k = 1024;
-  const sizes = ["Bytes", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return (
-    Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
-  );
-};
-
-// Helper function to check if a file is textual
-const isTextualFile = (file: File): boolean => {
-  const textualTypes = [
-    "text/",
-    "application/json",
-    "application/xml",
-    "application/javascript",
-    "application/typescript",
-  ];
-
-  const textualExtensions = [
-    "txt", "md", "py", "js", "ts", "jsx", "tsx", "html", "htm", "css", 
-    "json", "xml", "yaml", "yml", "csv", "sql", "java", "c", "cpp"
-  ];
-
-  const isTextualMimeType = textualTypes.some((type) =>
-    file.type.toLowerCase().startsWith(type)
-  );
-
-  const extension = file.name.split(".").pop()?.toLowerCase() || "";
-  const isTextualExtension = textualExtensions.includes(extension);
-
-  return isTextualMimeType || isTextualExtension;
 };
 
 // File Preview Component
@@ -308,15 +270,15 @@ const ClaudeChatInput: React.FC<ChatInputProps> = ({
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}
-            className="flex-1 min-h-[56px] max-h-[120px] p-4 pr-2 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-500 text-sm focus-visible:outline-none focus:ring-0"
+            className="flex-1 min-h-[56px] max-h-[120px] p-4 pr-2 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-450 text-sm focus-visible:outline-none focus:ring-0"
             rows={1}
           />
           
-          <div className="flex items-center gap-1 p-2">
+          <div className="flex items-center gap-1 p-2 -translate-y-1">
             <Button
               size="icon"
               variant="ghost"
-              className="h-8 w-8 p-0 text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              className="h-8 w-8 p-0 text-oasis-blue hover:text-oasis-blue-600 hover:bg-oasis-blue-50"
               onClick={() => fileInputRef.current?.click()}
               disabled={disabled || files.length >= maxFiles}
             >
@@ -329,8 +291,8 @@ const ClaudeChatInput: React.FC<ChatInputProps> = ({
               className={cn(
                 "h-8 w-8 p-0 transition-colors",
                 isRecording 
-                  ? "text-red-500 bg-red-50 hover:bg-red-100" 
-                  : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                  ? "text-white bg-oasis-blue border-oasis-blue animate-pulse hover:bg-oasis-blue-600" 
+                  : "text-oasis-blue hover:text-oasis-blue-600 hover:bg-oasis-blue-50"
               )}
               onClick={handleVoiceToggle}
               disabled={disabled}
@@ -343,7 +305,7 @@ const ClaudeChatInput: React.FC<ChatInputProps> = ({
               className={cn(
                 "h-8 w-8 p-0 rounded-lg transition-colors ml-1",
                 canSend
-                  ? "bg-slate-900 hover:bg-slate-800 text-white"
+                  ? "bg-oasis-blue hover:bg-oasis-blue-600 text-white"
                   : "bg-slate-100 text-slate-400 cursor-not-allowed"
               )}
               onClick={handleSend}
@@ -360,6 +322,7 @@ const ClaudeChatInput: React.FC<ChatInputProps> = ({
         type="file"
         multiple
         className="hidden"
+        aria-label="Upload files"
         onChange={(e) => {
           handleFileSelect(e.target.files);
           if (e.target) e.target.value = "";

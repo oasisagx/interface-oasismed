@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from '../ui/button';
-import { FileText } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 interface Template {
@@ -50,7 +49,7 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
         {/* New Recording Button */}
         {selectedHistory && (
           <div className="p-2 pb-1 border-b border-slate-100">
-            <Button variant="secondary" onClick={onNewRecordingClick} className="w-full bg-white">
+            <Button variant="secondary" onClick={onNewRecordingClick} className="w-full bg-white border-2 border-slate-300">
               Nova Gravação/Transcrição
             </Button>
           </div>
@@ -65,9 +64,9 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
                 key={item.id}
                 onClick={() => onHistoryClick(item)}
                 className={cn(
-                  'w-full text-left p-3 rounded-lg border transition-colors',
+                  'w-full text-left p-3 rounded-lg border transition-colors focus:outline-none focus:ring-0 focus-visible:outline-none shadow-none',
                   selectedHistory === item.id
-                    ? 'bg-primary/10 border-primary/20'
+                    ? 'bg-primary/10 border-primary/10'
                     : 'bg-card border-slate-200 hover:border-slate-300'
                 )}
               >
@@ -89,9 +88,9 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
                 key={template.id}
                 onClick={() => onTemplateClick(template)}
                 className={cn(
-                  'w-full text-left p-3 rounded-lg border transition-colors',
+                  'w-full text-left p-3 rounded-lg border transition-colors focus:outline-none focus:ring-0 focus-visible:outline-none shadow-none',
                   selectedTemplate === template.id
-                    ? 'bg-primary/10 border-primary/20'
+                    ? 'bg-primary/10 border-primary/10'
                     : 'bg-card border-slate-200 hover:border-slate-300'
                 )}
               >
@@ -106,11 +105,11 @@ const TranscricaoSidebar: React.FC<TranscricaoSidebarProps> = ({
           {isTemplateSelected && (
             <div className="flex items-center space-x-2">
               {isEditing ? (
-                <Button variant="secondary" onClick={onSaveClick} className="flex-1 bg-white">Salvar</Button>
+                <Button variant="secondary" onClick={onSaveClick} className="flex-1 bg-white border-2 border-slate-300">Salvar</Button>
               ) : (
-                <Button variant="secondary" onClick={onEditClick} className="flex-1 bg-white">Editar</Button>
+                <Button variant="secondary" onClick={onEditClick} className="flex-1 bg-white border-2 border-slate-300">Editar</Button>
               )}
-              <Button variant="secondary" onClick={onSendClick} className="flex-1 bg-white">
+              <Button variant="secondary" onClick={onSendClick} className="flex-1 bg-white border-2 border-slate-300">
                 Enviar
               </Button>
             </div>

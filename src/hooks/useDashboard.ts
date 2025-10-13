@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Dados que simulam tempo real para demonstração
 export const useDashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [faturamentoDiario, setFaturamentoDiario] = useState(41580);
-  const [pacientesAtivos, setPacientesAtivos] = useState(80);
-  const [satisfacao, setSatisfacao] = useState(4.9);
+  const [faturamentoDiario] = useState(41580);
+  const [pacientesAtivos] = useState(80);
+  const [satisfacao] = useState(4.9);
 
   // Dados de agenda em tempo real
   const getAgendaHoje = () => {
@@ -56,9 +56,6 @@ export const useDashboard = () => {
 
   // Status do sistema em tempo real
   const getStatusSistema = () => {
-    const agenda = getAgendaHoje();
-    const consultasAtivas = agenda.filter(a => a.status !== 'cancelado');
-    
     const salasOcupadas = 2; // Valor fixo para "otimismo"
 
     return {
@@ -66,23 +63,6 @@ export const useDashboard = () => {
       totalSalas: 3, 
       tempoMedio: '28 min',
     };
-  };
-
-  const getProximaConsulta = () => {
-    const agenda = getAgendaHoje();
-    const now = new Date();
-    const currentTime = now.getHours() * 60 + now.getMinutes();
-    
-    for (const consulta of agenda) {
-      const [hour, minute] = consulta.time.split(':').map(Number);
-      const consultaTime = hour * 60 + minute;
-      
-      if (consultaTime > currentTime) {
-        return consulta.time;
-      }
-    }
-    
-    return '16:00'; // Fallback
   };
 
   const agenda = getAgendaHoje();

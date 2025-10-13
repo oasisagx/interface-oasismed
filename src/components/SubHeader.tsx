@@ -1,11 +1,11 @@
 import React from 'react';
-import { DivideIcon as LucideIcon, Clock, TrendingUp } from 'lucide-react';
+import { Clock, TrendingUp, type LucideIcon as LucideIconType } from 'lucide-react';
 
 interface SubHeaderStat {
   label: string;
   value: string;
   trend?: string;
-  icon?: LucideIcon;
+  icon?: LucideIconType;
   color?: 'blue' | 'green' | 'yellow' | 'red' | 'purple' | 'gray';
 }
 

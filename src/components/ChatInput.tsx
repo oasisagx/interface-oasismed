@@ -29,6 +29,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
           <button 
             type="button"
             className="p-2 hover:bg-oasis-blue-light hover:text-oasis-blue rounded-lg transition-all mr-2"
+            aria-label="Add attachment"
           >
             <Plus className="w-5 h-5 text-muted-foreground" />
           </button>
@@ -46,12 +47,14 @@ const ChatInput: React.FC<ChatInputProps> = ({
             <button 
               type="button"
               className="p-2 hover:bg-oasis-blue-light hover:text-oasis-blue rounded-lg transition-all"
+              aria-label="Settings"
             >
               <Settings className="w-5 h-5 text-muted-foreground" />
             </button>
             <button 
               type="button"
               className="p-2 hover:bg-oasis-blue-light hover:text-oasis-blue rounded-lg transition-all"
+              aria-label="Voice input"
             >
               <Mic className="w-5 h-5 text-muted-foreground" />
             </button>
@@ -59,6 +62,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
               type="submit"
               disabled={!message.trim() || isLoading}
               className="p-2 bg-oasis-blue hover:bg-oasis-blue-dark text-white rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-oasis"
+              aria-label="Send message"
             >
               <Send className="w-5 h-5" />
             </button>

@@ -1,9 +1,7 @@
-import React from 'react';
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from 'recharts';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '../ui/card';
@@ -65,7 +63,6 @@ export function QualidadeChart() {
       </CardHeader>
       <CardContent className="pt-4">
         <ChartContainer
-          config={chartConfig}
           className="mx-auto w-full max-w-[400px] h-[275px]"
         >
           <RadarChart 
@@ -73,13 +70,14 @@ export function QualidadeChart() {
             outerRadius="75%"
             margin={{ top: 0, right: 50, bottom: 40, left: 50 }}
           >
-            <ChartTooltip 
-              cursor={false} 
+            <ChartTooltip
+              cursor={false}
               content={
-                <ChartTooltipContent 
+                <ChartTooltipContent
+                  config={chartConfig}
                   labelFormatter={(value) => String(value).replace('\n', ' ')}
                 />
-              } 
+              }
             />
             <PolarAngleAxis 
               dataKey="metrica" 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNotifications, Notification } from '../hooks/useNotifications';
-import { Check, X } from 'lucide-react';
+import { useNotifications } from '../hooks/useNotifications';
+import { X } from 'lucide-react';
 
 interface NotificationPanelProps {
   onClose: () => void;
@@ -13,7 +13,7 @@ const NotificationPanel: React.FC<NotificationPanelProps> = ({ onClose }) => {
     <div className="absolute top-14 right-6 w-80 bg-white rounded-lg shadow-lg border border-slate-200 z-50">
       <div className="flex items-center justify-between p-3 border-b border-slate-100">
         <h3 className="font-semibold text-sm text-slate-800">Notificações</h3>
-        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-full">
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-full" title="Fechar notificações">
           <X className="w-4 h-4 text-slate-500" />
         </button>
       </div>
