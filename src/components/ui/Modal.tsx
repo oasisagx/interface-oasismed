@@ -1,3 +1,6 @@
+// Classe utilitária para ocultar elementos visualmente, mas mantê-los acessíveis para screen readers
+export const visuallyHiddenClass = 'visually-hidden';
+
 import React from 'react';
 import { X } from 'lucide-react';
 import { cn } from '../../lib/utils';

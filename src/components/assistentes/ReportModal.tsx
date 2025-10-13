@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
 import { Mail, FileDown } from 'lucide-react';
 import Modal, { ModalHeader, ModalContent, ModalFooter } from '../ui/Modal';
+import '../ui/visually-hidden.css';
 import { Textarea } from '../ui/textarea';
 
 interface Template {
@@ -46,11 +47,18 @@ const ReportModal: React.FC<ReportModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-6xl h-[90vh] flex flex-col">
+      {/* Título acessível oculto para screen readers */}
+  <h2 className="visually-hidden" id="report-modal-title">
+        Editor de Relatório: {template.title}
+      </h2>
       <ModalHeader>
         Editor de Relatório: {template.title}
       </ModalHeader>
       
-      <ModalContent className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-hidden">
+      <ModalContent className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 overflow-hidden" aria-labelledby="report-modal-title" aria-describedby="report-modal-description">
+        <p id="report-modal-description" className="visually-hidden">
+          Modal para editar e exportar relatório de consulta médica.
+        </p>
         {/* Edit Area */}
         <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-foreground">Estrutura do Template</label>

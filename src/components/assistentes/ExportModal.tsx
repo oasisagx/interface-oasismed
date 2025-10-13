@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from '../ui/Modal';
+import '../ui/visually-hidden.css';
 import { Button } from '../ui/button';
 
 interface ExportModalProps {
@@ -17,7 +18,14 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-lg">
-      <div className="p-6">
+      {/* Título acessível oculto para screen readers */}
+  <h2 className="visually-hidden" id="export-modal-title">
+        Enviar ou Exportar
+      </h2>
+      <div className="p-6" aria-labelledby="export-modal-title" aria-describedby="export-modal-description">
+        <p id="export-modal-description" className="visually-hidden">
+          Modal para exportar ou enviar transcrição por e-mail ou arquivo.
+        </p>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-foreground">Enviar ou Exportar</h2>
         </div>
