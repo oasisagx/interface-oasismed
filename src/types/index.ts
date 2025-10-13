@@ -72,8 +72,12 @@ export interface AgendaItem {
 
 // Document Types
 export interface DocumentData {
+  id: number;
   name: string;
-  uploadStatus: string;
   size: string;
+  type: string;
   date: string;
+  category: string;
+  status: string;
+  uploadStatus: string;
 }
