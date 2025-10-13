@@ -39,18 +39,6 @@ export default {
         },
         
         // Neutros refinados
-        gray: {
-          50: '#f9fafb',
-          100: '#f3f4f6',
-          200: '#e5e7eb',
-          300: '#d1d5db',
-          400: '#9ca3af',
-          500: '#6b7280',
-          600: '#4b5563',
-          700: '#374151',
-          800: '#1f2937',
-          900: '#111827',
-        },
         
         // Cores funcionais
         success: "rgb(var(--success) / <alpha-value>)",
@@ -76,14 +64,11 @@ export default {
         },
       },
       boxShadow: {
-        'soft': '0 1px 3px rgba(0, 0, 0, 0.05)', 
-        'medium': '0 4px 6px rgba(0, 0, 0, 0.05)',
-        'strong': '0 10px 15px rgba(0, 0, 0, 0.1)',
         // Sombras Oasis específicas - como na LP
         'oasis': '0 1px 3px rgba(91, 154, 225, 0.06), 0 1px 2px rgba(91, 154, 225, 0.04)',
         'oasis-lg': '0 4px 6px rgba(91, 154, 225, 0.05), 0 2px 4px rgba(91, 154, 225, 0.03)',
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [],
 };
