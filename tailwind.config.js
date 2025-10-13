@@ -35,16 +35,7 @@ export default {
           dark: 'rgb(var(--oasis-blue-dark) / <alpha-value>)',
           light: 'rgb(var(--oasis-blue-light) / <alpha-value>)',
           5: 'rgb(var(--oasis-blue-5) / <alpha-value>)',
-          50: '#F4F9FE',
-          100: '#E8F2FD',
-          200: '#C7DFFA',
-          300: '#A6CCF7',
-          400: '#84B9F4',
-          500: '#5B9AE1',
           600: '#4A8BD8',
-          700: '#2D5F92',
-          800: '#1F3C5E',
-          900: '#11192A',
         },
         
         // Neutros refinados
@@ -71,30 +62,8 @@ export default {
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-in-out',
-        'gentle-float': 'gentleFloat 20s ease-in-out infinite',
-        'gentle-pulse': 'gentlePulse 15s ease-in-out infinite',
-        'pulse-ring': 'pulseRing 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite',
-        'pulse-blue': 'pulseBlue 2s infinite',
       },
       keyframes: {
-        pulseBlue: {
-          '0%, 100%': {
-            boxShadow: '0 0 0 0 rgba(var(--primary), 0.4)',
-          },
-          '70%': {
-            boxShadow: '0 0 0 10px rgba(var(--primary), 0)',
-          },
-        },
-        pulseRing: {
-          '0%': {
-            transform: 'scale(1)',
-            opacity: '0.5',
-          },
-          '100%': {
-            transform: 'scale(1.5)',
-            opacity: '0',
-          },
-        },
         fadeIn: {
           from: {
             opacity: '0',
@@ -103,30 +72,6 @@ export default {
           to: {
             opacity: '1',
             transform: 'translateY(0)',
-          },
-        },
-        gentleFloat: {
-          "0%, 100%": {
-            transform: "translateY(0px) translateX(0px) scale(1)",
-          },
-          "25%": {
-            transform: "translateY(-8px) translateX(4px) scale(1.02)",
-          },
-          "50%": {
-            transform: "translateY(-12px) translateX(-2px) scale(0.98)",
-          },
-          "75%": {
-            transform: "translateY(-6px) translateX(6px) scale(1.01)",
-          },
-        },
-        gentlePulse: {
-          "0%, 100%": {
-            opacity: "0.15",
-            transform: "scale(1)",
-          },
-          "50%": {
-            opacity: "0.30",
-            transform: "scale(1.05)",
           },
         },
       },
