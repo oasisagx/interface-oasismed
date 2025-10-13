@@ -66,6 +66,6 @@ export default defineConfig({
     target: 'esnext',
     minify: 'esbuild',
     sourcemap: false, // Desabilitar sourcemaps em produção para reduzir tamanho
-    cssCodeSplit: true // Dividir CSS em chunks separados
+    cssCodeSplit: false, // Put all CSS in one file
   }
 });
