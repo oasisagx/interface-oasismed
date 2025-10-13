@@ -65,7 +65,7 @@ const ReportModal: React.FC<ReportModalProps> = ({
         <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-foreground">Pré-visualização do Relatório</label>
             <div className="flex-1 overflow-y-auto pr-2 scrollbar-thin border border-border rounded-md p-4 bg-background">
-               <div className="prose prose-sm max-w-none text-foreground whitespace-pre-wrap">
+               <div className="text-sm max-w-none text-foreground whitespace-pre-wrap">
                   {formattedPreview}
                </div>
             </div>

@@ -24,7 +24,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
         
         <div className="bg-slate-50 rounded-lg p-4 border border-slate-200 mb-6 max-h-60 overflow-y-auto scrollbar-thin">
           <div 
-            className="prose prose-sm max-w-none whitespace-pre-wrap"
+            className="text-sm max-w-none whitespace-pre-wrap"
             dangerouslySetInnerHTML={{ __html: transcription.replace(/\n/g, '<br />').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }}
           />
         </div>
